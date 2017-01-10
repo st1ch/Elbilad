@@ -4,6 +4,7 @@
   <color name="colorPrimaryDark">#303F9F</color>
   <color name="colorAccent">#FF4081</color>
 
-  <color name="splash_background">#CC0001</color>
+  <color name="splash_background">#aacc0001</color>
+  <color name="status_bar_color">#B70000</color>
   <color name="splash_bottom_text_color">#910101</color>
 </resources>
