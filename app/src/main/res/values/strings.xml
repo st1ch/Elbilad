@@ -3,4 +3,5 @@
 
   <string name="splash_screen_text">أخبار الجزائر والعالم على مدار الساعة</string>
   <string name="splash_screen_made_in">MADE IN KREO AGENCY</string>
+  <string name="action_menu">Menu</string>
 </resources>
