@@ -7,4 +7,8 @@
   <color name="splash_background">#aacc0001</color>
   <color name="status_bar_color">#B70000</color>
   <color name="splash_bottom_text_color">#910101</color>
+
+  <color name="action_bar_color">#CC0001</color>
+  <color name="text_grey_hint">#D8D8D8</color>
+  <color name="text_dark_grey_hint">#4A4A4A</color>
 </resources>
