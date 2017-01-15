@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    />
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/menu_bg"
+      >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/space_32dp"
+        android:background="@color/action_bar_color"
+        >
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_marginLeft="@dimen/space_32dp"
+          android:src="@drawable/ic_arrow_left"
+          />
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:layout_marginRight="@dimen/space_16dp"
+          android:src="@drawable/ic_logo_mini"
+          />
+    </RelativeLayout>
+  </LinearLayout>
+
+  <FrameLayout
+      android:layout_width="@dimen/space_16dp"
+      android:layout_height="match_parent"
+      android:background="@drawable/gradient_side_menu"
+      />
+</FrameLayout>

@@ -3,6 +3,11 @@
   <dimen name="activity_horizontal_margin">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
 
+  <dimen name="space_8dp">8dp</dimen>
+  <dimen name="space_16dp">16dp</dimen>
+  <dimen name="space_24dp">24dp</dimen>
+  <dimen name="space_32dp">32dp</dimen>
+
   <!-- News -->
   <dimen name="news_top_height">632dp</dimen>
   <dimen name="news_item_height">100dp</dimen>
