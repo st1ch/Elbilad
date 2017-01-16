@@ -4,4 +4,8 @@
   <string name="splash_screen_text">أخبار الجزائر والعالم على مدار الساعة</string>
   <string name="splash_screen_made_in">MADE IN KREO AGENCY</string>
   <string name="action_menu">Menu</string>
+  <string name="okay">OK</string>
+  <string name="error_message_network_connection_missing">Check internet connection, please</string>
+  <string name="error_data_loading">Data loading error</string>
+  <string name="error_server_forbidden">Server forbidden error</string>
 </resources>

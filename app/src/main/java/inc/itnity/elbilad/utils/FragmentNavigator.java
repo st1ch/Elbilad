@@ -33,6 +33,14 @@ public class FragmentNavigator {
     });
   }
 
+  public boolean isRootFragmentVisible() {
+    return fragmentManager.getBackStackEntryCount() <= 1;
+  }
+
+  public void setNavigationListener(NavigationListener navigationListener) {
+    this.navigationListener = navigationListener;
+  }
+
   /**
    * Displays the next fragment
    */
