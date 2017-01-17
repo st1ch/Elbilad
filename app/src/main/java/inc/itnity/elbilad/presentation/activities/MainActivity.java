@@ -19,10 +19,10 @@ public class MainActivity extends AbstractBaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+
   }
 
-  @Override
-  public void onBackPressed() {
+  @Override public void onBackPressed() {
     if (mDrawer != null && mDrawer.isDrawerOpen(GravityCompat.END)) {
       mDrawer.closeDrawer(GravityCompat.END);
     } else {
@@ -53,5 +53,4 @@ public class MainActivity extends AbstractBaseActivity {
       }
     }
   }
-
 }

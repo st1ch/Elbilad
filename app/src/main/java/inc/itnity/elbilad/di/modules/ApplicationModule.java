@@ -43,7 +43,8 @@ public class ApplicationModule {
   }
 
   @Provides @Singleton ReactiveCache provideReactiveCache(Context context) {
-    return new ReactiveCache.Builder().using(context.getFilesDir(), new GsonSpeaker());
+    return new ReactiveCache.Builder()
+        .using(context.getFilesDir(), new GsonSpeaker());
   }
 
   @Provides @Singleton Gson provideGson() {

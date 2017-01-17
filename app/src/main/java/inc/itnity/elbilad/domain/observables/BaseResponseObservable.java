@@ -10,12 +10,14 @@ import rx.Observable;
 
 public class BaseResponseObservable<T extends BaseResponse> extends Observable<T> {
 
-    public BaseResponseObservable(T baseResponse) {
-        super(subscriber -> {
-            if (baseResponse != null) {
-                    subscriber.onNext(baseResponse);
-                    subscriber.onCompleted();
-            } else subscriber.onError(new ServerForbiddenException());
-        });
-    }
+  public BaseResponseObservable(T baseResponse) {
+    super(subscriber -> {
+      if (baseResponse != null) {
+        subscriber.onNext(baseResponse);
+        subscriber.onCompleted();
+      } else {
+        subscriber.onError(new ServerForbiddenException());
+      }
+    });
+  }
 }

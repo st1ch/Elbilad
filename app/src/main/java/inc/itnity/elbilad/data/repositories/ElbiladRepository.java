@@ -11,6 +11,8 @@ import rx.Observable;
 
 public interface ElbiladRepository {
 
+  Observable<Boolean> loadCategoriesAndArticles(boolean refresh);
+
   Observable<List<Category>> getCategories(boolean refresh);
 
   Observable<List<Article>> getArticles(boolean refresh);

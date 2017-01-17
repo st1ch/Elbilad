@@ -8,6 +8,6 @@ import inc.itnity.elbilad.presentation.views.base.ConnectionView;
 
 public interface SplashScreenView extends ConnectionView {
 
-  void showLoadedArticles();
+  void showDataLoaded();
 
 }

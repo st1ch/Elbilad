@@ -10,7 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import inc.itnity.elbilad.ElbiladApplication;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.di.components.DaggerMainActivityComponent;
+import inc.itnity.elbilad.di.components.MainActivityComponent;
+import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import javax.inject.Inject;
 
@@ -29,10 +33,22 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements
 
   @Inject protected FragmentNavigator fragmentNavigator;
 
+  private static MainActivityComponent mainActivityComponent;
+
+  public static MainActivityComponent getMainActivityComponent() {
+    return mainActivityComponent;
+  }
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getContentView());
     ButterKnife.bind(this);
+    mainActivityComponent = DaggerMainActivityComponent.builder()
+        .applicationComponent(ElbiladApplication.getApplicationComponent())
+        .activityContextModule(new ActivityContextModule(this))
+        .build();
+
+    mainActivityComponent.inject(this);
     initToolbar();
     initFragmentNavigator();
   }

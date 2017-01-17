@@ -1,8 +1,8 @@
 package inc.itnity.elbilad.utils;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import inc.itnity.elbilad.R;
@@ -10,11 +10,11 @@ import javax.inject.Inject;
 
 public class DialogHelper {
 
-    private AppCompatActivity context;
+    private Context context;
     private Dialog dialog;
 
     @Inject
-    DialogHelper(AppCompatActivity context) {
+    DialogHelper(Context context) {
         this.context = context;
     }
 

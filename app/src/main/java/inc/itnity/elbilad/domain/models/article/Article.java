@@ -2,7 +2,6 @@ package inc.itnity.elbilad.domain.models.article;
 
 import com.google.gson.annotations.SerializedName;
 import inc.itnity.elbilad.domain.models.Links;
-import java.util.Date;
 
 /**
  * Created by st1ch on 15.01.17.
@@ -13,7 +12,8 @@ public class Article {
   @SerializedName("id") private int id;
   @SerializedName("titre") private String title;
   @SerializedName("categorie_id") private int categoryId;
-  @SerializedName("date") private Date date;
+  //todo need RFC format from backend
+  @SerializedName("date") private String date;
   @SerializedName("image") private String image;
   @SerializedName("auteur") private String author;
   @SerializedName("resume") private String preview;
@@ -44,11 +44,11 @@ public class Article {
     this.categoryId = categoryId;
   }
 
-  public Date getDate() {
+  public String getDate() {
     return date;
   }
 
-  public void setDate(Date date) {
+  public void setDate(String date) {
     this.date = date;
   }
 

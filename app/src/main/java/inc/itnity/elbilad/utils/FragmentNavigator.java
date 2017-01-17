@@ -6,12 +6,12 @@ import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenFragment;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by st1ch on 14.01.17.
  */
-
-public class FragmentNavigator {
+@Singleton public class FragmentNavigator {
 
   @Inject public FragmentNavigator() {
   }
@@ -114,5 +114,4 @@ public class FragmentNavigator {
     Fragment fragment = HomeScreenFragment.newInstance();
     openAsRoot(fragment);
   }
-
 }

@@ -1,13 +1,14 @@
 package inc.itnity.elbilad.domain.models.responses;
 
 import com.google.gson.annotations.SerializedName;
+import inc.itnity.elbilad.domain.models.Links;
 
 /**
  * Created by st1ch on 15.01.17.
  */
 
 public class BaseResponse<T> {
-  @SerializedName("_links") private boolean error;
+  @SerializedName("_links") private Links links;
 
   @SerializedName("_embedded") private T data;
 
@@ -19,12 +20,12 @@ public class BaseResponse<T> {
 
   @SerializedName("page") private int page;
 
-  public boolean isError() {
-    return error;
+  public Links getLinks() {
+    return links;
   }
 
-  public void setError(boolean error) {
-    this.error = error;
+  public void setLinks(Links links) {
+    this.links = links;
   }
 
   public T getData() {
@@ -69,7 +70,7 @@ public class BaseResponse<T> {
 
   @Override public String toString() {
     return "BaseResponse{" +
-        "error=" + error +
+        "links=" + links +
         ", data=" + data +
         ", pageCount=" + pageCount +
         ", pageSize=" + pageSize +
