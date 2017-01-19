@@ -8,6 +8,9 @@
   <dimen name="space_24dp">24dp</dimen>
   <dimen name="space_32dp">32dp</dimen>
 
+  <dimen name="tab_indicator_height">4dp</dimen>
+  <dimen name="title_info_size">14sp</dimen>
+
   <!-- News -->
   <dimen name="news_top_height">632dp</dimen>
   <dimen name="news_item_height">100dp</dimen>

@@ -6,11 +6,11 @@
     android:background="@color/status_bar_color"
     >
 
-<!--  <android.support.v7.widget.RecyclerView
-      android:id="@+id/rv_news"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:overScrollMode="never"
-      />-->
+  <!--<android.support.v7.widget.RecyclerView-->
+      <!--android:id="@+id/rv_news"-->
+      <!--android:layout_width="match_parent"-->
+      <!--android:layout_height="match_parent"-->
+      <!--android:overScrollMode="never"-->
+      <!--/>-->
 
 </FrameLayout>

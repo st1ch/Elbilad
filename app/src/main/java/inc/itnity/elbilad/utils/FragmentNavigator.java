@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.presentation.fragments.HomeScreenFragment;
+import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -111,7 +111,7 @@ import javax.inject.Singleton;
    */
 
   public void startHomeScreenFragment() {
-    Fragment fragment = HomeScreenFragment.newInstance();
+    Fragment fragment = HomeScreenBaseFragment.newInstance();
     openAsRoot(fragment);
   }
 }

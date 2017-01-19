@@ -13,4 +13,5 @@
   <color name="text_dark_grey_hint">#4A4A4A</color>
 
   <color name="menu_bg">#1C2027</color>
+  <color name="tab_bg">#0F0F0F</color>
 </resources>

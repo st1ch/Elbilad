@@ -18,4 +18,23 @@
 
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+  <style name="NavigationTab" parent="Widget.Design.TabLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">?attr/actionBarSize</item>
+    <item name="paddingEnd">0dp</item>
+    <item name="paddingStart">0dp</item>
+    <item name="tabGravity">fill</item>
+    <item name="tabMode">fixed</item>
+    <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
+    <item name="tabBackground">@color/tab_bg</item>
+    <item name="tabSelectedTextColor">@android:color/white</item>
+    <item name="tabIndicatorColor">@color/colorPrimaryDark</item>
+    <item name="tabTextAppearance">@style/NavigationTabTextAppearance</item>
+  </style>
+
+  <style name="NavigationTabTextAppearance" parent="TextAppearance.Design.Tab">
+    <item name="android:textColor">@color/colorAccent</item>
+    <item name="android:textSize">@dimen/title_info_size</item>
+  </style>
+
 </resources>
