@@ -37,4 +37,25 @@
     <item name="android:textSize">@dimen/title_info_size</item>
   </style>
 
+  <style name="MenuItemTextView">
+    <item name="android:textSize">@dimen/main_menu_item_text_size</item>
+    <item name="android:textColor">@android:color/white</item>
+    <item name="android:paddingRight">@dimen/space_16dp</item>
+    <item name="android:gravity">center_vertical</item>
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/main_menu_item_height</item>
+  </style>
+
+  <style name="MenuCategoryTextView" parent="MenuItemTextView">
+    <item name="android:textColor">@color/menu_category_text_color</item>
+    <item name="android:drawablePadding">@dimen/space_8dp</item>
+    <item name="android:background">@color/menu_category_bg</item>
+  </style>
+
+  <style name="ListSeparator">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1dp</item>
+    <item name="android:background">@color/item_separator</item>
+  </style>
+
 </resources>

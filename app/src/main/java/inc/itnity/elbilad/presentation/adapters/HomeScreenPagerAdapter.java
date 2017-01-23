@@ -5,15 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.presentation.fragments.BookmarksFragment;
-import inc.itnity.elbilad.presentation.fragments.HomeFragment;
-import inc.itnity.elbilad.presentation.fragments.LastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
 import java.util.ArrayList;
 
 public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
-    private final int PAGE_HOME = 2;
+    private final int PAGE_HOME = 0;
     private final int PAGE_LAST_NEWS= 1;
-    private final int PAGE_BOOKMARKS = 0;
+    private final int PAGE_BOOKMARKS = 2;
     private final int COUNT_PAGES = 3;
 
     private ArrayList<String> titles = new ArrayList<>();
@@ -21,8 +21,8 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
     public HomeScreenPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         titles.add(context.getString(R.string.home));
+        titles.add(context.getString(R.string.bookmarks));
         titles.add(context.getString(R.string.last_news));
-        titles.add(context.getString(R.string.bookmars));
         titles.trimToSize();
     }
 

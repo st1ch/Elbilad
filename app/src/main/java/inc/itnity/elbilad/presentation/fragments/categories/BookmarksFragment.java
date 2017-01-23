@@ -1,24 +1,21 @@
-package inc.itnity.elbilad.presentation.fragments;
+package inc.itnity.elbilad.presentation.fragments.categories;
 
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
-import inc.itnity.elbilad.presentation.views.HomeScreenView;
-import java.util.List;
 
 /**
  * Created by st1ch on 18.01.17.
  */
 
-public class HomeFragment extends AbstractBaseFragment implements HomeScreenView {
+public class BookmarksFragment extends AbstractBaseFragment {
 
-  public static HomeFragment newInstance() {
-    return new HomeFragment();
+  public static BookmarksFragment newInstance() {
+    return new BookmarksFragment();
   }
 
   @Override public int getContentView() {
-    return R.layout.fragment_home;
+    return R.layout.fragment_bookmarks;
   }
 
   @Override public void injectComponent() {
@@ -30,10 +27,6 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
   }
 
   @Override protected void unbindPresenter() {
-
-  }
-
-  @Override public void showLoadedArticles(List<Article> articles) {
 
   }
 }

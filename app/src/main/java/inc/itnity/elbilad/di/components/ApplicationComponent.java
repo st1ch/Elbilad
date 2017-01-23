@@ -8,10 +8,8 @@ import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.data.rest.ApiManager;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.di.modules.ApplicationModule;
-import inc.itnity.elbilad.di.modules.SplashScreenModule;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
-import inc.itnity.elbilad.presentation.activities.SplashScreenActivity;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import io.reactivecache.ReactiveCache;
 import javax.inject.Singleton;
@@ -19,14 +17,7 @@ import javax.inject.Singleton;
 /**
  * Created by st1ch on 15.01.17.
  */
-@Singleton @Component(modules = {
-    ApplicationModule.class, SplashScreenModule.class
-}) public interface ApplicationComponent {
-
-  /**
-   * Injections of Activities
-   */
-  void inject(SplashScreenActivity splashScreenActivity);
+@Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
   FragmentNavigator fragmentNavigator();
 
@@ -47,5 +38,4 @@ import javax.inject.Singleton;
   ElbiladRemoteDataSource elbiladRemoteDataSource();
 
   ElbiladRepository elbiladRepository();
-
 }

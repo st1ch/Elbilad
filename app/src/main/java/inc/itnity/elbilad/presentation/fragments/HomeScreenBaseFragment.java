@@ -1,6 +1,5 @@
 package inc.itnity.elbilad.presentation.fragments;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -53,9 +52,7 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment {
   }
 
   private void initContent() {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-    }
+    tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     /** init tabs */
     viewPager.setAdapter(new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager()));
@@ -71,6 +68,5 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment {
       layoutParams.weight = 1;
       tab.setLayoutParams(layoutParams);
     }
-
   }
 }

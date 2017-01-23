@@ -1,8 +1,7 @@
 package inc.itnity.elbilad.utils;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import inc.itnity.elbilad.R;
@@ -10,11 +9,11 @@ import javax.inject.Inject;
 
 public class DialogHelper {
 
-    private Context context;
+    private AppCompatActivity context;
     private Dialog dialog;
 
     @Inject
-    DialogHelper(Context context) {
+    DialogHelper(AppCompatActivity context) {
         this.context = context;
     }
 
@@ -41,7 +40,7 @@ public class DialogHelper {
         dialog.setContentView(view);
         dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         //dialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         dialog.show();

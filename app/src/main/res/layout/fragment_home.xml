@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/status_bar_color"
+    android:background="@color/text_grey_hint"
     >
 
-<!--  <android.support.v7.widget.RecyclerView
+  <android.support.v7.widget.RecyclerView
       android:id="@+id/rv_news"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:overScrollMode="never"
-      />-->
+      />
 
 </FrameLayout>

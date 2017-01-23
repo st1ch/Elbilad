@@ -1,4 +1,4 @@
-package inc.itnity.elbilad.presentation.fragments;
+package inc.itnity.elbilad.presentation.fragments.categories;
 
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
@@ -8,14 +8,14 @@ import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
  * Created by st1ch on 18.01.17.
  */
 
-public class BookmarksFragment extends AbstractBaseFragment {
+public class LastNewsFragment extends AbstractBaseFragment {
 
-  public static BookmarksFragment newInstance() {
-    return new BookmarksFragment();
+  public static LastNewsFragment newInstance() {
+    return new LastNewsFragment();
   }
 
   @Override public int getContentView() {
-    return R.layout.fragment_bookmarks;
+    return R.layout.fragment_last_news;
   }
 
   @Override public void injectComponent() {

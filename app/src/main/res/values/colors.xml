@@ -12,6 +12,10 @@
   <color name="text_grey_hint">#D8D8D8</color>
   <color name="text_dark_grey_hint">#4A4A4A</color>
 
+  <color name="item_separator">#64979797</color>
+
   <color name="menu_bg">#1C2027</color>
+  <color name="menu_category_bg">#8a2d313d</color>
+  <color name="menu_category_text_color">#5D626B</color>
   <color name="tab_bg">#0F0F0F</color>
 </resources>

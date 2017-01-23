@@ -44,7 +44,7 @@ public class MainActivity extends AbstractBaseActivity {
     }
   }
 
-  private void openCloseDrawer() {
+  public void openCloseDrawer() {
     if (mDrawer != null) {
       if (mDrawer.isDrawerOpen(GravityCompat.END)) {
         mDrawer.closeDrawer(GravityCompat.END);

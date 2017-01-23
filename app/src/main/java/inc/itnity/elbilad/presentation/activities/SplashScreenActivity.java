@@ -10,6 +10,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.ElbiladApplication;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.di.components.DaggerSplashScreenComponent;
+import inc.itnity.elbilad.di.components.SplashScreenComponent;
+import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.presentation.presenters.SplashScreenPresenter;
 import inc.itnity.elbilad.presentation.views.SplashScreenView;
 import inc.itnity.elbilad.utils.DialogHelper;
@@ -26,13 +29,19 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
 
   @Inject SplashScreenPresenter presenter;
 
+  private static SplashScreenComponent splashScreenComponent;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
     ButterKnife.bind(this);
 
-    ElbiladApplication.getApplicationComponent()
-        .inject(this);
+    splashScreenComponent = DaggerSplashScreenComponent.builder()
+        .applicationComponent(ElbiladApplication.getApplicationComponent())
+        .activityContextModule(new ActivityContextModule(this))
+        .build();
+
+    splashScreenComponent.inject(this);
 
     presenter.bind(this);
     presenter.onCreate();
