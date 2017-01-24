@@ -8,18 +8,18 @@ import rx.Subscriber;
  */
 
 public class BaseUseCaseSubscriber<T> extends Subscriber<T> {
-    @Override
-    public void onCompleted() {
 
-    }
+  private final String TAG = this.getClass().getSimpleName();
 
-    @Override
-    public void onError(Throwable e) {
-        Log.e("Exception", String.valueOf(e));
-    }
+  @Override public void onCompleted() {
 
-    @Override
-    public void onNext(T t) {
+  }
 
-    }
+  @Override public void onError(Throwable e) {
+    Log.e(TAG, "Exception" + String.valueOf(e));
+  }
+
+  @Override public void onNext(T t) {
+    Log.i(TAG, "onNext: " + t);
+  }
 }

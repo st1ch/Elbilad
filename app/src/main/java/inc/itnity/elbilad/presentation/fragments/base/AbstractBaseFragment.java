@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 public abstract class AbstractBaseFragment extends Fragment implements ConnectionView {
 
-  private final String TAG = this.getClass().getSimpleName();
+  protected final String TAG = this.getClass().getSimpleName();
 
   @Inject ElbiladUtils elbiladUtils;
 

@@ -41,14 +41,16 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(getContentView());
-    ButterKnife.bind(this);
+
     mainActivityComponent = DaggerMainActivityComponent.builder()
         .applicationComponent(ElbiladApplication.getApplicationComponent())
         .activityContextModule(new ActivityContextModule(this))
         .build();
 
+    setContentView(getContentView());
+    ButterKnife.bind(this);
     mainActivityComponent.inject(this);
+
     initToolbar();
     initFragmentNavigator();
   }

@@ -20,8 +20,21 @@ public class SplashScreenPresenterImpl extends ProgressConnectionPresenter<Splas
   }
 
   @Override public void onCreate() {
-    fetchArticlesAndCategoriesUseCase.setRefresh(false);
-    fetchArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
+    try {
+      checkViewBound();
+      checkConnection();
+
+      fetchArticlesAndCategoriesUseCase.setRefresh(true);
+      fetchArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
+    } catch (ViewNotBoundException e) {
+      e.printStackTrace();
+    } catch (ConnectionException e) {
+      e.printStackTrace();
+
+      fetchArticlesAndCategoriesUseCase.setRefresh(false);
+      fetchArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
+    }
+
   }
 
   @Override public void onDestroy() {

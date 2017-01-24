@@ -12,4 +12,5 @@ public interface MainMenuView extends ConnectionView {
 
   void showLoadedCategories(List<Category> categories);
 
+
 }

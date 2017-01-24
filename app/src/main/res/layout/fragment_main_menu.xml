@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
+    android:adjustViewBounds="true"
     >
-<ScrollView
+<android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:overScrollMode="never"
@@ -98,6 +99,7 @@
         android:id="@+id/rv_menu_categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         />
 
     <TextView
@@ -122,8 +124,7 @@
 
   </LinearLayout>
 
-</ScrollView>
-
+</android.support.v4.widget.NestedScrollView>
 
   <FrameLayout
       android:layout_width="@dimen/space_16dp"

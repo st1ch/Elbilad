@@ -13,19 +13,34 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeScreenPagerAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
+import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
+import inc.itnity.elbilad.presentation.views.BaseHomeView;
+import javax.inject.Inject;
 
 /**
  * Created by st1ch on 14.01.17.
  */
 
-public class HomeScreenBaseFragment extends AbstractBaseFragment {
+public class HomeScreenBaseFragment extends AbstractBaseFragment implements BaseHomeView {
+
+  private static final String ARG_TAB_POSITION = "tab_position";
 
   @BindView(R.id.viewpager) ViewPager viewPager;
 
   @BindView(R.id.tab_layout) TabLayout tabLayout;
 
-  public static HomeScreenBaseFragment newInstance() {
-    return new HomeScreenBaseFragment();
+  @Inject BaseHomePresenter presenter;
+
+  //public static HomeScreenBaseFragment newInstance() {
+  //  return new HomeScreenBaseFragment();
+  //}
+
+  public static HomeScreenBaseFragment newInstance(int tabPosition) {
+    Bundle args = new Bundle();
+    args.putInt(ARG_TAB_POSITION, tabPosition);
+    HomeScreenBaseFragment fragment = new HomeScreenBaseFragment();
+    fragment.setArguments(args);
+    return fragment;
   }
 
   @Nullable @Override
@@ -34,6 +49,9 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment {
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();
+
+    presenter.onCreate();
+
     return fragmentView;
   }
 
@@ -46,9 +64,11 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment {
   }
 
   @Override protected void bindPresenter() {
+    presenter.bind(this);
   }
 
   @Override protected void unbindPresenter() {
+    presenter.onDestroy();
   }
 
   private void initContent() {
@@ -67,6 +87,17 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment {
       LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tab.getLayoutParams();
       layoutParams.weight = 1;
       tab.setLayoutParams(layoutParams);
+    }
+
+    int position = getArguments().getInt(ARG_TAB_POSITION);
+    if (position != -1) {
+      openTab(position);
+    }
+  }
+
+  @Override public void openTab(int position) {
+    if (viewPager.getChildCount() > position) {
+      viewPager.setCurrentItem(position);
     }
   }
 }

@@ -19,7 +19,7 @@ public class MainActivity extends AbstractBaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    fragmentNavigator.startHomeScreenFragment();
+    fragmentNavigator.startHomeScreenFragment(0);
   }
 
   @Override public void onBackPressed() {
