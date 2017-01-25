@@ -9,6 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.categorie.Category;
+import inc.itnity.elbilad.presentation.custom.listeners.CategoryClickListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -22,6 +23,8 @@ public class MenuCategoryAdapter
 
   private List<Category> categories = new ArrayList<>();
 
+  private CategoryClickListener categoryClickListener;
+
   @Inject MenuCategoryAdapter() {
   }
 
@@ -34,6 +37,7 @@ public class MenuCategoryAdapter
     Category category = getItem(position);
 
     holder.tvCategoryName.setText(category.getTitle());
+    holder.itemView.setOnClickListener(v -> categoryClickListener.onCategoryClick(position));
   }
 
   @Override public int getItemCount() {
@@ -48,6 +52,10 @@ public class MenuCategoryAdapter
     this.categories.clear();
     this.categories.addAll(categories);
     notifyDataSetChanged();
+  }
+
+  public void setCategoryClickListener(CategoryClickListener categoryClickListener) {
+    this.categoryClickListener = categoryClickListener;
   }
 
   class CategoryViewHolder extends RecyclerView.ViewHolder {

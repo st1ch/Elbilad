@@ -26,6 +26,8 @@ import javax.inject.Inject;
 
 public class MainMenuFragment extends AbstractBaseFragment implements MainMenuView {
 
+  private static final int STATIC_CATEGORY_ITEM_COUNT = 6;
+
   @BindView(R.id.rv_menu_categories) RecyclerView rvCategories;
 
   @Inject MenuCategoryAdapter menuCategoryAdapter;
@@ -49,6 +51,11 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
     rvCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvCategories.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
     rvCategories.setAdapter(menuCategoryAdapter);
+    menuCategoryAdapter.setCategoryClickListener(
+        position -> {
+          presenter.openBaseFragmentTab(position + STATIC_CATEGORY_ITEM_COUNT);
+          ((MainActivity) getActivity()).openCloseDrawer();
+        });
   }
 
   @Override public int getContentView() {
@@ -90,19 +97,17 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
         presenter.openBaseFragmentTab(2);
         break;
       case R.id.tv_menu_bookmarks:
-        presenter.openBaseFragmentTab(4);
+        presenter.openBaseFragmentTab(3);
         break;
       case R.id.tv_menu_videos:
-        presenter.openBaseFragmentTab(5);
+        presenter.openBaseFragmentTab(4);
         break;
       case R.id.tv_menu_photos:
-        presenter.openBaseFragmentTab(6);
+        presenter.openBaseFragmentTab(5);
         break;
       case R.id.tv_menu_about:
-        presenter.openBaseFragmentTab(7);
         break;
       case R.id.tv_menu_preferences:
-        presenter.openBaseFragmentTab(8);
         break;
       default:
         break;

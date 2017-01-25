@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.presenters;
 
+import android.util.Log;
 import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
@@ -36,6 +37,7 @@ public class MainMenuPresenterImpl extends ProgressConnectionPresenter<MainMenuV
   }
 
   @Override public void openBaseFragmentTab(int position) {
+    Log.wtf("pres", "openBaseFragmentTab: " + position);
     openTabRxBus.openTab(position);
   }
 
