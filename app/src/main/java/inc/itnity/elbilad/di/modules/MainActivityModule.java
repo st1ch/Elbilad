@@ -11,6 +11,8 @@ import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenter;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenter;
+import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
 
 /**
  * Created by st1ch on 20.01.17.
@@ -26,7 +28,11 @@ import inc.itnity.elbilad.presentation.presenters.MainMenuPresenterImpl;
     return new MainMenuPresenterImpl(getCategoriesUseCase, openTabRxBus);
   }
 
-  @Provides BaseHomePresenter provideBaseHomePresenter(OpenTabRxBus openTabRxBus) {
-    return new BaseHomePresenterImpl(openTabRxBus);
+  @Provides BaseHomePresenter provideBaseHomePresenter(OpenTabRxBus openTabRxBus, GetCategoriesUseCase getCategoriesUseCase) {
+    return new BaseHomePresenterImpl(openTabRxBus, getCategoriesUseCase);
+  }
+
+  @Provides SimpleNewsPresenter provideSimpleNewsPresenter(GetArticlesUseCase getArticlesUseCase) {
+    return new SimpleNewsPresenterImpl(getArticlesUseCase);
   }
 }

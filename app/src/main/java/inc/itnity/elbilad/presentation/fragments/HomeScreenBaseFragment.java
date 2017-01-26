@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeScreenPagerAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
 import inc.itnity.elbilad.presentation.views.BaseHomeView;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -30,6 +32,8 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   @BindView(R.id.tab_layout) TabLayout tabLayout;
 
   @Inject BaseHomePresenter presenter;
+
+  private HomeScreenPagerAdapter homeScreenPagerAdapter;
 
   //public static HomeScreenBaseFragment newInstance() {
   //  return new HomeScreenBaseFragment();
@@ -47,8 +51,6 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
-
-    initContent();
 
     presenter.onCreate();
 
@@ -71,11 +73,14 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
     presenter.onDestroy();
   }
 
-  private void initContent() {
+  private void initContent(List<Category> categories) {
     tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     /** init tabs */
-    viewPager.setAdapter(new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager()));
+    homeScreenPagerAdapter =
+        new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager(), categories);
+
+    viewPager.setAdapter(homeScreenPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
     viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
@@ -96,8 +101,12 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   }
 
   @Override public void openTab(int position) {
-    if (viewPager.getChildCount() > position) {
+    if (homeScreenPagerAdapter.getCount() > position) {
       viewPager.setCurrentItem(position);
     }
+  }
+
+  @Override public void showLoadedCategories(List<Category> categories) {
+    initContent(categories);
   }
 }

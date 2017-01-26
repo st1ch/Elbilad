@@ -20,13 +20,13 @@ import inc.itnity.elbilad.presentation.views.MainMenuView;
 import java.util.List;
 import javax.inject.Inject;
 
+import static inc.itnity.elbilad.constants.Constants.STATIC_TABS_COUNT;
+
 /**
  * Created by st1ch on 14.01.17.
  */
 
 public class MainMenuFragment extends AbstractBaseFragment implements MainMenuView {
-
-  private static final int STATIC_CATEGORY_ITEM_COUNT = 6;
 
   @BindView(R.id.rv_menu_categories) RecyclerView rvCategories;
 
@@ -53,7 +53,7 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
     rvCategories.setAdapter(menuCategoryAdapter);
     menuCategoryAdapter.setCategoryClickListener(
         position -> {
-          presenter.openBaseFragmentTab(position + STATIC_CATEGORY_ITEM_COUNT);
+          presenter.openBaseFragmentTab(position + STATIC_TABS_COUNT);
           ((MainActivity) getActivity()).openCloseDrawer();
         });
   }

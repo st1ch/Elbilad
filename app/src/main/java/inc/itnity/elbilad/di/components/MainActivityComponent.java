@@ -10,6 +10,7 @@ import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
 
 /**
  * Created by st1ch on 17.01.17.
@@ -34,4 +35,6 @@ public interface MainActivityComponent {
   void inject(LastNewsFragment lastNewsFragment);
 
   void inject(BookmarksFragment bookmarksFragment);
+
+  void inject(SimpleNewsFragment simpleNewsFragment);
 }

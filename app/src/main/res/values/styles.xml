@@ -24,7 +24,7 @@
     <item name="paddingEnd">0dp</item>
     <item name="paddingStart">0dp</item>
     <item name="tabGravity">fill</item>
-    <item name="tabMode">fixed</item>
+    <item name="tabMode">scrollable</item>
     <item name="tabIndicatorHeight">@dimen/tab_indicator_height</item>
     <item name="tabBackground">@color/tab_bg</item>
     <item name="tabSelectedTextColor">@android:color/white</item>
