@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/video_horizontal_width"
+    android:layout_height="@dimen/video_horizontal_height"
+    android:orientation="vertical"
+    >
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/video_horizontal_image_height"
+      >
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/sample_news_image"
+        android:scaleType="centerCrop"
+        />
+    <ImageView
+        android:id="@+id/iv_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_camera_72dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/space_16dp"
+        />
+  </FrameLayout>
+  
+  <TextView
+      android:id="@+id/tv_date"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textSize="@dimen/title_info_size"
+      android:text="17:43 | 18-10-2016"
+      android:textColor="@color/text_video_grey_hint"
+      android:gravity="right"
+      android:layout_margin="@dimen/space_16dp"
+      />
+
+  <TextView
+      android:id="@+id/tv_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:textColor="@android:color/white"
+      android:textSize="@dimen/main_menu_item_text_size"
+      android:layout_marginRight="@dimen/space_16dp"
+      android:layout_marginLeft="@dimen/space_16dp"
+      android:layout_marginBottom="@dimen/space_16dp"
+      android:text="إدارة إتحاد العاصمة تعرض مشروع إعادة ترميم و عصرنة ملعب بولوغين"
+      />
+
+</LinearLayout>

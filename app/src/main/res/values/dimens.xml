@@ -17,4 +17,7 @@
   <!-- News -->
   <dimen name="news_top_height">632dp</dimen>
   <dimen name="news_item_height">100dp</dimen>
+  <dimen name="video_horizontal_image_height">180dp</dimen>
+  <dimen name="video_horizontal_width">320dp</dimen>
+  <dimen name="video_horizontal_height">356dp</dimen>
 </resources>
