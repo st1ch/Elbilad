@@ -35,141 +35,117 @@
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-1)"
           android:strokeWidth="1" />
       <path
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#000000"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#000000"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#000000"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#000000"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#D0011B"
           android:fillType="evenOdd"
           android:pathData="M 50 0 C 77.6142374915 0 100 22.3857625085 100 50 C 100 77.6142374915 77.6142374915 100 50 100 C 22.3857625085 100 0 77.6142374915 0 50 C 0 22.3857625085 22.3857625085 0 50 0 Z"
-          android:strokeColor="url(#linearGradient-2)"
           android:strokeWidth="1" />
       <path
           android:fillColor="#FFFFFF"

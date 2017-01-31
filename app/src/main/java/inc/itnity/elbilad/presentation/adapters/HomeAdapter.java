@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.adapters;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
   private static final int TYPE_TOP = 0;
   private static final int TYPE_REGULAR = 1;
+  private static final int TYPE_PHOTO_SLIDE = 2;
 
   private List<Article> articles = new ArrayList<>();
 
@@ -31,6 +33,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
   @Override public int getItemViewType(int position) {
     if (position == 0) {
       return TYPE_TOP;
+    } else if (position == 1) {
+      return TYPE_PHOTO_SLIDE;
     } else {
       return TYPE_REGULAR;
     }
@@ -42,6 +46,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         return new TopNewsItemViewHolder(getView(parent, R.layout.item_home_news_top));
       case TYPE_REGULAR:
         return new RegularNewsItemViewHolder(getView(parent, R.layout.item_home_news));
+      case TYPE_PHOTO_SLIDE:
+        return new PhotoSlideItemViewHolder(getView(parent, R.layout.item_photo_slide_show));
       default:
         return null;
     }
@@ -66,6 +72,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
       ((RegularNewsItemViewHolder) holder).tvPreview.setText(article.getPreview());
       ((RegularNewsItemViewHolder) holder).tvDate.setText(article.getDate());
       ((RegularNewsItemViewHolder) holder).tvAuthor.setText(article.getAuthor());
+    } else if (viewType == TYPE_PHOTO_SLIDE) {
+      //((PhotoSlideItemViewHolder) holder).rvPhotos.setAdapter();
+      //
+      //LinearLayoutManager layoutManager =
+      //    new LinearLayoutManager(((PhotoSlideItemViewHolder) holder).itemView.getContext());
+      //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+      //
+      //((PhotoSlideItemViewHolder) holder).rvPhotos.setLayoutManager(
+      //    layoutManager);
     }
   }
 
@@ -85,9 +100,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
   class HomeItemViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.iv_image) ImageView ivImage;
-    @BindView(R.id.tv_date) TextView tvDate;
-    @BindView(R.id.tv_category) TextView tvAuthor;
+    @Nullable @BindView(R.id.iv_image) ImageView ivImage;
+    @Nullable @BindView(R.id.tv_date) TextView tvDate;
+    @Nullable @BindView(R.id.tv_category) TextView tvAuthor;
 
     HomeItemViewHolder(View itemView) {
       super(itemView);
@@ -110,6 +125,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     @BindView(R.id.tv_preview) TextView tvPreview;
 
     RegularNewsItemViewHolder(View itemView) {
+      super(itemView);
+      ButterKnife.bind(this, itemView);
+    }
+  }
+
+  class PhotoSlideItemViewHolder extends HomeItemViewHolder {
+
+    PhotoSlideItemViewHolder(View itemView) {
       super(itemView);
       ButterKnife.bind(this, itemView);
     }
