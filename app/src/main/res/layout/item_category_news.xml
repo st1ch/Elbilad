@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/news_item_height"
-    android:layout_marginBottom="@dimen/space_8dp"
     android:layout_marginLeft="@dimen/space_8dp"
     android:layout_marginRight="@dimen/space_8dp"
     android:background="@android:color/white"

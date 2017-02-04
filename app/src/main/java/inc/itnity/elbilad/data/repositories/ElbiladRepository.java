@@ -16,4 +16,6 @@ public interface ElbiladRepository {
   Observable<List<Category>> getCategories(boolean refresh);
 
   Observable<List<Article>> getArticles(boolean refresh);
+
+  Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId);
 }

@@ -15,5 +15,17 @@ public interface ApiConfig {
   String ACCEPT_HAL_JSON = "application/hal+json";
   String ACCEPT_ELBILAD = "application/vnd.elbilad.v1+json";
 
+  String IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/article/thumbs/";
+
+  String UNE = "une-";
+  String THUMB = "thumb-";
+  String THUMB_CAT = "thumbCat-";
+  String LARGE_CAT = "largeCat-";
+  String REP = "rep-";
+  String LARGE = "large-";
+  String UNE_SLIDE = "uneSlide-";
+  String UNETH_SLIDE = "unethSlide-";
+
+  int LAST_NEWS_CATEGORY_ID = 28;
 
 }

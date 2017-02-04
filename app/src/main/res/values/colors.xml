@@ -13,6 +13,7 @@
   <color name="text_dark_grey_hint">#4A4A4A</color>
   <color name="text_video_grey_hint">#9B9B9B</color>
 
+  <color name="news_bg">#e1e1e1</color>
   <color name="item_separator">#64979797</color>
 
   <color name="menu_bg">#1C2027</color>

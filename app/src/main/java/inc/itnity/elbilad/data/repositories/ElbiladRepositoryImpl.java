@@ -4,6 +4,7 @@ import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import io.reactivecache.Provider;
+import io.reactivecache.ProviderGroup;
 import io.reactivecache.ReactiveCache;
 import java.util.List;
 import rx.Observable;
@@ -17,27 +18,27 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private ElbiladRemoteDataSource remoteDataSource;
   private final Provider<List<Category>> categoryListCache;
   private final Provider<List<Article>> articleListCache;
+  private final ProviderGroup<List<Article>> categoryArticleListCache;
 
   public ElbiladRepositoryImpl(ElbiladRemoteDataSource remoteDataSource,
       ReactiveCache reactiveCache) {
     this.remoteDataSource = remoteDataSource;
     this.categoryListCache = reactiveCache.<List<Category>>provider().withKey("categoryListCache");
     this.articleListCache = reactiveCache.<List<Article>>provider().withKey("articleListCache");
+    this.categoryArticleListCache =
+        reactiveCache.<List<Article>>providerGroup().withKey("categoryArticleListCache");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndArticles(boolean refresh) {
     if (refresh) {
-      return remoteDataSource.getCategories()
-          .compose(categoryListCache.replace())
-          .flatMap(categories -> remoteDataSource.getArticles())
-          .compose(articleListCache.replace())
-          .map(articles -> true);
+      return Observable.zip(remoteDataSource.getCategories().compose(categoryListCache.replace()),
+          remoteDataSource.getArticles().compose(articleListCache.replace()),
+          (categories, articles) -> true);
     }
-    return remoteDataSource.getCategories()
-        .compose(categoryListCache.readWithLoader())
-        .flatMap(categories -> remoteDataSource.getArticles())
-        .compose(articleListCache.readWithLoader())
-        .map(articles -> true);
+    return Observable.zip(
+        remoteDataSource.getCategories().compose(categoryListCache.readWithLoader()),
+        remoteDataSource.getArticles().compose(articleListCache.readWithLoader()),
+        (categories, articles) -> true);
   }
 
   @Override public Observable<List<Category>> getCategories(boolean refresh) {
@@ -52,5 +53,14 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getArticles().compose(articleListCache.replace());
     }
     return remoteDataSource.getArticles().compose(articleListCache.readWithLoader());
+  }
+
+  @Override public Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId) {
+    if (refresh) {
+      return remoteDataSource.getCategorieArticles(categoryId)
+          .compose(categoryArticleListCache.replace(categoryId));
+    }
+    return remoteDataSource.getCategorieArticles(categoryId)
+        .compose(categoryArticleListCache.readWithLoader(categoryId));
   }
 }

@@ -30,4 +30,10 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
         .flatMap(BaseResponseObservable::new)
         .map(articleDataBaseResponse -> articleDataBaseResponse.getData().getArticles());
   }
+
+  @Override public Observable<List<Article>> getCategorieArticles(int categoryId) {
+    return elbiladAPI.getCategoryArticles(categoryId)
+        .flatMap(BaseResponseObservable::new)
+        .map(articleDataBaseResponse -> articleDataBaseResponse.getData().getArticles());
+  }
 }
