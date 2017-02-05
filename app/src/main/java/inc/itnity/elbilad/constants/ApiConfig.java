@@ -17,14 +17,14 @@ public interface ApiConfig {
 
   String IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/article/thumbs/";
 
-  String UNE = "une-";
-  String THUMB = "thumb-";
-  String THUMB_CAT = "thumbCat-";
-  String LARGE_CAT = "largeCat-";
-  String REP = "rep-";
-  String LARGE = "large-";
-  String UNE_SLIDE = "uneSlide-";
-  String UNETH_SLIDE = "unethSlide-";
+  String UNE = "une-"; // 555x316
+  String THUMB = "thumb-"; // 112x84
+  String THUMB_CAT = "thumbCat-"; // 150x110
+  String LARGE_CAT = "largeCat-"; // 399x169
+  String REP = "rep-"; // 166x102
+  String LARGE = "large-"; // 600x355
+  String UNE_SLIDE = "uneSlide-"; // 722x410
+  String UNETH_SLIDE = "unethSlide-"; // 230x163
 
   int LAST_NEWS_CATEGORY_ID = 28;
 

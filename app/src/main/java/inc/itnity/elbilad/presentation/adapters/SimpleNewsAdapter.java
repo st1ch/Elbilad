@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +28,12 @@ public class SimpleNewsAdapter
   private List<Article> articles = new ArrayList<>();
 
   private ImageLoaderHelper imageLoaderHelper;
+  private FragmentNavigator fragmentNavigator;
 
-  @Inject SimpleNewsAdapter(ImageLoaderHelper imageLoaderHelper) {
+  @Inject SimpleNewsAdapter(ImageLoaderHelper imageLoaderHelper,
+      FragmentNavigator fragmentNavigator) {
     this.imageLoaderHelper = imageLoaderHelper;
+    this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override public SimpleNewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -41,13 +45,15 @@ public class SimpleNewsAdapter
     Article article = getItem(position);
 
     if (!TextUtils.isEmpty(article.getImage())) {
-      imageLoaderHelper.loadUrlImage(
-          ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB +
-              article.getImage(), holder.ivAvatar);
+      imageLoaderHelper.loadUrlImage(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB +
+          article.getImage(), holder.ivAvatar);
     }
 
     holder.tvDate.setText(article.getDate());
     holder.tvPreview.setText(article.getPreview());
+
+    holder.itemView.setOnClickListener(
+        v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
   }
 
   @Override public int getItemCount() {

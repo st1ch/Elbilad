@@ -5,6 +5,7 @@ import inc.itnity.elbilad.di.MainActivityScope;
 import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.di.modules.MainActivityModule;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
+import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.MainMenuFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
@@ -37,4 +38,6 @@ public interface MainActivityComponent {
   void inject(BookmarksFragment bookmarksFragment);
 
   void inject(SimpleNewsFragment simpleNewsFragment);
+
+  void inject(ArticleDetailsFragment articleDetailsFragment);
 }

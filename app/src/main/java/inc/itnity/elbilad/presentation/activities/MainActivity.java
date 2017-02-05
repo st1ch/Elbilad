@@ -34,11 +34,16 @@ public class MainActivity extends AbstractBaseActivity {
     return R.layout.activity_main;
   }
 
-  @OnClick({ R.id.iv_refresh, R.id.iv_menu }) protected void onToolbarItemClick(View view) {
+  @OnClick({ R.id.iv_refresh, R.id.iv_menu, R.id.iv_back, R.id.iv_menu_details })
+  protected void onToolbarItemClick(View view) {
     switch (view.getId()) {
-      case R.id.iv_refresh:
+      case R.id.iv_back:
+        onBackPressed();
         break;
       case R.id.iv_menu:
+        openCloseDrawer();
+        break;
+      case R.id.iv_menu_details:
         openCloseDrawer();
         break;
     }

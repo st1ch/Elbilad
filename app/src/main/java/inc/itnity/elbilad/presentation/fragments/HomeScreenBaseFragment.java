@@ -12,6 +12,7 @@ import butterknife.BindView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
+import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeScreenPagerAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
@@ -50,6 +51,8 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
+    ((AbstractBaseActivity) getActivity()).showHomeToolbar();
+
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
     presenter.onCreate();
@@ -83,7 +86,7 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
     viewPager.setAdapter(homeScreenPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-    viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+    viewPager.setOffscreenPageLimit(3);
 
     /** fixing scrollable tab layout full width problem */
     ViewGroup slidingTabStrip = (ViewGroup) tabLayout.getChildAt(0);

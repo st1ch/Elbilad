@@ -19,6 +19,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final Provider<List<Category>> categoryListCache;
   private final Provider<List<Article>> articleListCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
+  private final ProviderGroup<Article> articleCache;
 
   public ElbiladRepositoryImpl(ElbiladRemoteDataSource remoteDataSource,
       ReactiveCache reactiveCache) {
@@ -27,6 +28,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     this.articleListCache = reactiveCache.<List<Article>>provider().withKey("articleListCache");
     this.categoryArticleListCache =
         reactiveCache.<List<Article>>providerGroup().withKey("categoryArticleListCache");
+    this.articleCache = reactiveCache.<Article>providerGroup().withKey("articleCache");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndArticles(boolean refresh) {
@@ -62,5 +64,14 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     }
     return remoteDataSource.getCategorieArticles(categoryId)
         .compose(categoryArticleListCache.readWithLoader(categoryId));
+  }
+
+  @Override public Observable<Article> getArticle(boolean refresh, int articleId) {
+    if (refresh) {
+      return remoteDataSource.getArticle(articleId)
+          .compose(articleCache.replace(articleId));
+    }
+    return remoteDataSource.getArticle(articleId)
+        .compose(articleCache.readWithLoader(articleId));
   }
 }

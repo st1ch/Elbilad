@@ -18,20 +18,13 @@ import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import javax.inject.Inject;
 
-public abstract class AbstractBaseActivity extends AppCompatActivity implements
-    FragmentNavigator.NavigationListener {
-
-  @Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
-
-  @Nullable @BindView(R.id.tv_title_text) protected TextView tvTitleText;
-
-  @Nullable @BindView(R.id.iv_title_logo) protected ImageView ivTitleLogo;
-
-  @Nullable @BindView(R.id.iv_refresh) protected ImageView ivRefresh;
-
-  @Nullable @BindView(R.id.iv_menu) protected ImageView ivMenu;
+public abstract class AbstractBaseActivity extends AppCompatActivity
+    implements FragmentNavigator.NavigationListener {
 
   @Inject protected FragmentNavigator fragmentNavigator;
+
+  private ToolbarHomeViewHolder toolbarHomeViewHolder;
+  private ToolbarDetailsViewHolder toolbarDetailsViewHolder;
 
   private static MainActivityComponent mainActivityComponent;
 
@@ -51,6 +44,9 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements
     ButterKnife.bind(this);
     mainActivityComponent.inject(this);
 
+    toolbarHomeViewHolder = new ToolbarHomeViewHolder(findViewById(R.id.toolbar_home));
+    toolbarDetailsViewHolder = new ToolbarDetailsViewHolder(findViewById(R.id.toolbar_details));
+
     initToolbar();
     initFragmentNavigator();
   }
@@ -64,29 +60,50 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements
   public abstract int getContentView();
 
   public void initToolbar() {
-    if (toolbar != null) {
-      setSupportActionBar(toolbar);
+    if (toolbarHomeViewHolder.toolbar != null) {
+      setSupportActionBar(toolbarHomeViewHolder.toolbar);
       setTitle(null);
     }
   }
 
   public void setTitleToolBar(String title) {
-    if (toolbar != null && tvTitleText != null) {
-      tvTitleText.setText(title);
+    if (toolbarHomeViewHolder.toolbar != null && toolbarHomeViewHolder.tvTitleText != null) {
+      toolbarHomeViewHolder.tvTitleText.setText(title);
     }
   }
 
   public void showTitleLogo() {
-    if (tvTitleText != null && ivTitleLogo != null) {
-      tvTitleText.setVisibility(View.GONE);
-      ivTitleLogo.setVisibility(View.VISIBLE);
+    if (toolbarHomeViewHolder.tvTitleText != null && toolbarHomeViewHolder.ivTitleLogo != null) {
+      toolbarHomeViewHolder.tvTitleText.setVisibility(View.GONE);
+      toolbarHomeViewHolder.ivTitleLogo.setVisibility(View.VISIBLE);
     }
   }
 
   public void hideTitleLogo() {
-    if (tvTitleText != null && ivTitleLogo != null) {
-      tvTitleText.setVisibility(View.VISIBLE);
-      ivTitleLogo.setVisibility(View.GONE);
+    if (toolbarHomeViewHolder.tvTitleText != null && toolbarHomeViewHolder.ivTitleLogo != null) {
+      toolbarHomeViewHolder.tvTitleText.setVisibility(View.VISIBLE);
+      toolbarHomeViewHolder.ivTitleLogo.setVisibility(View.GONE);
+    }
+  }
+
+  public void showDetailToolbar(String title) {
+    if (toolbarHomeViewHolder.rootView != null && toolbarDetailsViewHolder.rootView != null) {
+      setSupportActionBar(toolbarDetailsViewHolder.toolbar);
+      setTitle(null);
+
+      toolbarDetailsViewHolder.rootView.setVisibility(View.VISIBLE);
+      toolbarHomeViewHolder.rootView.setVisibility(View.GONE);
+      toolbarDetailsViewHolder.tvTitleText.setText(title);
+    }
+  }
+
+  public void showHomeToolbar() {
+    if (toolbarHomeViewHolder.rootView != null && toolbarDetailsViewHolder.rootView != null) {
+      setSupportActionBar(toolbarHomeViewHolder.toolbar);
+      setTitle(null);
+
+      toolbarDetailsViewHolder.rootView.setVisibility(View.GONE);
+      toolbarHomeViewHolder.rootView.setVisibility(View.VISIBLE);
     }
   }
 
@@ -105,5 +122,36 @@ public abstract class AbstractBaseActivity extends AppCompatActivity implements
 
   @Override public void onBackstackChanged() {
 
+  }
+
+  class ToolbarHomeViewHolder {
+
+    View rootView;
+    @Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
+    @Nullable @BindView(R.id.tv_title_text) protected TextView tvTitleText;
+    @Nullable @BindView(R.id.iv_title_logo) protected ImageView ivTitleLogo;
+    @Nullable @BindView(R.id.iv_refresh) protected ImageView ivRefresh;
+    @Nullable @BindView(R.id.iv_menu) protected ImageView ivMenu;
+
+    ToolbarHomeViewHolder(View view) {
+      ButterKnife.bind(this, view);
+      rootView = view;
+    }
+  }
+
+  class ToolbarDetailsViewHolder {
+
+    View rootView;
+    @Nullable @BindView(R.id.toolbar) protected Toolbar toolbar;
+    @Nullable @BindView(R.id.tv_title_text) protected TextView tvTitleText;
+    @Nullable @BindView(R.id.iv_back) protected ImageView ivBack;
+    @Nullable @BindView(R.id.iv_share_toolbar) protected ImageView ivShare;
+    @Nullable @BindView(R.id.iv_bookmark_toolbar) protected ImageView ivBookmark;
+    @Nullable @BindView(R.id.iv_menu_details) protected ImageView ivMenu;
+
+    ToolbarDetailsViewHolder(View view) {
+      ButterKnife.bind(this, view);
+      rootView = view;
+    }
   }
 }

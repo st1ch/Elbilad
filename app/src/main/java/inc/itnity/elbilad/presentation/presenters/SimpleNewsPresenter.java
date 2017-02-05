@@ -9,5 +9,4 @@ import inc.itnity.elbilad.presentation.views.SimpleNewsView;
 
 public interface SimpleNewsPresenter extends IPresenter<SimpleNewsView> {
   void onCreate(int categoryId);
-  void onArticleSelected(int id);
 }

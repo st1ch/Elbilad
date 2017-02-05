@@ -17,6 +17,7 @@ import inc.itnity.elbilad.presentation.custom.SimpleDividerItemLineDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
 import inc.itnity.elbilad.presentation.views.MainMenuView;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -29,6 +30,8 @@ import static inc.itnity.elbilad.constants.Constants.STATIC_TABS_COUNT;
 public class MainMenuFragment extends AbstractBaseFragment implements MainMenuView {
 
   @BindView(R.id.rv_menu_categories) RecyclerView rvCategories;
+
+  @Inject FragmentNavigator fragmentNavigator;
 
   @Inject MenuCategoryAdapter menuCategoryAdapter;
 
@@ -76,6 +79,10 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
 
   @Override public void showLoadedCategories(List<Category> categories) {
     menuCategoryAdapter.setCategories(categories);
+  }
+
+  @Override public void showMainFragment() {
+   fragmentNavigator.restoreRootFragment();
   }
 
   @OnClick(R.id.iv_menu_arrow) protected void onMenuCloseClick() {

@@ -36,4 +36,8 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
         .flatMap(BaseResponseObservable::new)
         .map(articleDataBaseResponse -> articleDataBaseResponse.getData().getArticles());
   }
+
+  @Override public Observable<Article> getArticle(int articleId) {
+    return elbiladAPI.getArticle(articleId);
+  }
 }

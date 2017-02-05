@@ -2,7 +2,7 @@ package inc.itnity.elbilad.domain.buses;
 
 import inc.itnity.elbilad.di.MainActivityScope;
 import javax.inject.Inject;
-import rx.subjects.PublishSubject;
+import rx.subjects.BehaviorSubject;
 
 /**
  * Created by st1ch on 24.01.17.
@@ -10,7 +10,7 @@ import rx.subjects.PublishSubject;
 
 @MainActivityScope public class OpenTabRxBus {
 
-  private PublishSubject<Integer> subject = PublishSubject.create();
+  private BehaviorSubject<Integer> subject = BehaviorSubject.create();
 
   @Inject OpenTabRxBus() {
   }
@@ -19,7 +19,11 @@ import rx.subjects.PublishSubject;
     subject.onNext(position);
   }
 
-  public PublishSubject<Integer> getOpenTabObservable() {
+  public void clearPosition(){
+    subject.onNext(null);
+  }
+
+  public BehaviorSubject<Integer> getOpenTabObservable() {
     return subject;
   }
 }

@@ -20,10 +20,6 @@ public class SimpleNewsPresenterImpl extends ProgressConnectionPresenter<SimpleN
     this.getCategoryArticlesUseCase = getCategoryArticlesUseCase;
   }
 
-  @Override public void onArticleSelected(int id) {
-
-  }
-
   @Override public void onCreate(int categoryId) {
     try {
       checkViewBound();

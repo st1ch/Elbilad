@@ -19,6 +19,8 @@ public class BaseHomePresenterImpl extends ProgressConnectionPresenter<BaseHomeV
   private OpenTabRxBus openTabRxBus;
   private GetCategoriesUseCase getCategoriesUseCase;
 
+  private BaseUseCaseSubscriber<Integer> tabPositionSubscriber;
+
   public BaseHomePresenterImpl(OpenTabRxBus openTabRxBus,
       GetCategoriesUseCase getCategoriesUseCase) {
     this.openTabRxBus = openTabRxBus;
@@ -26,10 +28,18 @@ public class BaseHomePresenterImpl extends ProgressConnectionPresenter<BaseHomeV
   }
 
   @Override public void onCreate() {
-    openTabRxBus.getOpenTabObservable().subscribe(openTabSubscriber());
+    tabPositionSubscriber = openTabSubscriber();
+    openTabRxBus.getOpenTabObservable().subscribe(tabPositionSubscriber);
+    //openTabRxBus.clearPosition();
 
     getCategoriesUseCase.setRefresh(false);
     getCategoriesUseCase.execute(categoriesSubscriber());
+  }
+
+  @Override public void onDestroy() {
+    tabPositionSubscriber.unsubscribe();
+    getCategoriesUseCase.unsubscribe();
+    super.onDestroy();
   }
 
   private BaseUseCaseSubscriber<List<Category>> categoriesSubscriber() {

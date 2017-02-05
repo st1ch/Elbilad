@@ -52,13 +52,13 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
       case PAGE_LAST_NEWS:
         return SimpleNewsFragment.newInstance(ApiConfig.LAST_NEWS_CATEGORY_ID);
       case PAGE_HZ:
-        return SimpleNewsFragment.newInstance(-10);
+        return SimpleNewsFragment.newInstance(19);
       case PAGE_BOOKMARKS:
         return BookmarksFragment.newInstance();
       case PAGE_VIDEOS:
-        return SimpleNewsFragment.newInstance(-100);
+        return SimpleNewsFragment.newInstance(ApiConfig.LAST_NEWS_CATEGORY_ID);
       case PAGE_PHOTOS:
-        return SimpleNewsFragment.newInstance(-1000);
+        return SimpleNewsFragment.newInstance(ApiConfig.LAST_NEWS_CATEGORY_ID);
       default:
         return SimpleNewsFragment.newInstance(categories.get(position - STATIC_TABS_COUNT).getId());
     }

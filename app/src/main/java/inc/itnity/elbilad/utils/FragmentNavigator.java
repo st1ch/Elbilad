@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -46,10 +47,17 @@ import javax.inject.Singleton;
    */
   private void open(Fragment fragment) {
     if (fragmentManager != null) {
-      fragmentManager.beginTransaction()
-          .replace(R.id.content_main, fragment, fragment.getClass().getName())
-          .addToBackStack(fragment.getClass().getName())
-          .commit();
+      String tag = fragment.getClass().getName();
+      Fragment fragmentByTag = fragmentManager.findFragmentByTag(tag);
+
+      if (fragmentByTag != null && fragmentByTag.getClass().equals(fragment.getClass())) {
+        fragmentManager.popBackStackImmediate(tag, 0);
+      } else {
+        fragmentManager.beginTransaction()
+            .replace(R.id.content_main, fragment, tag)
+            .addToBackStack(tag)
+            .commit();
+      }
     }
   }
 
@@ -106,6 +114,10 @@ import javax.inject.Singleton;
     }
   }
 
+  public void restoreRootFragment(){
+    popUntilLastFragment();
+  }
+
   /**
    * Methods for root fragments
    */
@@ -113,5 +125,14 @@ import javax.inject.Singleton;
   public void startHomeScreenFragment(int tabPosition) {
     Fragment fragment = HomeScreenBaseFragment.newInstance(tabPosition);
     openAsRoot(fragment);
+  }
+
+  /**
+   * Methods for NOT root fragments
+   */
+
+  public void startArticleDetailsFragment(int id) {
+    Fragment fragment = ArticleDetailsFragment.newInstance(id);
+    openAsChildRoot(fragment);
   }
 }

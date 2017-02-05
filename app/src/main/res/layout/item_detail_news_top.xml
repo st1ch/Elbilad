@@ -9,7 +9,7 @@
     >
 
   <TextView
-      android:text="قرار جديد للحكومة بشأن الفئات التي يحق لها الاستفادة من الدعم مستقبلا!"
+      tools:text="قرار جديد للحكومة بشأن الفئات التي يحق لها الاستفادة من الدعم مستقبلا!"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:textColor="@android:color/black"
@@ -24,7 +24,7 @@
       app:layout_constraintTop_toBottomOf="@+id/tv_category"
       />
   <TextView
-      android:text="الوطني"
+      tools:text="الوطني"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/tv_category"
@@ -37,7 +37,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
   <TextView
-      android:text="17:43 | 18-10-2016"
+      tools:text="17:43 | 18-10-2016"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/tv_date"
@@ -52,8 +52,8 @@
       />
   <ImageView
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:src="@drawable/sample_image"
+      android:layout_height="355dp"
+      tools:src="@drawable/sample_image"
       android:id="@+id/iv_image"
       android:adjustViewBounds="true"
       android:scaleType="centerCrop"
@@ -64,10 +64,10 @@
       app:layout_constraintTop_toBottomOf="@+id/tv_title"
       />
   <TextView
-      android:text="هل يمكن أن ننكر سيطرة هذه القنوات بكل عيوبها على المشاهد الجزائري الذي كان سابقا خاضعا للجزيرة وأخواتها؟"
+      tools:text="هل يمكن أن ننكر سيطرة هذه القنوات بكل عيوبها على المشاهد الجزائري الذي كان سابقا خاضعا للجزيرة وأخواها؟"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:id="@+id/textView3"
+      android:id="@+id/tv_title_text"
       android:textColor="@color/text_dark_grey_hint"
       android:textSize="22sp"
       android:gravity="right"
@@ -82,7 +82,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:src="@drawable/ic_share"
-      android:id="@+id/imageView2"
+      android:id="@+id/iv_share"
       android:layout_marginStart="16dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintBottom_toBottomOf="@+id/iv_image"
@@ -96,6 +96,8 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_title_text"
+      android:layout_marginTop="8dp"
       />
 
 </android.support.constraint.ConstraintLayout>
