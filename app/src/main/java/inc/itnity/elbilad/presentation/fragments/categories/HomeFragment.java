@@ -9,13 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenter;
 import inc.itnity.elbilad.presentation.views.HomeScreenView;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -69,7 +68,7 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
     presenter.onDestroy();
   }
 
-  @Override public void showLoadedArticles(List<Article> articles) {
-    adapter.setArticles(articles);
+  @Override public void showLoadedArticles(HomeArticles articles) {
+    //adapter.setArticles(articles);
   }
 }

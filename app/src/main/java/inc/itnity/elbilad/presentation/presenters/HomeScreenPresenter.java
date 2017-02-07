@@ -9,5 +9,4 @@ import inc.itnity.elbilad.presentation.views.HomeScreenView;
 
 public interface HomeScreenPresenter extends IPresenter<HomeScreenView> {
   void onCreate();
-  void onArticleSelected(int id);
 }

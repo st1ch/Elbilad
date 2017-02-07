@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.data.repositories.remote;
 
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
 import rx.Observable;
@@ -12,6 +13,8 @@ import rx.Observable;
 public interface ElbiladRemoteDataSource {
 
   Observable<List<Category>> getCategories();
+
+  Observable<HomeArticles> getHomeArticles();
 
   Observable<List<Article>> getArticles();
 

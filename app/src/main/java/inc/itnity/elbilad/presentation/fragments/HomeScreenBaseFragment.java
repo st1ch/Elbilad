@@ -26,8 +26,6 @@ import javax.inject.Inject;
 
 public class HomeScreenBaseFragment extends AbstractBaseFragment implements BaseHomeView {
 
-  private static final String ARG_TAB_POSITION = "tab_position";
-
   @BindView(R.id.viewpager) ViewPager viewPager;
 
   @BindView(R.id.tab_layout) TabLayout tabLayout;
@@ -36,16 +34,8 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
 
   private HomeScreenPagerAdapter homeScreenPagerAdapter;
 
-  //public static HomeScreenBaseFragment newInstance() {
-  //  return new HomeScreenBaseFragment();
-  //}
-
-  public static HomeScreenBaseFragment newInstance(int tabPosition) {
-    Bundle args = new Bundle();
-    args.putInt(ARG_TAB_POSITION, tabPosition);
-    HomeScreenBaseFragment fragment = new HomeScreenBaseFragment();
-    fragment.setArguments(args);
-    return fragment;
+  public static HomeScreenBaseFragment newInstance() {
+    return new HomeScreenBaseFragment();
   }
 
   @Nullable @Override
@@ -97,10 +87,6 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
       tab.setLayoutParams(layoutParams);
     }
 
-    int position = getArguments().getInt(ARG_TAB_POSITION);
-    if (position != -1) {
-      openTab(position);
-    }
   }
 
   @Override public void openTab(int position) {

@@ -4,9 +4,9 @@ import dagger.Module;
 import dagger.Provides;
 import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
-import inc.itnity.elbilad.domain.usecases.GetArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
@@ -23,8 +23,8 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
  */
 @Module public class MainActivityModule {
 
-  @Provides HomeScreenPresenter provideHomeScreenPresenter(GetArticlesUseCase getArticlesUseCase) {
-    return new HomeScreenPresenterImpl(getArticlesUseCase);
+  @Provides HomeScreenPresenter provideHomeScreenPresenter(GetHomeArticlesUseCase getHomeArticlesUseCase) {
+    return new HomeScreenPresenterImpl(getHomeArticlesUseCase);
   }
 
   @Provides MainMenuPresenter provideMainMenuPresenter(GetCategoriesUseCase getCategoriesUseCase,
@@ -32,15 +32,17 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
     return new MainMenuPresenterImpl(getCategoriesUseCase, openTabRxBus);
   }
 
-  @Provides BaseHomePresenter provideBaseHomePresenter(OpenTabRxBus openTabRxBus, GetCategoriesUseCase getCategoriesUseCase) {
-    return new BaseHomePresenterImpl(openTabRxBus, getCategoriesUseCase);
+  @Provides BaseHomePresenter provideBaseHomePresenter(GetCategoriesUseCase getCategoriesUseCase) {
+    return new BaseHomePresenterImpl(getCategoriesUseCase);
   }
 
-  @Provides SimpleNewsPresenter provideSimpleNewsPresenter(GetCategoryArticlesUseCase getCategoryArticlesUseCase) {
+  @Provides SimpleNewsPresenter provideSimpleNewsPresenter(
+      GetCategoryArticlesUseCase getCategoryArticlesUseCase) {
     return new SimpleNewsPresenterImpl(getCategoryArticlesUseCase);
   }
 
-  @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(GetArticleUseCase getArticleUseCase){
+  @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
+      GetArticleUseCase getArticleUseCase) {
     return new ArticleDetailsPresenterImpl(getArticleUseCase);
   }
 }

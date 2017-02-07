@@ -122,8 +122,8 @@ import javax.inject.Singleton;
    * Methods for root fragments
    */
 
-  public void startHomeScreenFragment(int tabPosition) {
-    Fragment fragment = HomeScreenBaseFragment.newInstance(tabPosition);
+  public void startHomeScreenFragment() {
+    Fragment fragment = HomeScreenBaseFragment.newInstance();
     openAsRoot(fragment);
   }
 

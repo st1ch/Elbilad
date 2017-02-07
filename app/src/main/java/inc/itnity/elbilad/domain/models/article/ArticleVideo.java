@@ -7,19 +7,19 @@ import java.util.Date;
  * Created by st1ch on 15.01.17.
  */
 
-public class Article {
+public class ArticleVideo {
 
   @SerializedName("id") private int id;
   @SerializedName("titre") private String title;
-  @SerializedName("categorie_id") private int categoryId;
+  @SerializedName("id_video_categorie") private int categoryId;
   @SerializedName("categorie_titre") private int categoryTitle;
+  @SerializedName("description") private String description;
   @SerializedName("date") private Date date;
   @SerializedName("image") private String image;
-  @SerializedName("imageText") private String imageText;
-  @SerializedName("auteur") private String author;
-  @SerializedName("resume") private String preview;
-  @SerializedName("text") private String text;
-  @SerializedName("youtube_code") private String youtubeCode;
+  @SerializedName("une") private String une;
+  @SerializedName("type_video") private String videoType;
+  @SerializedName("youtube_id") private String youtubeId;
+  //@SerializedName("local_video") private String localVideo;
   //@SerializedName("_links") private Links links;
 
   public int getId() {
@@ -54,6 +54,14 @@ public class Article {
     this.categoryTitle = categoryTitle;
   }
 
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public Date getDate() {
     return date;
   }
@@ -70,48 +78,32 @@ public class Article {
     this.image = image;
   }
 
-  public String getImageText() {
-    return imageText;
+  public String getUne() {
+    return une;
   }
 
-  public void setImageText(String imageText) {
-    this.imageText = imageText;
+  public void setUne(String une) {
+    this.une = une;
   }
 
-  public String getAuthor() {
-    return author;
+  public String getVideoType() {
+    return videoType;
   }
 
-  public void setAuthor(String author) {
-    this.author = author;
+  public void setVideoType(String videoType) {
+    this.videoType = videoType;
   }
 
-  public String getPreview() {
-    return preview;
+  public String getYoutubeId() {
+    return youtubeId;
   }
 
-  public void setPreview(String preview) {
-    this.preview = preview;
-  }
-
-  public String getText() {
-    return text;
-  }
-
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  public String getYoutubeCode() {
-    return youtubeCode;
-  }
-
-  public void setYoutubeCode(String youtubeCode) {
-    this.youtubeCode = youtubeCode;
+  public void setYoutubeId(String youtubeId) {
+    this.youtubeId = youtubeId;
   }
 
   @Override public String toString() {
-    return "Article{"
+    return "ArticleVideo{"
         + "id="
         + id
         + ", title='"
@@ -121,25 +113,22 @@ public class Article {
         + categoryId
         + ", categoryTitle="
         + categoryTitle
+        + ", description='"
+        + description
+        + '\''
         + ", date="
         + date
         + ", image='"
         + image
         + '\''
-        + ", imageText='"
-        + imageText
+        + ", une='"
+        + une
         + '\''
-        + ", author='"
-        + author
+        + ", videoType='"
+        + videoType
         + '\''
-        + ", preview='"
-        + preview
-        + '\''
-        + ", text='"
-        + text
-        + '\''
-        + ", youtubeCode='"
-        + youtubeCode
+        + ", youtubeId='"
+        + youtubeId
         + '\''
         + '}';
   }

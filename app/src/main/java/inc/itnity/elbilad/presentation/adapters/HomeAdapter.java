@@ -65,12 +65,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     if (viewType == TYPE_TOP) {
       ((TopNewsItemViewHolder) holder).ivImage.setImageResource(R.drawable.sample_image);
       ((TopNewsItemViewHolder) holder).tvTitle.setText(article.getTitle());
-      ((TopNewsItemViewHolder) holder).tvDate.setText(article.getDate());
+      //((TopNewsItemViewHolder) holder).tvDate.setText(article.getDate());
       ((TopNewsItemViewHolder) holder).tvAuthor.setText(article.getAuthor());
     } else if (viewType == TYPE_REGULAR) {
       ((RegularNewsItemViewHolder) holder).ivImage.setImageResource(R.drawable.sample_image);
       ((RegularNewsItemViewHolder) holder).tvPreview.setText(article.getPreview());
-      ((RegularNewsItemViewHolder) holder).tvDate.setText(article.getDate());
+      //((RegularNewsItemViewHolder) holder).tvDate.setText(article.getDate());
       ((RegularNewsItemViewHolder) holder).tvAuthor.setText(article.getAuthor());
     } else if (viewType == TYPE_PHOTO_SLIDE) {
       //((PhotoSlideItemViewHolder) holder).rvPhotos.setAdapter();
