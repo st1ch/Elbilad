@@ -19,7 +19,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     this.getArticleUseCase = getArticleUseCase;
   }
 
-  @Override public void onCreate(int articleId) {
+  @Override public void onCreate(String articleId) {
     try {
       checkViewBound();
       checkConnection();

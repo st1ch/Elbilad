@@ -131,7 +131,7 @@ import javax.inject.Singleton;
    * Methods for NOT root fragments
    */
 
-  public void startArticleDetailsFragment(int id) {
+  public void startArticleDetailsFragment(String id) {
     Fragment fragment = ArticleDetailsFragment.newInstance(id);
     openAsChildRoot(fragment);
   }

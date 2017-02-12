@@ -1,7 +1,10 @@
 package inc.itnity.elbilad.presentation.adapters;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.ArticleTop5;
+import inc.itnity.elbilad.domain.models.article.CategoryHeader;
+import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Video;
+import inc.itnity.elbilad.presentation.custom.HorizontalSpaceItemDecoration;
+import inc.itnity.elbilad.utils.FragmentNavigator;
+import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -21,33 +33,52 @@ import javax.inject.Inject;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHolder> {
 
-  private static final int TYPE_TOP = 0;
-  private static final int TYPE_REGULAR = 1;
-  private static final int TYPE_PHOTO_SLIDE = 2;
+  private Context context;
+  private ImageLoaderHelper imageLoaderHelper;
+  private FragmentNavigator fragmentNavigator;
 
-  private List<Article> articles = new ArrayList<>();
+  private List<ArticleItem> articles = new ArrayList<>();
+  private List<Video> videos = new ArrayList<>();
+  private List<Image> gallery = new ArrayList<>();
 
-  @Inject HomeAdapter() {
+  @Inject HomeAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
+      FragmentNavigator fragmentNavigator) {
+    this.context = context;
+    this.imageLoaderHelper = imageLoaderHelper;
+    this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override public int getItemViewType(int position) {
     if (position == 0) {
-      return TYPE_TOP;
-    } else if (position == 1) {
-      return TYPE_PHOTO_SLIDE;
+      return ArticleItem.TYPE.TOP;
     } else {
-      return TYPE_REGULAR;
+      return getItem(position).getType();
     }
   }
 
   @Override public HomeItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     switch (viewType) {
-      case TYPE_TOP:
+      case ArticleItem.TYPE.TOP:
         return new TopNewsItemViewHolder(getView(parent, R.layout.item_home_news_top));
-      case TYPE_REGULAR:
+      case ArticleItem.TYPE.TOP_5:
+      case ArticleItem.TYPE.IMPORTANT:
+      case ArticleItem.TYPE.INTERNATIONAL:
+      case ArticleItem.TYPE.MUSIC:
+      case ArticleItem.TYPE.MAHAKIM:
+      case ArticleItem.TYPE.CULTURE:
         return new RegularNewsItemViewHolder(getView(parent, R.layout.item_home_news));
-      case TYPE_PHOTO_SLIDE:
-        return new PhotoSlideItemViewHolder(getView(parent, R.layout.item_photo_slide_show));
+      case ArticleItem.TYPE.SPORT:
+      case ArticleItem.TYPE.RASID:
+        return new RegularNewsImageItemViewHolder(getView(parent, R.layout.item_home_news_image));
+      case ArticleItem.TYPE.VIDEO_ARTICLE:
+        return new VideoArticleItemViewHolder(getView(parent, R.layout.item_home_news_video));
+      case ArticleItem.TYPE.VIDEO:
+        return new VideoItemViewHolder(getView(parent, R.layout.item_video_container));
+      case ArticleItem.TYPE.GALLERY:
+        return new GalleryItemViewHolder(getView(parent, R.layout.item_gallery_container));
+      case ArticleItem.TYPE.CATEGORY_HEADER:
+        return new CategoryHeaderViewHolder(
+            getView(parent, R.layout.item_home_news_category_header));
       default:
         return null;
     }
@@ -60,41 +91,157 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
   @Override public void onBindViewHolder(HomeItemViewHolder holder, int position) {
     int viewType = getItemViewType(position);
 
-    Article article = getItem(position);
+    ArticleItem article = getItem(position);
 
-    if (viewType == TYPE_TOP) {
-      ((TopNewsItemViewHolder) holder).ivImage.setImageResource(R.drawable.sample_image);
-      ((TopNewsItemViewHolder) holder).tvTitle.setText(article.getTitle());
-      //((TopNewsItemViewHolder) holder).tvDate.setText(article.getDate());
-      ((TopNewsItemViewHolder) holder).tvAuthor.setText(article.getAuthor());
-    } else if (viewType == TYPE_REGULAR) {
-      ((RegularNewsItemViewHolder) holder).ivImage.setImageResource(R.drawable.sample_image);
-      ((RegularNewsItemViewHolder) holder).tvPreview.setText(article.getPreview());
-      //((RegularNewsItemViewHolder) holder).tvDate.setText(article.getDate());
-      ((RegularNewsItemViewHolder) holder).tvAuthor.setText(article.getAuthor());
-    } else if (viewType == TYPE_PHOTO_SLIDE) {
-      //((PhotoSlideItemViewHolder) holder).rvPhotos.setAdapter();
-      //
-      //LinearLayoutManager layoutManager =
-      //    new LinearLayoutManager(((PhotoSlideItemViewHolder) holder).itemView.getContext());
-      //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-      //
-      //((PhotoSlideItemViewHolder) holder).rvPhotos.setLayoutManager(
-      //    layoutManager);
+    switch (viewType) {
+      case ArticleItem.TYPE.TOP:
+        Article topArticle = (ArticleTop5) article;
+
+        String imageTop = topArticle.getImage();
+        if (!TextUtils.isEmpty(imageTop)) {
+          imageLoaderHelper.loadUrlImageThumb(imageTop, ((TopNewsItemViewHolder) holder).ivImage);
+        }
+
+        ((TopNewsItemViewHolder) holder).tvTitle.setText(topArticle.getTitle());
+        ((TopNewsItemViewHolder) holder).tvDate.setText(
+            getArticleDate(holder, topArticle.getDate(), topArticle.getTime()));
+        ((TopNewsItemViewHolder) holder).tvAuthor.setText(topArticle.getAuthor());
+        ((TopNewsItemViewHolder) holder).itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
+        break;
+      case ArticleItem.TYPE.TOP_5:
+      case ArticleItem.TYPE.IMPORTANT:
+      case ArticleItem.TYPE.INTERNATIONAL:
+      case ArticleItem.TYPE.MUSIC:
+      case ArticleItem.TYPE.MAHAKIM:
+      case ArticleItem.TYPE.CULTURE:
+        Article regularArticle = (Article) article;
+
+        String imageRegular = regularArticle.getImage();
+        if (!TextUtils.isEmpty(imageRegular)) {
+          imageLoaderHelper.loadUrlImageThumb(imageRegular,
+              ((RegularNewsItemViewHolder) holder).ivImage);
+        }
+
+        ((RegularNewsItemViewHolder) holder).tvPreview.setText(regularArticle.getPreview());
+        ((RegularNewsItemViewHolder) holder).tvDate.setText(
+            getArticleDate(holder, regularArticle.getDate(), regularArticle.getTime()));
+        ((RegularNewsItemViewHolder) holder).tvAuthor.setText(regularArticle.getAuthor());
+        ((RegularNewsItemViewHolder) holder).itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(regularArticle.getId()));
+        break;
+      case ArticleItem.TYPE.SPORT:
+      case ArticleItem.TYPE.RASID:
+        Article regularImageArticle = (Article) article;
+
+        String imageRegularBig = regularImageArticle.getImage();
+        if (!TextUtils.isEmpty(imageRegularBig)) {
+          imageLoaderHelper.loadUrlImageThumb(imageRegularBig,
+              ((RegularNewsImageItemViewHolder) holder).ivImage);
+        }
+
+        ((RegularNewsImageItemViewHolder) holder).tvPreview.setText(
+            regularImageArticle.getPreview());
+        ((RegularNewsImageItemViewHolder) holder).tvTitle.setText(regularImageArticle.getTitle());
+        ((RegularNewsImageItemViewHolder) holder).tvDate.setText(
+            getArticleDate(holder, regularImageArticle.getDate(), regularImageArticle.getTime()));
+        ((RegularNewsImageItemViewHolder) holder).itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(regularImageArticle.getId()));
+        break;
+      case ArticleItem.TYPE.VIDEO_ARTICLE:
+        Article videoImageArticle = (Article) article;
+
+        String imageVideo = videoImageArticle.getImage();
+        if (!TextUtils.isEmpty(imageVideo)) {
+          imageLoaderHelper.loadUrlImageThumb(imageVideo,
+              ((VideoArticleItemViewHolder) holder).ivImage);
+        }
+
+        ((VideoArticleItemViewHolder) holder).tvPreview.setText(videoImageArticle.getPreview());
+        ((VideoArticleItemViewHolder) holder).tvTitle.setText(videoImageArticle.getTitle());
+        ((VideoArticleItemViewHolder) holder).tvAuthor.setText(videoImageArticle.getAuthor());
+        ((VideoArticleItemViewHolder) holder).tvDate.setText(
+            getArticleDate(holder, videoImageArticle.getDate(), videoImageArticle.getTime()));
+        break;
+      case ArticleItem.TYPE.VIDEO:
+        LinearLayoutManager videoLayoutManager =
+            new LinearLayoutManager(((VideoItemViewHolder) holder).itemView.getContext());
+        videoLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        ((VideoItemViewHolder) holder).rvVideoNews.setLayoutManager(videoLayoutManager);
+        ((VideoItemViewHolder) holder).rvVideoNews.addItemDecoration(
+            new HorizontalSpaceItemDecoration());
+        VideoSlideAdapter videoSlideAdapter = new VideoSlideAdapter(imageLoaderHelper);
+        ((VideoItemViewHolder) holder).rvVideoNews.setAdapter(videoSlideAdapter);
+        videoSlideAdapter.setVideos(videos);
+        break;
+      case ArticleItem.TYPE.GALLERY:
+        LinearLayoutManager galleryLayoutManager =
+            new LinearLayoutManager(((GalleryItemViewHolder) holder).itemView.getContext());
+        galleryLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        ((GalleryItemViewHolder) holder).rvGalleryNews.setLayoutManager(galleryLayoutManager);
+        ((GalleryItemViewHolder) holder).rvGalleryNews.addItemDecoration(
+            new HorizontalSpaceItemDecoration());
+        GallerySlideAdapter gallerySlideAdapter = new GallerySlideAdapter(imageLoaderHelper);
+        ((GalleryItemViewHolder) holder).rvGalleryNews.setAdapter(gallerySlideAdapter);
+        gallerySlideAdapter.setImages(gallery);
+        break;
+      case ArticleItem.TYPE.CATEGORY_HEADER:
+        CategoryHeader header = (CategoryHeader) getItem(position);
+        ((CategoryHeaderViewHolder) holder).tvTitle.setText(header.getTitle());
+        break;
+      default:
+        break;
     }
+  }
+
+  private String getArticleDate(HomeItemViewHolder holder, String date, String time) {
+    return holder.itemView.getContext().getString(R.string.date, time, date);
   }
 
   @Override public int getItemCount() {
     return articles.size();
   }
 
-  private Article getItem(int position) {
+  private ArticleItem getItem(int position) {
     return articles.get(position);
   }
 
-  public void setArticles(List<Article> articles) {
+  public void setArticles(HomeArticles articles) {
     this.articles.clear();
-    this.articles.addAll(articles);
+
+    this.articles.addAll(articles.getTop5Articles());
+
+    this.articles.add(new Video());
+    this.videos.clear();
+    this.videos.addAll(articles.getVideos());
+
+    this.articles.addAll(articles.getImportantArticles());
+    this.articles.add(articles.getVideoArticles().get(0));
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_international)));
+    this.articles.addAll(articles.getInternationalArticles());
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_sport)));
+    this.articles.addAll(articles.getSportArticles());
+    this.articles.add(articles.getVideoArticles().get(1));
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_music)));
+    this.articles.addAll(articles.getMusicArticles());
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_mahakim)));
+    this.articles.addAll(articles.getMahakimArticles());
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_culture)));
+    this.articles.addAll(articles.getCultureArticles());
+    this.articles.add(articles.getVideoArticles().get(2));
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_rasid)));
+    this.articles.addAll(articles.getRasidArticles());
+
+    this.articles.add(new Image());
+    this.gallery.clear();
+    this.gallery.addAll(articles.getGallery());
+
     notifyDataSetChanged();
   }
 
@@ -116,7 +263,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     TopNewsItemViewHolder(View itemView) {
       super(itemView);
-      ButterKnife.bind(this, itemView);
     }
   }
 
@@ -126,15 +272,53 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     RegularNewsItemViewHolder(View itemView) {
       super(itemView);
-      ButterKnife.bind(this, itemView);
     }
   }
 
-  class PhotoSlideItemViewHolder extends HomeItemViewHolder {
+  class RegularNewsImageItemViewHolder extends HomeItemViewHolder {
 
-    PhotoSlideItemViewHolder(View itemView) {
+    @BindView(R.id.tv_title) TextView tvTitle;
+    @BindView(R.id.tv_preview) TextView tvPreview;
+
+    RegularNewsImageItemViewHolder(View itemView) {
       super(itemView);
-      ButterKnife.bind(this, itemView);
+    }
+  }
+
+  class VideoArticleItemViewHolder extends HomeItemViewHolder {
+
+    @BindView(R.id.tv_title) TextView tvTitle;
+    @BindView(R.id.tv_preview) TextView tvPreview;
+
+    VideoArticleItemViewHolder(View itemView) {
+      super(itemView);
+    }
+  }
+
+  class VideoItemViewHolder extends HomeItemViewHolder {
+
+    @BindView(R.id.rv_video_news) RecyclerView rvVideoNews;
+
+    VideoItemViewHolder(View itemView) {
+      super(itemView);
+    }
+  }
+
+  class GalleryItemViewHolder extends HomeItemViewHolder {
+
+    @BindView(R.id.rv_gallery_news) RecyclerView rvGalleryNews;
+
+    GalleryItemViewHolder(View itemView) {
+      super(itemView);
+    }
+  }
+
+  class CategoryHeaderViewHolder extends HomeItemViewHolder {
+
+    @BindView(R.id.tv_title) TextView tvTitle;
+
+    CategoryHeaderViewHolder(View itemView) {
+      super(itemView);
     }
   }
 }

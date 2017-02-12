@@ -4,9 +4,9 @@ package inc.itnity.elbilad.domain.models.article;
  * Created by st1ch on 10.02.17.
  */
 
-public class ArticleVideo extends Article {
+public class ArticleTop5 extends Article {
   @Override
   public int getType() {
-    return TYPE.VIDEO_ARTICLE;
+    return TYPE.TOP_5;
   }
 }

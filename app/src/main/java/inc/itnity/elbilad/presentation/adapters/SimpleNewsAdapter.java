@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
@@ -28,11 +29,13 @@ public class SimpleNewsAdapter
   private List<Article> articles = new ArrayList<>();
 
   private ImageLoaderHelper imageLoaderHelper;
+  private ElbiladUtils elbiladUtils;
   private FragmentNavigator fragmentNavigator;
 
-  @Inject SimpleNewsAdapter(ImageLoaderHelper imageLoaderHelper,
+  @Inject SimpleNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
       FragmentNavigator fragmentNavigator) {
     this.imageLoaderHelper = imageLoaderHelper;
+    this.elbiladUtils = elbiladUtils;
     this.fragmentNavigator = fragmentNavigator;
   }
 
@@ -45,11 +48,11 @@ public class SimpleNewsAdapter
     Article article = getItem(position);
 
     if (!TextUtils.isEmpty(article.getImage())) {
-      imageLoaderHelper.loadUrlImage(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB +
-          article.getImage(), holder.ivAvatar);
+      imageLoaderHelper.loadUrlImage(
+          ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB + article.getImage(), holder.ivAvatar);
     }
 
-    holder.tvDate.setText(article.getDate());
+    holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
     holder.tvPreview.setText(article.getPreview());
 
     holder.itemView.setOnClickListener(

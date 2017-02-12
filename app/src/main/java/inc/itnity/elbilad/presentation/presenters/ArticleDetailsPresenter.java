@@ -8,5 +8,5 @@ import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
  */
 
 public interface ArticleDetailsPresenter extends IPresenter<ArticleDetailsView> {
-  void onCreate(int articleId);
+  void onCreate(String articleId);
 }

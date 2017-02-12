@@ -16,7 +16,7 @@ public class GetArticleUseCase extends UseCase<Article> {
   private ElbiladRepository elbiladRepository;
 
   private boolean refresh;
-  private int articleId;
+  private String articleId;
 
   @Inject
   GetArticleUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
@@ -29,7 +29,7 @@ public class GetArticleUseCase extends UseCase<Article> {
     this.refresh = refresh;
   }
 
-  public void setArticleId(int articleId) {
+  public void setArticleId(String articleId) {
     this.articleId = articleId;
   }
 

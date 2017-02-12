@@ -3,6 +3,7 @@ package inc.itnity.elbilad.utils;
 import android.content.Context;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
+import inc.itnity.elbilad.constants.ApiConfig;
 import javax.inject.Inject;
 
 public class ImageLoaderHelper {
@@ -47,6 +48,62 @@ public class ImageLoaderHelper {
 
   public void loadUrlImage(String imageUrl, ImageView targetImageView) {
     picasso.load(imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageUne(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNE + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageThumb(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageThumbCat(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB_CAT + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageLargeCat(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE_CAT + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageRep(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.REP + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageLarge(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageUneSlide(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNE_SLIDE + imageUrl)
+        .fit()
+        .centerCrop()
+        .into(targetImageView);
+  }
+
+  public void loadUrlImageUnethSlide(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNETH_SLIDE + imageUrl)
         .fit()
         .centerCrop()
         .into(targetImageView);

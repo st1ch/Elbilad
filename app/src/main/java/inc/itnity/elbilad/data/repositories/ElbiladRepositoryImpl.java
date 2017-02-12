@@ -8,6 +8,7 @@ import io.reactivecache.Provider;
 import io.reactivecache.ProviderGroup;
 import io.reactivecache.ReactiveCache;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import rx.Observable;
 
 /**
@@ -31,18 +32,19 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     this.homeArticlesCache = reactiveCache.<HomeArticles>provider().withKey("homeArticlesCache");
     this.categoryArticleListCache =
         reactiveCache.<List<Article>>providerGroup().withKey("categoryArticleListCache");
-    this.articleCache = reactiveCache.<Article>providerGroup().withKey("articleCache");
+    this.articleCache =
+        reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
   }
 
-  @Override public Observable<Boolean> loadCategoriesAndArticles(boolean refresh) {
+  @Override public Observable<Boolean> loadCategoriesAndHomeArticles(boolean refresh) {
     if (refresh) {
       return Observable.zip(remoteDataSource.getCategories().compose(categoryListCache.replace()),
-          remoteDataSource.getArticles().compose(articleListCache.replace()),
+          remoteDataSource.getHomeArticles().compose(homeArticlesCache.replace()),
           (categories, articles) -> true);
     }
     return Observable.zip(
         remoteDataSource.getCategories().compose(categoryListCache.readWithLoader()),
-        remoteDataSource.getArticles().compose(articleListCache.readWithLoader()),
+        remoteDataSource.getHomeArticles().compose(homeArticlesCache.readWithLoader()),
         (categories, articles) -> true);
   }
 
@@ -69,14 +71,14 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
 
   @Override public Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId) {
     if (refresh) {
-      return remoteDataSource.getCategorieArticles(categoryId)
+      return remoteDataSource.getCategoryArticles(categoryId)
           .compose(categoryArticleListCache.replace(categoryId));
     }
-    return remoteDataSource.getCategorieArticles(categoryId)
+    return remoteDataSource.getCategoryArticles(categoryId)
         .compose(categoryArticleListCache.readWithLoader(categoryId));
   }
 
-  @Override public Observable<Article> getArticle(boolean refresh, int articleId) {
+  @Override public Observable<Article> getArticle(boolean refresh, String articleId) {
     if (refresh) {
       return remoteDataSource.getArticle(articleId).compose(articleCache.replace(articleId));
     }

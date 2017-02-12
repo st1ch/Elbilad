@@ -23,14 +23,11 @@ import javax.inject.Inject;
 
 public class HomeFragment extends AbstractBaseFragment implements HomeScreenView {
 
-  @BindView(R.id.rv_news)
-  RecyclerView rvNews;
+  @BindView(R.id.rv_news) RecyclerView rvNews;
 
-  @Inject
-  HomeScreenPresenter presenter;
+  @Inject HomeScreenPresenter presenter;
 
-  @Inject
-  HomeAdapter adapter;
+  @Inject HomeAdapter adapter;
 
   public static HomeFragment newInstance() {
     return new HomeFragment();
@@ -69,6 +66,6 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
   }
 
   @Override public void showLoadedArticles(HomeArticles articles) {
-    //adapter.setArticles(articles);
+    adapter.setArticles(articles);
   }
 }

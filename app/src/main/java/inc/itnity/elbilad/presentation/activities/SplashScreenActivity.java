@@ -29,14 +29,12 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
 
   @Inject SplashScreenPresenter presenter;
 
-  private static SplashScreenComponent splashScreenComponent;
-
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
     ButterKnife.bind(this);
 
-    splashScreenComponent = DaggerSplashScreenComponent.builder()
+    SplashScreenComponent splashScreenComponent = DaggerSplashScreenComponent.builder()
         .applicationComponent(ElbiladApplication.getApplicationComponent())
         .activityContextModule(new ActivityContextModule(this))
         .build();
@@ -89,8 +87,8 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
   }
 
   private void showSnackbar(String message) {
-    final Snackbar
-        snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+    final Snackbar snackbar =
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
     snackbar.setAction(getResources().getString(R.string.okay), view -> snackbar.dismiss());
 
     snackbar.show();

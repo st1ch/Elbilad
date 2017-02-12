@@ -19,6 +19,7 @@ import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
+import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import javax.inject.Inject;
 
@@ -30,9 +31,9 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   private static final String ARG_ARTICLE_ID = "article_id_arg";
 
-  public static ArticleDetailsFragment newInstance(int articleId) {
+  public static ArticleDetailsFragment newInstance(String articleId) {
     Bundle args = new Bundle();
-    args.putInt(ARG_ARTICLE_ID, articleId);
+    args.putString(ARG_ARTICLE_ID, articleId);
     ArticleDetailsFragment fragment = new ArticleDetailsFragment();
     fragment.setArguments(args);
     return fragment;
@@ -46,6 +47,8 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   @BindView(R.id.tv_title_text) TextView tvTitleText;
 
   @Inject ImageLoaderHelper imageLoaderHelper;
+
+  @Inject ElbiladUtils elbiladUtils;
 
   @Inject ArticleDetailsPresenter presenter;
 
@@ -70,7 +73,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
       @Nullable Bundle savedInstanceState) {
     View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-    presenter.onCreate(getArguments().getInt(ARG_ARTICLE_ID));
+    presenter.onCreate(getArguments().getString(ARG_ARTICLE_ID));
 
     return rootView;
   }
@@ -85,7 +88,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
     tvTitle.setText(article.getTitle());
     tvTitleText.setText(article.getPreview());
     tvCategory.setText(article.getAuthor());
-    tvDate.setText(article.getDate());
+    tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
 
     if (!TextUtils.isEmpty(article.getImage())) {
       imageLoaderHelper.loadUrlImage(

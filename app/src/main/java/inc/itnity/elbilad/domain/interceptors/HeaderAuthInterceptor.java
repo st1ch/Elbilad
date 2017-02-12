@@ -18,9 +18,9 @@ public class HeaderAuthInterceptor implements Interceptor {
         Request request = chain.request();
         request = request.newBuilder()
                 .addHeader(ApiConfig.Authorization, ApiConfig.TOKEN)
-                .addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_JSON)
-                .addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_HAL_JSON)
-                .addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_ELBILAD)
+                //.addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_JSON)
+                //.addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_HAL_JSON)
+                //.addHeader(ApiConfig.Accept, ApiConfig.ACCEPT_ELBILAD)
                 .build();
         return chain.proceed(request);
     }

@@ -1,10 +1,9 @@
 package inc.itnity.elbilad.data.rest.api;
 
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleData;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
-import inc.itnity.elbilad.domain.models.categorie.CategoryData;
-import inc.itnity.elbilad.domain.models.responses.BaseResponse;
+import inc.itnity.elbilad.domain.models.categorie.Category;
+import java.util.List;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -25,15 +24,15 @@ public interface ElbiladAPI {
   String ARTICLE_ID = "article_id";
   String PATH_ARTICLE_ID = "/{" + ARTICLE_ID + "}";
 
-  @GET(CATEGORIE) Observable<BaseResponse<CategoryData>> getCategories();
+  @GET(CATEGORIE) Observable<List<Category>> getCategories();
 
   @GET(HOME_ARTICLES) Observable<HomeArticles> getHomeArticles();
 
-  @GET(ARTICLE) Observable<BaseResponse<ArticleData>> getArticles();
+  @GET(ARTICLE) Observable<List<Article>> getArticles();
 
-  @GET(ARTICLE) Observable<BaseResponse<ArticleData>> getCategoryArticles(
+  @GET(ARTICLE) Observable<List<Article>> getCategoryArticles(
       @Query(CATEGORIE_ID) int categoryId);
 
-  @GET(ARTICLE + PATH_ARTICLE_ID) Observable<Article> getArticle(
-      @Path(ARTICLE_ID) int articleId);
+  @GET(ARTICLE + PATH_ARTICLE_ID) Observable<List<Article>> getArticle(
+      @Path(ARTICLE_ID) String articleId);
 }

@@ -16,4 +16,11 @@
   <string name="settings">خيارات</string>
   <string name="about">الاعدادت</string>
   <string name="preferences">الخصوصية</string>
+  <string name="date">%1$s | %2$s</string>
+  <string name="news_title_international">الدولي</string>
+  <string name="news_title_sport">الرياضي</string>
+  <string name="news_title_music">منوعات</string>
+  <string name="news_title_mahakim">محاكم</string>
+  <string name="news_title_culture">الثقافي</string>
+  <string name="news_title_rasid">الراصد</string>
 </resources>

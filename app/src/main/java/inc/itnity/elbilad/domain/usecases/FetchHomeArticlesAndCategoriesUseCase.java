@@ -10,14 +10,13 @@ import rx.Observable;
  * Created by st1ch on 17.01.17.
  */
 
-public class FetchArticlesAndCategoriesUseCase extends UseCase<Boolean>{
+public class FetchHomeArticlesAndCategoriesUseCase extends UseCase<Boolean> {
 
   private ElbiladRepository elbiladRepository;
 
   private boolean refresh;
 
-  @Inject
-  FetchArticlesAndCategoriesUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
+  @Inject FetchHomeArticlesAndCategoriesUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
       ElbiladRepository elbiladRepository) {
     super(subscribeOn, observeOn);
     this.elbiladRepository = elbiladRepository;
@@ -28,6 +27,6 @@ public class FetchArticlesAndCategoriesUseCase extends UseCase<Boolean>{
   }
 
   @Override protected Observable<Boolean> getUseCaseObservable() {
-    return elbiladRepository.loadCategoriesAndArticles(refresh);
+    return elbiladRepository.loadCategoriesAndHomeArticles(refresh);
   }
 }

@@ -1,7 +1,7 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
-import inc.itnity.elbilad.domain.usecases.FetchArticlesAndCategoriesUseCase;
+import inc.itnity.elbilad.domain.usecases.FetchHomeArticlesAndCategoriesUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.SplashScreenView;
 
@@ -12,11 +12,11 @@ import inc.itnity.elbilad.presentation.views.SplashScreenView;
 public class SplashScreenPresenterImpl extends ProgressConnectionPresenter<SplashScreenView>
     implements SplashScreenPresenter {
 
-  private FetchArticlesAndCategoriesUseCase fetchArticlesAndCategoriesUseCase;
+  private FetchHomeArticlesAndCategoriesUseCase fetchHomeArticlesAndCategoriesUseCase;
 
   public SplashScreenPresenterImpl(
-      FetchArticlesAndCategoriesUseCase fetchArticlesAndCategoriesUseCase) {
-    this.fetchArticlesAndCategoriesUseCase = fetchArticlesAndCategoriesUseCase;
+      FetchHomeArticlesAndCategoriesUseCase fetchHomeArticlesAndCategoriesUseCase) {
+    this.fetchHomeArticlesAndCategoriesUseCase = fetchHomeArticlesAndCategoriesUseCase;
   }
 
   @Override public void onCreate() {
@@ -24,21 +24,20 @@ public class SplashScreenPresenterImpl extends ProgressConnectionPresenter<Splas
       checkViewBound();
       checkConnection();
 
-      fetchArticlesAndCategoriesUseCase.setRefresh(true);
-      fetchArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
+      fetchHomeArticlesAndCategoriesUseCase.setRefresh(true);
+      fetchHomeArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();
     } catch (ConnectionException e) {
       e.printStackTrace();
 
-      fetchArticlesAndCategoriesUseCase.setRefresh(false);
-      fetchArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
+      fetchHomeArticlesAndCategoriesUseCase.setRefresh(false);
+      fetchHomeArticlesAndCategoriesUseCase.execute(fetchDataSubscriber());
     }
-
   }
 
   @Override public void onDestroy() {
-    fetchArticlesAndCategoriesUseCase.unsubscribe();
+    fetchHomeArticlesAndCategoriesUseCase.unsubscribe();
     super.onDestroy();
   }
 

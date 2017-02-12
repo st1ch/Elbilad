@@ -48,7 +48,9 @@ public class ApplicationModule {
   }
 
   @Provides @Singleton Gson provideGson() {
-    return new GsonBuilder().serializeNulls().create();
+    return new GsonBuilder()
+        .serializeNulls()
+        .create();
   }
 
   @Provides @Singleton ApiManager provideApiManager(Gson gson) {

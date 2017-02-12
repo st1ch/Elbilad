@@ -1,32 +1,31 @@
 package inc.itnity.elbilad.domain.models.article;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.Date;
 
 /**
  * Created by st1ch on 15.01.17.
  */
 
-public class Article {
+public class Article implements ArticleItem {
 
-  @SerializedName("id") private int id;
-  @SerializedName("titre") private String title;
-  @SerializedName("categorie_id") private int categoryId;
-  @SerializedName("categorie_titre") private int categoryTitle;
-  @SerializedName("date") private Date date;
-  @SerializedName("image") private String image;
-  @SerializedName("imageText") private String imageText;
-  @SerializedName("auteur") private String author;
-  @SerializedName("resume") private String preview;
-  @SerializedName("text") private String text;
-  @SerializedName("youtube_code") private String youtubeCode;
+  @SerializedName("id") protected String id;
+  @SerializedName("titre") protected String title;
+  @SerializedName("categorie_id") protected int categoryId;
+  @SerializedName("categorie_titre") protected String categoryTitle;
+  @SerializedName("date") protected String date;
+  @SerializedName("image") protected String image;
+  @SerializedName("imageText") protected String imageText;
+  @SerializedName("auteur") protected String author;
+  @SerializedName("resume") protected String preview;
+  @SerializedName("text") protected String text;
+  @SerializedName("youtube_code") protected String youtubeCode;
   //@SerializedName("_links") private Links links;
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -46,19 +45,23 @@ public class Article {
     this.categoryId = categoryId;
   }
 
-  public int getCategoryTitle() {
+  public String getCategoryTitle() {
     return categoryTitle;
   }
 
-  public void setCategoryTitle(int categoryTitle) {
+  public void setCategoryTitle(String categoryTitle) {
     this.categoryTitle = categoryTitle;
   }
 
-  public Date getDate() {
-    return date;
+  public String getDate() {
+    return date.split("T")[0];
   }
 
-  public void setDate(Date date) {
+  public String getTime() {
+    return date.split("T")[1].split("\\+")[0];
+  }
+
+  public void setDate(String date) {
     this.date = date;
   }
 
@@ -142,5 +145,9 @@ public class Article {
         + youtubeCode
         + '\''
         + '}';
+  }
+
+  @Override public int getType() {
+    return -1;
   }
 }

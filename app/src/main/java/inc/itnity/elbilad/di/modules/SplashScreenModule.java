@@ -2,7 +2,7 @@ package inc.itnity.elbilad.di.modules;
 
 import dagger.Module;
 import dagger.Provides;
-import inc.itnity.elbilad.domain.usecases.FetchArticlesAndCategoriesUseCase;
+import inc.itnity.elbilad.domain.usecases.FetchHomeArticlesAndCategoriesUseCase;
 import inc.itnity.elbilad.presentation.presenters.SplashScreenPresenter;
 import inc.itnity.elbilad.presentation.presenters.SplashScreenPresenterImpl;
 
@@ -12,7 +12,7 @@ import inc.itnity.elbilad.presentation.presenters.SplashScreenPresenterImpl;
 @Module public class SplashScreenModule {
 
   @Provides SplashScreenPresenter provideSplashScreenPresenter(
-      FetchArticlesAndCategoriesUseCase fetchArticlesAndCategoriesUseCase) {
-    return new SplashScreenPresenterImpl(fetchArticlesAndCategoriesUseCase);
+      FetchHomeArticlesAndCategoriesUseCase fetchHomeArticlesAndCategoriesUseCase) {
+    return new SplashScreenPresenterImpl(fetchHomeArticlesAndCategoriesUseCase);
   }
 }

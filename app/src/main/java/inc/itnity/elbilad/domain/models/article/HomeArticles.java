@@ -8,101 +8,110 @@ import java.util.List;
  */
 
 public class HomeArticles {
-  @SerializedName("articleSlide") private List<Article> slideArticles;
-  @SerializedName("important") private List<Article> importantArticles;
-  @SerializedName("articleVideo") private List<Article> videoArticles;
-  @SerializedName("international") private List<Article> internationalArticles;
-  @SerializedName("sport") private List<Article> sportArticles;
-  @SerializedName("musique") private List<Article> musiqueArticles;
-  @SerializedName("culture") private List<Article> cultureArticles;
-  @SerializedName("rasid") private List<Article> rasidArticles;
-  @SerializedName("mahakim") private List<Article> mahakimArticles;
-  @SerializedName("video") private List<ArticleVideo> videos;
+  @SerializedName("articleSlide") private List<ArticleTop5> top5Articles;
+  @SerializedName("important") private List<ArticleImportant> importantArticles;
+  @SerializedName("articleVideo") private List<ArticleVideo> videoArticles;
+  @SerializedName("international") private List<ArticleInternational> internationalArticles;
+  @SerializedName("sport") private List<ArticleSport> sportArticles;
+  @SerializedName("musique") private List<ArticleMusic> musicArticles;
+  @SerializedName("culture") private List<ArticleCulture> cultureArticles;
+  @SerializedName("rasid") private List<ArticleRasid> rasidArticles;
+  @SerializedName("mahakim") private List<ArticleMahakim> mahakimArticles;
+  @SerializedName("video") private List<Video> videos;
+  @SerializedName("galerie") private List<Image> gallery;
 
-  public List<Article> getSlideArticles() {
-    return slideArticles;
+  public List<ArticleTop5> getTop5Articles() {
+    return top5Articles;
   }
 
-  public void setSlideArticles(List<Article> slideArticles) {
-    this.slideArticles = slideArticles;
+  public void setTop5Articles(List<ArticleTop5> top5Articles) {
+    this.top5Articles = top5Articles;
   }
 
-  public List<Article> getImportantArticles() {
+  public List<ArticleImportant> getImportantArticles() {
     return importantArticles;
   }
 
-  public void setImportantArticles(List<Article> importantArticles) {
+  public void setImportantArticles(List<ArticleImportant> importantArticles) {
     this.importantArticles = importantArticles;
   }
 
-  public List<Article> getVideoArticles() {
+  public List<ArticleVideo> getVideoArticles() {
     return videoArticles;
   }
 
-  public void setVideoArticles(List<Article> videoArticles) {
+  public void setVideoArticles(List<ArticleVideo> videoArticles) {
     this.videoArticles = videoArticles;
   }
 
-  public List<Article> getInternationalArticles() {
+  public List<ArticleInternational> getInternationalArticles() {
     return internationalArticles;
   }
 
-  public void setInternationalArticles(List<Article> internationalArticles) {
+  public void setInternationalArticles(List<ArticleInternational> internationalArticles) {
     this.internationalArticles = internationalArticles;
   }
 
-  public List<Article> getSportArticles() {
+  public List<ArticleSport> getSportArticles() {
     return sportArticles;
   }
 
-  public void setSportArticles(List<Article> sportArticles) {
+  public void setSportArticles(List<ArticleSport> sportArticles) {
     this.sportArticles = sportArticles;
   }
 
-  public List<Article> getMusiqueArticles() {
-    return musiqueArticles;
+  public List<ArticleMusic> getMusicArticles() {
+    return musicArticles;
   }
 
-  public void setMusiqueArticles(List<Article> musiqueArticles) {
-    this.musiqueArticles = musiqueArticles;
+  public void setMusicArticles(List<ArticleMusic> musicArticles) {
+    this.musicArticles = musicArticles;
   }
 
-  public List<Article> getCultureArticles() {
+  public List<ArticleCulture> getCultureArticles() {
     return cultureArticles;
   }
 
-  public void setCultureArticles(List<Article> cultureArticles) {
+  public void setCultureArticles(List<ArticleCulture> cultureArticles) {
     this.cultureArticles = cultureArticles;
   }
 
-  public List<Article> getRasidArticles() {
+  public List<ArticleRasid> getRasidArticles() {
     return rasidArticles;
   }
 
-  public void setRasidArticles(List<Article> rasidArticles) {
+  public void setRasidArticles(List<ArticleRasid> rasidArticles) {
     this.rasidArticles = rasidArticles;
   }
 
-  public List<Article> getMahakimArticles() {
+  public List<ArticleMahakim> getMahakimArticles() {
     return mahakimArticles;
   }
 
-  public void setMahakimArticles(List<Article> mahakimArticles) {
+  public void setMahakimArticles(List<ArticleMahakim> mahakimArticles) {
     this.mahakimArticles = mahakimArticles;
   }
 
-  public List<ArticleVideo> getVideos() {
+  public List<Video> getVideos() {
     return videos;
   }
 
-  public void setVideos(List<ArticleVideo> videos) {
+  public void setVideos(List<Video> videos) {
     this.videos = videos;
+  }
+
+  public List<Image> getGallery() {
+    return gallery;
+  }
+
+  public void setGallery(List<Image> gallery) {
+    this.gallery = gallery;
   }
 
   @Override public String toString() {
     return "HomeArticles{"
-        + "slideArticles="
-        + slideArticles
+        + "top5Articles="
+        + top5Articles
         + ", importantArticles="
         + importantArticles
         + ", videoArticles="
@@ -111,8 +120,8 @@ public class HomeArticles {
         + internationalArticles
         + ", sportArticles="
         + sportArticles
-        + ", musiqueArticles="
-        + musiqueArticles
+        + ", musicArticles="
+        + musicArticles
         + ", cultureArticles="
         + cultureArticles
         + ", rasidArticles="
@@ -121,6 +130,8 @@ public class HomeArticles {
         + mahakimArticles
         + ", videos="
         + videos
+        + ", gallery="
+        + gallery
         + '}';
   }
 }
