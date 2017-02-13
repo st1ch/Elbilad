@@ -54,16 +54,16 @@ import javax.inject.Singleton;
   private void open(Fragment fragment) {
     if (fragmentManager != null) {
       String tag = fragment.getClass().getName();
-      Fragment fragmentByTag = fragmentManager.findFragmentByTag(tag);
+      //Fragment fragmentByTag = fragmentManager.findFragmentByTag(tag);
 
-      if (fragmentByTag != null && fragmentByTag.getClass().equals(fragment.getClass())) {
-        fragmentManager.popBackStackImmediate(tag, 0);
-      } else {
+      //if (fragmentByTag != null && fragmentByTag.getClass().equals(fragment.getClass())) {
+      //  fragmentManager.popBackStackImmediate(tag, 0);
+      //} else {
         fragmentManager.beginTransaction()
             .replace(R.id.content_main, fragment, tag)
             .addToBackStack(tag)
             .commit();
-      }
+      //}
     }
   }
 

@@ -2,6 +2,7 @@ package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
 import rx.Observable;
@@ -23,4 +24,8 @@ public interface ElbiladRepository {
   Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId);
 
   Observable<Article> getArticle(boolean refresh, String articleId);
+
+  Observable<List<Video>> getVideoList(boolean refresh);
+
+  Observable<List<Article>> getLastNews(boolean refresh);
 }

@@ -3,6 +3,7 @@ package inc.itnity.elbilad.data.repositories;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import io.reactivecache.Provider;
 import io.reactivecache.ProviderGroup;
@@ -20,6 +21,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private ElbiladRemoteDataSource remoteDataSource;
   private final Provider<List<Category>> categoryListCache;
   private final Provider<List<Article>> articleListCache;
+  private final Provider<List<Article>> lastNewsCache;
   private final Provider<HomeArticles> homeArticlesCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
   private final ProviderGroup<Article> articleCache;
@@ -31,9 +33,11 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     this.articleListCache = reactiveCache.<List<Article>>provider().withKey("articleListCache");
     this.homeArticlesCache = reactiveCache.<HomeArticles>provider().withKey("homeArticlesCache");
     this.categoryArticleListCache =
-        reactiveCache.<List<Article>>providerGroup().withKey("categoryArticleListCache");
+        reactiveCache.<List<Article>>providerGroup().lifeCache(1, TimeUnit.DAYS)
+            .withKey("categoryArticleListCache");
     this.articleCache =
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
+    this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndHomeArticles(boolean refresh) {
@@ -83,5 +87,19 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getArticle(articleId).compose(articleCache.replace(articleId));
     }
     return remoteDataSource.getArticle(articleId).compose(articleCache.readWithLoader(articleId));
+  }
+
+  @Override public Observable<List<Video>> getVideoList(boolean refresh) {
+    if (refresh) {
+      return getHomeArticles(true).map(HomeArticles::getVideos);
+    }
+    return getHomeArticles(false).map(HomeArticles::getVideos);
+  }
+
+  @Override public Observable<List<Article>> getLastNews(boolean refresh) {
+    if (refresh) {
+      return remoteDataSource.getLastNews().compose(lastNewsCache.replace());
+    }
+    return remoteDataSource.getLastNews().compose(lastNewsCache.readWithLoader());
   }
 }

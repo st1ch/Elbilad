@@ -23,7 +23,7 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintLeft_toRightOf="@+id/view_left"
       app:layout_constraintRight_toLeftOf="@+id/view_right"
-      tools:text="blablabla"
+      android:text="@string/last_news"
       />
 
   <View

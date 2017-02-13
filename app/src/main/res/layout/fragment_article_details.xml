@@ -8,6 +8,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
+      android:background="@color/news_bg"
       >
 
     <include layout="@layout/item_detail_news_top" />
@@ -19,6 +20,25 @@
         android:gravity="right"
         android:textColor="@color/text_dark_grey_hint"
         android:textSize="22sp"
+        android:background="@android:color/white"
+        android:paddingLeft="@dimen/space_16dp"
+        android:paddingRight="@dimen/space_16dp"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        />
+
+    <include layout="@layout/item_home_news_category_header"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_last_news"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         />
 
   </LinearLayout>

@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.data.repositories.remote;
 
+import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
@@ -37,5 +38,9 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
 
   @Override public Observable<Article> getArticle(String articleId) {
     return elbiladAPI.getArticle(articleId).map(article -> article.get(0));
+  }
+
+  @Override public Observable<List<Article>> getLastNews() {
+    return elbiladAPI.getLastNews(ApiConfig.LAST_NEWS_LIMIT);
   }
 }

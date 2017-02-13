@@ -14,6 +14,7 @@ import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 /**
  * Created by st1ch on 10.02.17.
@@ -25,6 +26,7 @@ public class VideoSlideAdapter extends RecyclerView.Adapter<VideoSlideAdapter.Vi
 
   private List<Video> videos = new ArrayList<>();
 
+  @Inject
   public VideoSlideAdapter(ImageLoaderHelper imageLoaderHelper) {
     this.imageLoaderHelper = imageLoaderHelper;
   }

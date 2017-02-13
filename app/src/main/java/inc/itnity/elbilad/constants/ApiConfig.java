@@ -27,5 +27,6 @@ public interface ApiConfig {
   String UNETH_SLIDE = "unethSlide-"; // 230x163
 
   int LAST_NEWS_CATEGORY_ID = 28;
+  int LAST_NEWS_LIMIT = 6;
 
 }

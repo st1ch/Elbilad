@@ -7,6 +7,8 @@ import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetLastNewsArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
@@ -23,7 +25,8 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
  */
 @Module public class MainActivityModule {
 
-  @Provides HomeScreenPresenter provideHomeScreenPresenter(GetHomeArticlesUseCase getHomeArticlesUseCase) {
+  @Provides HomeScreenPresenter provideHomeScreenPresenter(
+      GetHomeArticlesUseCase getHomeArticlesUseCase) {
     return new HomeScreenPresenterImpl(getHomeArticlesUseCase);
   }
 
@@ -42,7 +45,9 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
   }
 
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
-      GetArticleUseCase getArticleUseCase) {
-    return new ArticleDetailsPresenterImpl(getArticleUseCase);
+      GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
+      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase) {
+    return new ArticleDetailsPresenterImpl(getArticleUseCase, getLastVideosUseCase,
+        getLastNewsArticlesUseCase);
   }
 }

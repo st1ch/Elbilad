@@ -21,4 +21,6 @@ public interface ElbiladRemoteDataSource {
   Observable<List<Article>> getCategoryArticles(int categoryId);
 
   Observable<Article> getArticle(String articleId);
+
+  Observable<List<Article>> getLastNews();
 }

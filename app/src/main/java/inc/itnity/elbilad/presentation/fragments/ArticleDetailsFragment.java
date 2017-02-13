@@ -2,6 +2,8 @@ package inc.itnity.elbilad.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,13 +16,19 @@ import butterknife.OnClick;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
+import inc.itnity.elbilad.presentation.adapters.SimpleNewsAdapter;
+import inc.itnity.elbilad.presentation.adapters.VideoSlideAdapter;
+import inc.itnity.elbilad.presentation.custom.HorizontalSpaceItemDecoration;
+import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
 import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -46,11 +54,18 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   @BindView(R.id.iv_image) ImageView ivImage;
   @BindView(R.id.tv_title_text) TextView tvTitleText;
 
+  @BindView(R.id.rv_video) RecyclerView rvVideo;
+  @BindView(R.id.rv_last_news) RecyclerView rvLastNews;
+
   @Inject ImageLoaderHelper imageLoaderHelper;
 
   @Inject ElbiladUtils elbiladUtils;
 
   @Inject ArticleDetailsPresenter presenter;
+
+  @Inject VideoSlideAdapter videoSlideAdapter;
+
+  @Inject SimpleNewsAdapter simpleNewsAdapter;
 
   @Override public int getContentView() {
     return R.layout.fragment_article_details;
@@ -94,5 +109,23 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
       imageLoaderHelper.loadUrlImage(
           ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + article.getImage(), ivImage);
     }
+  }
+
+  @Override public void showVideoNews(List<Video> videos) {
+    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+    layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+    rvVideo.setLayoutManager(layoutManager);
+    rvVideo.addItemDecoration(new HorizontalSpaceItemDecoration());
+    rvVideo.setAdapter(videoSlideAdapter);
+
+    videoSlideAdapter.setVideos(videos);
+  }
+
+  @Override public void showLastNews(List<Article> articles) {
+    rvLastNews.setLayoutManager(new LinearLayoutManager(getActivity()));
+    rvLastNews.addItemDecoration(new VerticalSpaceItemDecoration());
+    rvLastNews.setAdapter(simpleNewsAdapter);
+
+    simpleNewsAdapter.setArticles(articles);
   }
 }

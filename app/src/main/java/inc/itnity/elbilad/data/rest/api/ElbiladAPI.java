@@ -19,10 +19,13 @@ public interface ElbiladAPI {
   String CATEGORIE = "/categorie";
 
   String HOME_ARTICLES = "/home-requests";
+  String LAST_NEWS = "/bloc?type=last";
 
   String CATEGORIE_ID = "categorie_id";
   String ARTICLE_ID = "article_id";
   String PATH_ARTICLE_ID = "/{" + ARTICLE_ID + "}";
+
+  String LIMIT = "limit";
 
   @GET(CATEGORIE) Observable<List<Category>> getCategories();
 
@@ -35,4 +38,6 @@ public interface ElbiladAPI {
 
   @GET(ARTICLE + PATH_ARTICLE_ID) Observable<List<Article>> getArticle(
       @Path(ARTICLE_ID) String articleId);
+
+  @GET(ARTICLE + LAST_NEWS) Observable<List<Article>> getLastNews(@Query(LIMIT) int limit);
 }
