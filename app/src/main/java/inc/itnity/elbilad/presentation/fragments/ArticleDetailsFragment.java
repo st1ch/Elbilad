@@ -96,6 +96,10 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   @OnClick(R.id.iv_share) protected void onShareClick() {
   }
 
+  @Override public void showAddedToBookmarks() {
+    super.showSnackbarMessage(getString(R.string.added_to_bookmarks));
+  }
+
   @Override public void showArticle(Article article) {
     ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getTitle());
 
@@ -109,6 +113,9 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
       imageLoaderHelper.loadUrlImage(
           ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + article.getImage(), ivImage);
     }
+
+    ((AbstractBaseActivity) getActivity()).setOnBookmarkClickListener(
+        v -> presenter.addToBookmarks(article));
   }
 
   @Override public void showVideoNews(List<Video> videos) {

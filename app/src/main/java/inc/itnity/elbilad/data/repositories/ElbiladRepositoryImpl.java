@@ -8,6 +8,7 @@ import inc.itnity.elbilad.domain.models.categorie.Category;
 import io.reactivecache.Provider;
 import io.reactivecache.ProviderGroup;
 import io.reactivecache.ReactiveCache;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import rx.Observable;
@@ -25,6 +26,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final Provider<HomeArticles> homeArticlesCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
   private final ProviderGroup<Article> articleCache;
+  private final Provider<List<Article>> bookmarkedArticlesCache;
 
   public ElbiladRepositoryImpl(ElbiladRemoteDataSource remoteDataSource,
       ReactiveCache reactiveCache) {
@@ -38,6 +40,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     this.articleCache =
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
     this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
+    this.bookmarkedArticlesCache = reactiveCache.<List<Article>>provider().withKey("bookmarks");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndHomeArticles(boolean refresh) {
@@ -101,5 +104,21 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getLastNews().compose(lastNewsCache.replace());
     }
     return remoteDataSource.getLastNews().compose(lastNewsCache.readWithLoader());
+  }
+
+  @Override public Observable<Article> addToBookmark(Article article) {
+    return bookmarkedArticlesCache.readNullable().map(articles -> {
+      if (articles == null) {
+        articles = new ArrayList<>();
+      }
+      return articles;
+    }).map(articles -> {
+      articles.add(article);
+      return articles;
+    }).compose(bookmarkedArticlesCache.replace()).map(articles -> article);
+  }
+
+  @Override public Observable<List<Article>> getBookmarks() {
+    return bookmarkedArticlesCache.readNullable();
   }
 }

@@ -10,6 +10,9 @@ import java.util.List;
  */
 
 public interface ArticleDetailsView extends ConnectionView {
+
+  void showAddedToBookmarks();
+
   void showArticle(Article article);
 
   void showVideoNews(List<Video> videos);

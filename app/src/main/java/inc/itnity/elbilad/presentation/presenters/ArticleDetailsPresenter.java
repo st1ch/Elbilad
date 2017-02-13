@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.presenters;
 
+import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.presentation.presenters.base.IPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
 
@@ -9,4 +10,6 @@ import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
 
 public interface ArticleDetailsPresenter extends IPresenter<ArticleDetailsView> {
   void onCreate(String articleId);
+
+  void addToBookmarks(Article article);
 }

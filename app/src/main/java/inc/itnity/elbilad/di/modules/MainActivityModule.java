@@ -3,6 +3,7 @@ package inc.itnity.elbilad.di.modules;
 import dagger.Module;
 import dagger.Provides;
 import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
+import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
@@ -46,8 +47,9 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
 
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
       GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
-      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase) {
+      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase,
+      AddBookmarkUseCase addBookmarkUseCase) {
     return new ArticleDetailsPresenterImpl(getArticleUseCase, getLastVideosUseCase,
-        getLastNewsArticlesUseCase);
+        getLastNewsArticlesUseCase, addBookmarkUseCase);
   }
 }

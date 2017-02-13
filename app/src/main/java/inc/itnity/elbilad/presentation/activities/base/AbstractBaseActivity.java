@@ -107,6 +107,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     }
   }
 
+  public void setOnBookmarkClickListener(View.OnClickListener onBookmarkClickListener) {
+    toolbarDetailsViewHolder.ivBookmark.setOnClickListener(onBookmarkClickListener);
+  }
+
   @Override public boolean onOptionsItemSelected(MenuItem item) {
 
     int id = item.getItemId();

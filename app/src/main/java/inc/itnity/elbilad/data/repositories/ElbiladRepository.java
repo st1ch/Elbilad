@@ -28,4 +28,8 @@ public interface ElbiladRepository {
   Observable<List<Video>> getVideoList(boolean refresh);
 
   Observable<List<Article>> getLastNews(boolean refresh);
+
+  Observable<Article> addToBookmark(Article article);
+
+  Observable<List<Article>> getBookmarks();
 }

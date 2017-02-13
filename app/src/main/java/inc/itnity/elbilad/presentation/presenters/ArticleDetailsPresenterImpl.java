@@ -3,6 +3,7 @@ package inc.itnity.elbilad.presentation.presenters;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
+import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastNewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
@@ -20,13 +21,16 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
   private GetArticleUseCase getArticleUseCase;
   private GetLastVideosUseCase getLastVideosUseCase;
   private GetLastNewsArticlesUseCase getLastNewsArticlesUseCase;
+  private AddBookmarkUseCase addBookmarkUseCase;
 
   public ArticleDetailsPresenterImpl(GetArticleUseCase getArticleUseCase,
       GetLastVideosUseCase getLastVideosUseCase,
-      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase) {
+      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase,
+      AddBookmarkUseCase addBookmarkUseCase) {
     this.getArticleUseCase = getArticleUseCase;
     this.getLastVideosUseCase = getLastVideosUseCase;
     this.getLastNewsArticlesUseCase = getLastNewsArticlesUseCase;
+    this.addBookmarkUseCase = addBookmarkUseCase;
   }
 
   @Override public void onCreate(String articleId) {
@@ -59,10 +63,16 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     }
   }
 
+  @Override public void addToBookmarks(Article article) {
+    addBookmarkUseCase.setArticle(article);
+    addBookmarkUseCase.execute(addBookmarkSubscriber());
+  }
+
   @Override public void onDestroy() {
     getArticleUseCase.unsubscribe();
     getLastNewsArticlesUseCase.unsubscribe();
     getLastVideosUseCase.unsubscribe();
+    addBookmarkUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -75,6 +85,22 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
           checkViewBound();
 
           getView().showArticle(article);
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
+
+  private BaseProgressSubscriber<Article> addBookmarkSubscriber() {
+    return new BaseProgressSubscriber<Article>(this) {
+      @Override public void onNext(Article article) {
+        super.onNext(article);
+
+        try {
+          checkViewBound();
+
+          getView().showAddedToBookmarks();
         } catch (ViewNotBoundException e) {
           e.printStackTrace();
         }
