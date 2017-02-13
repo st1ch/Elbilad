@@ -40,7 +40,7 @@ public class VideoSlideAdapter extends RecyclerView.Adapter<VideoSlideAdapter.Vi
     Video video = getItem(position);
 
     if (!TextUtils.isEmpty(video.getImage())) {
-      imageLoaderHelper.loadUrlImageThumb(video.getImage(), holder.ivImage);
+      imageLoaderHelper.loadUrlImageUne(video.getImage(), holder.ivImage);
     }
 
     holder.tvTitle.setText(video.getTitle());

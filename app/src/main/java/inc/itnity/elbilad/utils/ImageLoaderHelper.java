@@ -3,6 +3,7 @@ package inc.itnity.elbilad.utils;
 import android.content.Context;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
+import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
 import javax.inject.Inject;
 
@@ -50,6 +51,7 @@ public class ImageLoaderHelper {
     picasso.load(imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -57,6 +59,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNE + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -64,6 +67,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -71,6 +75,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB_CAT + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -78,6 +83,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE_CAT + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -85,6 +91,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.REP + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -92,6 +99,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -99,6 +107,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNE_SLIDE + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
@@ -106,6 +115,7 @@ public class ImageLoaderHelper {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNETH_SLIDE + imageUrl)
         .fit()
         .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
         .into(targetImageView);
   }
 
