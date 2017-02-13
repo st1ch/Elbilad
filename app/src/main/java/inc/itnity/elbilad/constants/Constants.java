@@ -5,5 +5,5 @@ package inc.itnity.elbilad.constants;
  */
 
 public interface Constants {
-  int STATIC_TABS_COUNT = 6;
+  int STATIC_TABS_COUNT = 5;
 }

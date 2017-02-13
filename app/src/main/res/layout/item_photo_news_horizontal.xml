@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="@dimen/video_horizontal_width"
     android:layout_height="@dimen/video_horizontal_height"
+    android:layout_marginTop="@dimen/space_8dp"
     android:orientation="vertical"
     >
 

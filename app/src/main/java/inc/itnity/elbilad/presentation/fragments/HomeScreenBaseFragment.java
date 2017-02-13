@@ -42,6 +42,7 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     ((AbstractBaseActivity) getActivity()).showHomeToolbar();
+    ((AbstractBaseActivity) getActivity()).showTitleLogo();
 
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 

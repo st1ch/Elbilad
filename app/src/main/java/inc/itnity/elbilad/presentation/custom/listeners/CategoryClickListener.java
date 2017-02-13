@@ -5,5 +5,5 @@ package inc.itnity.elbilad.presentation.custom.listeners;
  */
 
 public interface CategoryClickListener {
-  void onCategoryClick(int position);
+  void onCategoryClick(int position, int categoryId, String categoryName);
 }

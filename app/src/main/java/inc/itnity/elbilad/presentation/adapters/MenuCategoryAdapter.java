@@ -37,7 +37,9 @@ public class MenuCategoryAdapter
     Category category = getItem(position);
 
     holder.tvCategoryName.setText(category.getTitle());
-    holder.itemView.setOnClickListener(v -> categoryClickListener.onCategoryClick(position));
+    holder.itemView.setOnClickListener(
+        v -> categoryClickListener.onCategoryClick(position, category.getId(),
+            category.getTitle()));
   }
 
   @Override public int getItemCount() {

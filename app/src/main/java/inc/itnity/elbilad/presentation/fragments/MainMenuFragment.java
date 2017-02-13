@@ -21,8 +21,6 @@ import inc.itnity.elbilad.utils.FragmentNavigator;
 import java.util.List;
 import javax.inject.Inject;
 
-import static inc.itnity.elbilad.constants.Constants.STATIC_TABS_COUNT;
-
 /**
  * Created by st1ch on 14.01.17.
  */
@@ -54,11 +52,10 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
     rvCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvCategories.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
     rvCategories.setAdapter(menuCategoryAdapter);
-    menuCategoryAdapter.setCategoryClickListener(
-        position -> {
-          presenter.openBaseFragmentTab(position + STATIC_TABS_COUNT);
-          ((MainActivity) getActivity()).openCloseDrawer();
-        });
+    menuCategoryAdapter.setCategoryClickListener((position, id, title) -> {
+      fragmentNavigator.startCategoryFragment(id, title);
+      ((MainActivity) getActivity()).openCloseDrawer();
+    });
   }
 
   @Override public int getContentView() {
@@ -82,7 +79,7 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
   }
 
   @Override public void showMainFragment() {
-   fragmentNavigator.restoreRootFragment();
+    fragmentNavigator.restoreRootFragment();
   }
 
   @OnClick(R.id.iv_menu_arrow) protected void onMenuCloseClick() {
@@ -95,22 +92,19 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
   }) public void onMenuItemsClick(View view) {
     switch (view.getId()) {
       case R.id.tv_menu_home:
-        presenter.openBaseFragmentTab(0);
+        fragmentNavigator.startHomeFragment();
         break;
       case R.id.tv_menu_last_news:
-        presenter.openBaseFragmentTab(1);
-        break;
-      case R.id.tv_menu_hz:
-        presenter.openBaseFragmentTab(2);
+        fragmentNavigator.startLastNewsFragment();
         break;
       case R.id.tv_menu_bookmarks:
-        presenter.openBaseFragmentTab(3);
+        fragmentNavigator.startBookmarksFragment();
         break;
       case R.id.tv_menu_videos:
-        presenter.openBaseFragmentTab(4);
+        fragmentNavigator.startVideosFragment();
         break;
       case R.id.tv_menu_photos:
-        presenter.openBaseFragmentTab(5);
+        fragmentNavigator.startPhotosFragment();
         break;
       case R.id.tv_menu_about:
         break;

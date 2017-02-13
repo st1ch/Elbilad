@@ -8,17 +8,20 @@ import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.MainMenuFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.PhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
 
 /**
  * Created by st1ch on 17.01.17.
  */
-@MainActivityScope @Component(dependencies = ApplicationComponent.class,
-    modules = { ActivityContextModule.class, MainActivityModule.class })
-public interface MainActivityComponent {
+@MainActivityScope @Component(dependencies = ApplicationComponent.class, modules = {
+    ActivityContextModule.class, MainActivityModule.class
+}) public interface MainActivityComponent {
   /**
    * Injections of Activities
    */
@@ -39,5 +42,11 @@ public interface MainActivityComponent {
 
   void inject(SimpleNewsFragment simpleNewsFragment);
 
+  void inject(CategoryNewsFragment categoryNewsFragment);
+
   void inject(ArticleDetailsFragment articleDetailsFragment);
+
+  void inject(VideosFragment videosFragment);
+
+  void inject(PhotosFragment photosFragment);
 }

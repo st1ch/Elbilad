@@ -6,6 +6,12 @@ import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.PhotosFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -133,6 +139,36 @@ import javax.inject.Singleton;
 
   public void startArticleDetailsFragment(String id) {
     Fragment fragment = ArticleDetailsFragment.newInstance(id);
+    open(fragment);
+  }
+
+  public void startCategoryFragment(int categoryId, String categoryName){
+    Fragment fragment = CategoryNewsFragment.newInstance(categoryId, categoryName);
+    openAsChildRoot(fragment);
+  }
+
+  public void startHomeFragment(){
+    Fragment fragment = HomeFragment.newInstance();
+    openAsChildRoot(fragment);
+  }
+
+  public void startBookmarksFragment(){
+    Fragment fragment = BookmarksFragment.newInstance();
+    openAsChildRoot(fragment);
+  }
+
+  public void startLastNewsFragment(){
+    Fragment fragment = LastNewsFragment.newInstance();
+    openAsChildRoot(fragment);
+  }
+
+  public void startVideosFragment(){
+    Fragment fragment = VideosFragment.newInstance();
+    openAsChildRoot(fragment);
+  }
+
+  public void startPhotosFragment(){
+    Fragment fragment = PhotosFragment.newInstance();
     openAsChildRoot(fragment);
   }
 }

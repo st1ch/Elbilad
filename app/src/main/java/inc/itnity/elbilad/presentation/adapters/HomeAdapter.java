@@ -99,7 +99,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
         String imageTop = topArticle.getImage();
         if (!TextUtils.isEmpty(imageTop)) {
-          imageLoaderHelper.loadUrlImageThumb(imageTop, ((TopNewsItemViewHolder) holder).ivImage);
+          imageLoaderHelper.loadUrlImageLarge(imageTop, ((TopNewsItemViewHolder) holder).ivImage);
         }
 
         ((TopNewsItemViewHolder) holder).tvTitle.setText(topArticle.getTitle());
@@ -136,7 +136,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
         String imageRegularBig = regularImageArticle.getImage();
         if (!TextUtils.isEmpty(imageRegularBig)) {
-          imageLoaderHelper.loadUrlImageThumb(imageRegularBig,
+          imageLoaderHelper.loadUrlImageLarge(imageRegularBig,
               ((RegularNewsImageItemViewHolder) holder).ivImage);
         }
 
@@ -153,7 +153,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
         String imageVideo = videoImageArticle.getImage();
         if (!TextUtils.isEmpty(imageVideo)) {
-          imageLoaderHelper.loadUrlImageThumb(imageVideo,
+          imageLoaderHelper.loadUrlImageLarge(imageVideo,
               ((VideoArticleItemViewHolder) holder).ivImage);
         }
 
