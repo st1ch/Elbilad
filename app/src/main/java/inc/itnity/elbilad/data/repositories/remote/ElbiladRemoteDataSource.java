@@ -2,6 +2,8 @@ package inc.itnity.elbilad.data.repositories.remote;
 
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
 import rx.Observable;
@@ -23,4 +25,8 @@ public interface ElbiladRemoteDataSource {
   Observable<Article> getArticle(String articleId);
 
   Observable<List<Article>> getLastNews();
+
+  Observable<List<Video>> getVideos();
+
+  Observable<List<Image>> getGallery();
 }

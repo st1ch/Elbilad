@@ -2,6 +2,7 @@ package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
@@ -29,7 +30,12 @@ public interface ElbiladRepository {
 
   Observable<List<Article>> getLastNews(boolean refresh);
 
+  Observable<List<Video>> getVideos(boolean refresh);
+
+  Observable<List<Image>> getGallery(boolean refresh);
+
   Observable<Article> addToBookmark(Article article);
 
   Observable<List<Article>> getBookmarks();
+
 }

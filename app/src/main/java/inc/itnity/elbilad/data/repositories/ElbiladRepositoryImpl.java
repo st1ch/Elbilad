@@ -3,6 +3,7 @@ package inc.itnity.elbilad.data.repositories;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import io.reactivecache.Provider;
@@ -27,6 +28,8 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final ProviderGroup<List<Article>> categoryArticleListCache;
   private final ProviderGroup<Article> articleCache;
   private final Provider<List<Article>> bookmarkedArticlesCache;
+  private final Provider<List<Video>> videosCache;
+  private final Provider<List<Image>> photosCache;
 
   public ElbiladRepositoryImpl(ElbiladRemoteDataSource remoteDataSource,
       ReactiveCache reactiveCache) {
@@ -41,6 +44,8 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
     this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
     this.bookmarkedArticlesCache = reactiveCache.<List<Article>>provider().withKey("bookmarks");
+    this.videosCache = reactiveCache.<List<Video>>provider().withKey("videosCache");
+    this.photosCache = reactiveCache.<List<Image>>provider().withKey("photosCache");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndHomeArticles(boolean refresh) {
@@ -104,6 +109,20 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getLastNews().compose(lastNewsCache.replace());
     }
     return remoteDataSource.getLastNews().compose(lastNewsCache.readWithLoader());
+  }
+
+  @Override public Observable<List<Video>> getVideos(boolean refresh) {
+    if (refresh) {
+      return remoteDataSource.getVideos().compose(videosCache.replace());
+    }
+    return remoteDataSource.getVideos().compose(videosCache.readWithLoader());
+  }
+
+  @Override public Observable<List<Image>> getGallery(boolean refresh) {
+    if (refresh) {
+      return remoteDataSource.getGallery().compose(photosCache.replace());
+    }
+    return remoteDataSource.getGallery().compose(photosCache.readWithLoader());
   }
 
   @Override public Observable<Article> addToBookmark(Article article) {

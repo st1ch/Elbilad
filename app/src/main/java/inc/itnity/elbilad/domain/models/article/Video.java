@@ -18,8 +18,8 @@ public class Video implements ArticleItem {
   @SerializedName("une") private String une;
   @SerializedName("type_video") private String videoType;
   @SerializedName("youtube_id") private String youtubeId;
+  @SerializedName("link") protected String link;
   //@SerializedName("local_video") private String localVideo;
-  //@SerializedName("_links") private Links links;
 
   public String getId() {
     return id;
@@ -105,26 +105,37 @@ public class Video implements ArticleItem {
     this.youtubeId = youtubeId;
   }
 
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
   @Override public int getType() {
     return TYPE.VIDEO;
   }
 
   @Override public String toString() {
     return "Video{"
-        + "id="
+        + "id='"
         + id
+        + '\''
         + ", title='"
         + title
         + '\''
         + ", categoryId="
         + categoryId
-        + ", categoryTitle="
+        + ", categoryTitle='"
         + categoryTitle
+        + '\''
         + ", description='"
         + description
         + '\''
-        + ", date="
+        + ", date='"
         + date
+        + '\''
         + ", image='"
         + image
         + '\''
@@ -136,6 +147,9 @@ public class Video implements ArticleItem {
         + '\''
         + ", youtubeId='"
         + youtubeId
+        + '\''
+        + ", link='"
+        + link
         + '\''
         + '}';
   }

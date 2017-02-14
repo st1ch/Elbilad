@@ -2,6 +2,8 @@ package inc.itnity.elbilad.data.rest.api;
 
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
 import retrofit2.http.GET;
@@ -20,6 +22,8 @@ public interface ElbiladAPI {
 
   String HOME_ARTICLES = "/home-requests";
   String LAST_NEWS = "/bloc?type=last";
+  String VIDEOS = "/video";
+  String GALLERY = "/galerie";
 
   String CATEGORIE_ID = "categorie_id";
   String ARTICLE_ID = "article_id";
@@ -40,4 +44,8 @@ public interface ElbiladAPI {
       @Path(ARTICLE_ID) String articleId);
 
   @GET(ARTICLE + LAST_NEWS) Observable<List<Article>> getLastNews(@Query(LIMIT) int limit);
+
+  @GET(VIDEOS) Observable<List<Video>> getVideos();
+
+  @GET(GALLERY) Observable<List<Image>> getGallery();
 }

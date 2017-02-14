@@ -15,6 +15,7 @@ public class Image implements ArticleItem {
   @SerializedName("description") private String description;
   @SerializedName("date") private String date;
   @SerializedName("image") private String image;
+  @SerializedName("link") protected String link;
 
   public String getId() {
     return id;
@@ -80,24 +81,38 @@ public class Image implements ArticleItem {
     return TYPE.GALLERY;
   }
 
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
   @Override public String toString() {
     return "Image{"
-        + "id="
+        + "id='"
         + id
+        + '\''
         + ", title='"
         + title
         + '\''
         + ", categoryId="
         + categoryId
-        + ", categoryTitle="
+        + ", categoryTitle='"
         + categoryTitle
+        + '\''
         + ", description='"
         + description
         + '\''
-        + ", date="
+        + ", date='"
         + date
+        + '\''
         + ", image='"
         + image
+        + '\''
+        + ", link='"
+        + link
         + '\''
         + '}';
   }

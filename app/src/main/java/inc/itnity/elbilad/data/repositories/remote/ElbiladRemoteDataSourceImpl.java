@@ -4,6 +4,8 @@ import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
+import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import java.util.List;
 import rx.Observable;
@@ -42,5 +44,13 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
 
   @Override public Observable<List<Article>> getLastNews() {
     return elbiladAPI.getLastNews(ApiConfig.LAST_NEWS_LIMIT);
+  }
+
+  @Override public Observable<List<Video>> getVideos() {
+    return elbiladAPI.getVideos();
+  }
+
+  @Override public Observable<List<Image>> getGallery() {
+    return elbiladAPI.getGallery();
   }
 }

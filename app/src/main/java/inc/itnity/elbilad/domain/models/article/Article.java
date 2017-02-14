@@ -19,7 +19,7 @@ public class Article implements ArticleItem {
   @SerializedName("resume") protected String preview;
   @SerializedName("text") protected String text;
   @SerializedName("youtube_code") protected String youtubeCode;
-  //@SerializedName("_links") private Links links;
+  @SerializedName("link") protected String link;
 
   public String getId() {
     return id;
@@ -113,19 +113,30 @@ public class Article implements ArticleItem {
     this.youtubeCode = youtubeCode;
   }
 
+  public String getLink() {
+    return link;
+  }
+
+  public void setLink(String link) {
+    this.link = link;
+  }
+
   @Override public String toString() {
     return "Article{"
-        + "id="
+        + "id='"
         + id
+        + '\''
         + ", title='"
         + title
         + '\''
         + ", categoryId="
         + categoryId
-        + ", categoryTitle="
+        + ", categoryTitle='"
         + categoryTitle
-        + ", date="
+        + '\''
+        + ", date='"
         + date
+        + '\''
         + ", image='"
         + image
         + '\''
@@ -144,10 +155,13 @@ public class Article implements ArticleItem {
         + ", youtubeCode='"
         + youtubeCode
         + '\''
+        + ", link='"
+        + link
+        + '\''
         + '}';
   }
 
   @Override public int getType() {
-    return -1;
+    return TYPE.SIMPLE;
   }
 }

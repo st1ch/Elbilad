@@ -9,6 +9,7 @@ public interface ArticleItem {
   int getType();
 
   interface TYPE {
+    int SIMPLE = -1;
     int TOP = 0;
     int TOP_5 = 1;
     int IMPORTANT = 2;
