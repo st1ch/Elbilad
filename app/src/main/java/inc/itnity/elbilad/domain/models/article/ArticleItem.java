@@ -6,7 +6,19 @@ package inc.itnity.elbilad.domain.models.article;
 
 public interface ArticleItem {
 
+  String getId();
+
+  String getCategoryTitle();
+
+  String getPreview();
+
   int getType();
+
+  String getImage();
+
+  String getTime();
+
+  String getDate();
 
   interface TYPE {
     int SIMPLE = -1;

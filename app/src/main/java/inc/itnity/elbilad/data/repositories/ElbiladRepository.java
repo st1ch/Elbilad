@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -34,8 +35,8 @@ public interface ElbiladRepository {
 
   Observable<List<Image>> getGallery(boolean refresh);
 
-  Observable<Article> addToBookmark(Article article);
+  Observable<ArticleItem> addToBookmark(ArticleItem article);
 
-  Observable<List<Article>> getBookmarks();
+  Observable<List<ArticleItem>> getBookmarks();
 
 }

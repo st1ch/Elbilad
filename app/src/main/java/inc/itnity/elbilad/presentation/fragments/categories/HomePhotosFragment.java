@@ -9,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
-import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
-import inc.itnity.elbilad.presentation.adapters.BookmarksAdapter;
-import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
+import inc.itnity.elbilad.presentation.adapters.PhotoCategoryNewsAdapter;
+import inc.itnity.elbilad.presentation.custom.SimpleDividerItemLineDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
-import inc.itnity.elbilad.presentation.presenters.BookmarksPresenter;
-import inc.itnity.elbilad.presentation.views.BookmarksView;
+import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenter;
+import inc.itnity.elbilad.presentation.views.PhotoCategoryView;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -24,20 +23,20 @@ import javax.inject.Inject;
  * Created by st1ch on 18.01.17.
  */
 
-public class BookmarksFragment extends AbstractBaseFragment implements BookmarksView {
+public class HomePhotosFragment extends AbstractBaseFragment implements PhotoCategoryView {
 
-  public static BookmarksFragment newInstance() {
-    return new BookmarksFragment();
+  public static HomePhotosFragment newInstance() {
+    return new HomePhotosFragment();
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
 
-  @Inject BookmarksAdapter bookmarksAdapter;
+  @Inject PhotoCategoryPresenter presenter;
 
-  @Inject BookmarksPresenter presenter;
+  @Inject PhotoCategoryNewsAdapter photoCategoryNewsAdapter;
 
   @Override public int getContentView() {
-    return R.layout.fragment_bookmarks;
+    return R.layout.fragment_video_news;
   }
 
   @Override public void injectComponent() {
@@ -55,26 +54,22 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    ((AbstractBaseActivity) getActivity()).showHomeToolbar();
-    ((AbstractBaseActivity) getActivity()).hideTitleLogo();
-    ((AbstractBaseActivity) getActivity()).setTitleToolBar(getString(R.string.bookmarks));
-
-    View rootVIew = super.onCreateView(inflater, container, savedInstanceState);
+    View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();
 
     presenter.onCreate();
 
-    return rootVIew;
+    return rootView;
   }
 
   private void initContent() {
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
-    rvNews.addItemDecoration(new VerticalSpaceItemDecoration());
-    rvNews.setAdapter(bookmarksAdapter);
+    rvNews.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
+    rvNews.setAdapter(photoCategoryNewsAdapter);
   }
 
-  @Override public void showBookmarks(List<ArticleItem> bookmarks) {
-    bookmarksAdapter.setArticles(bookmarks);
+  @Override public void showPhotos(List<Image> images) {
+    photoCategoryNewsAdapter.setArticles(images);
   }
 }

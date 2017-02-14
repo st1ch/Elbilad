@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/space_8dp"
+    android:background="@android:color/white"
+    >
+
+  <ImageView
+      android:id="@+id/iv_image"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:adjustViewBounds="true"
+      android:scaleType="centerCrop"
+      app:layout_constraintDimensionRatio="H, 1:1"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/sample_image"
+      />
+
+  <ImageView
+      android:id="@+id/iv_icon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/space_16dp"
+      android:layout_marginLeft="@dimen/space_8dp"
+      android:src="@drawable/ic_play_arrow_48dp"
+      app:layout_constraintBottom_toBottomOf="@id/iv_image"
+      app:layout_constraintLeft_toLeftOf="@id/iv_image"
+      />
+  <TextView
+      android:id="@+id/tv_preview"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="8dp"
+      android:ellipsize="end"
+      android:gravity="right"
+      android:maxLines="3"
+      android:text="قرار جديد للحكومة بشأن الفئات التي يحق لها الاستفادة من الدعم مستقبلا!"
+      android:textColor="@android:color/black"
+      android:textSize="28sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_category"
+      />
+  <TextView
+      android:id="@+id/tv_category"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginTop="16dp"
+      android:gravity="right"
+      android:text="الوطني"
+      android:textColor="@color/action_bar_color"
+      android:textSize="14sp"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/iv_image"
+      />
+  <TextView
+      android:id="@+id/tv_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:layout_marginRight="16dp"
+      android:gravity="right"
+      android:text="17:43 | 18-10-2016"
+      android:textColor="@color/text_dark_grey_hint"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@+id/tv_category"
+      app:layout_constraintRight_toLeftOf="@+id/tv_category"
+      app:layout_constraintTop_toTopOf="@+id/tv_category"
+      />
+
+  <View
+      android:layout_width="0dp"
+      android:layout_height="1dp"
+      android:background="@drawable/line_divider"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      />
+
+</android.support.constraint.ConstraintLayout>

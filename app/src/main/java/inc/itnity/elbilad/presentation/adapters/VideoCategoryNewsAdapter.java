@@ -75,7 +75,7 @@ public class VideoCategoryNewsAdapter
     }
 
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-    holder.tvPreview.setText(article.getDescription());
+    holder.tvPreview.setText(article.getPreview());
 
     //holder.itemView.setOnClickListener(
     //    v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));

@@ -11,7 +11,6 @@ import butterknife.BindView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
-import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.BookmarksAdapter;
 import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
@@ -24,10 +23,10 @@ import javax.inject.Inject;
  * Created by st1ch on 18.01.17.
  */
 
-public class BookmarksFragment extends AbstractBaseFragment implements BookmarksView {
+public class HomeBookmarksFragment extends AbstractBaseFragment implements BookmarksView {
 
-  public static BookmarksFragment newInstance() {
-    return new BookmarksFragment();
+  public static HomeBookmarksFragment newInstance() {
+    return new HomeBookmarksFragment();
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
@@ -55,10 +54,6 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    ((AbstractBaseActivity) getActivity()).showHomeToolbar();
-    ((AbstractBaseActivity) getActivity()).hideTitleLogo();
-    ((AbstractBaseActivity) getActivity()).setTitleToolBar(getString(R.string.bookmarks));
-
     View rootVIew = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();

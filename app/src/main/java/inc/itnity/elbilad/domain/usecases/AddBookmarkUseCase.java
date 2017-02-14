@@ -2,6 +2,7 @@ package inc.itnity.elbilad.domain.usecases;
 
 import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
 import javax.inject.Inject;
@@ -11,7 +12,7 @@ import rx.Observable;
  * Created by st1ch on 13.02.17.
  */
 
-public class AddBookmarkUseCase extends UseCase<Article> {
+public class AddBookmarkUseCase extends UseCase<ArticleItem> {
 
   private ElbiladRepository elbiladRepository;
 
@@ -27,7 +28,7 @@ public class AddBookmarkUseCase extends UseCase<Article> {
     this.article = article;
   }
 
-  @Override protected Observable<Article> getUseCaseObservable() {
+  @Override protected Observable<ArticleItem> getUseCaseObservable() {
     return elbiladRepository.addToBookmark(article);
   }
 }

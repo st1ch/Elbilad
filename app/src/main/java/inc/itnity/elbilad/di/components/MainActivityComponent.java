@@ -6,11 +6,14 @@ import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.di.modules.MainActivityModule;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
+import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import inc.itnity.elbilad.presentation.fragments.MainMenuFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
-import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.PhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
@@ -40,6 +43,8 @@ import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
 
   void inject(BookmarksFragment bookmarksFragment);
 
+  void inject(HomeBookmarksFragment bookmarksFragment);
+
   void inject(SimpleNewsFragment simpleNewsFragment);
 
   void inject(CategoryNewsFragment categoryNewsFragment);
@@ -47,6 +52,10 @@ import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
   void inject(ArticleDetailsFragment articleDetailsFragment);
 
   void inject(VideosFragment videosFragment);
+
+  void inject(HomeVideosFragment videosFragment);
+
+  void inject(HomePhotosFragment photosFragment);
 
   void inject(PhotosFragment photosFragment);
 }

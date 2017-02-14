@@ -6,12 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.categorie.Category;
-import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.PhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +53,11 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
       case PAGE_LAST_NEWS:
         return LastNewsFragment.newInstance();
       case PAGE_BOOKMARKS:
-        return BookmarksFragment.newInstance();
+        return HomeBookmarksFragment.newInstance();
       case PAGE_VIDEOS:
-        return VideosFragment.newInstance();
+        return HomeVideosFragment.newInstance();
       case PAGE_PHOTOS:
-        return PhotosFragment.newInstance();
+        return HomePhotosFragment.newInstance();
       default:
         return SimpleNewsFragment.newInstance(categories.get(position - STATIC_TABS_COUNT).getId());
     }

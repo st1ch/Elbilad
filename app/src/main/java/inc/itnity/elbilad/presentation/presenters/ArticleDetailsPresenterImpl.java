@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
@@ -92,9 +93,9 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     };
   }
 
-  private BaseProgressSubscriber<Article> addBookmarkSubscriber() {
-    return new BaseProgressSubscriber<Article>(this) {
-      @Override public void onNext(Article article) {
+  private BaseProgressSubscriber<ArticleItem> addBookmarkSubscriber() {
+    return new BaseProgressSubscriber<ArticleItem>(this) {
+      @Override public void onNext(ArticleItem article) {
         super.onNext(article);
 
         try {

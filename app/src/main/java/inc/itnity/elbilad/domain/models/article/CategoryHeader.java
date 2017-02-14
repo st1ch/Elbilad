@@ -22,7 +22,31 @@ public class CategoryHeader implements ArticleItem {
     this.title = title;
   }
 
+  @Override public String getId() {
+    return null;
+  }
+
+  @Override public String getCategoryTitle() {
+    return null;
+  }
+
+  @Override public String getPreview() {
+    return null;
+  }
+
   @Override public int getType() {
     return CATEGORY_HEADER;
+  }
+
+  @Override public String getImage() {
+    return null;
+  }
+
+  @Override public String getTime() {
+    return null;
+  }
+
+  @Override public String getDate() {
+    return null;
   }
 }

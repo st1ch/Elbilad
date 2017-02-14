@@ -12,7 +12,7 @@ public class Image implements ArticleItem {
   @SerializedName("titre") private String title;
   @SerializedName("id_galerie_categorie") private int categoryId;
   @SerializedName("categorie_titre") private String categoryTitle;
-  @SerializedName("description") private String description;
+  @SerializedName("description") private String preview;
   @SerializedName("date") private String date;
   @SerializedName("image") private String image;
   @SerializedName("link") protected String link;
@@ -49,12 +49,12 @@ public class Image implements ArticleItem {
     this.categoryTitle = categoryTitle;
   }
 
-  public String getDescription() {
-    return description;
+  public String getPreview() {
+    return preview;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setPreview(String preview) {
+    this.preview = preview;
   }
 
   public String getDate() {
@@ -102,8 +102,8 @@ public class Image implements ArticleItem {
         + ", categoryTitle='"
         + categoryTitle
         + '\''
-        + ", description='"
-        + description
+        + ", preview='"
+        + preview
         + '\''
         + ", date='"
         + date

@@ -5,6 +5,7 @@ import dagger.Provides;
 import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
 import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
+import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
@@ -16,6 +17,8 @@ import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.BookmarksPresenter;
+import inc.itnity.elbilad.presentation.presenters.BookmarksPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenter;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
@@ -59,11 +62,17 @@ import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenterImpl;
         getLastNewsArticlesUseCase, addBookmarkUseCase);
   }
 
-  @Provides VideoCategoryPresenter provideVideoCategoryPresenter(GetVideosUseCase getVideosUseCase) {
+  @Provides VideoCategoryPresenter provideVideoCategoryPresenter(
+      GetVideosUseCase getVideosUseCase) {
     return new VideoCategoryPresenterImpl(getVideosUseCase);
   }
 
-  @Provides PhotoCategoryPresenter providePhotoCategoryPresenter(GetPhotosUseCase getPhotosUseCase) {
+  @Provides PhotoCategoryPresenter providePhotoCategoryPresenter(
+      GetPhotosUseCase getPhotosUseCase) {
     return new PhotoCategoryPresenterImpl(getPhotosUseCase);
+  }
+
+  @Provides BookmarksPresenter provideBookmarksPresenter(GetBookmarksUseCase getBookmarksUseCase) {
+    return new BookmarksPresenterImpl(getBookmarksUseCase);
   }
 }
