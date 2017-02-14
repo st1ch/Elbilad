@@ -67,6 +67,8 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   @Inject SimpleNewsAdapter simpleNewsAdapter;
 
+  private String articleLink;
+
   @Override public int getContentView() {
     return R.layout.fragment_article_details;
   }
@@ -94,6 +96,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   }
 
   @OnClick(R.id.iv_share) protected void onShareClick() {
+    elbiladUtils.shareArticleLink(articleLink);
   }
 
   @Override public void showAddedToBookmarks() {
@@ -114,8 +117,12 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
           ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + article.getImage(), ivImage);
     }
 
+    articleLink = article.getLink();
+
     ((AbstractBaseActivity) getActivity()).setOnBookmarkClickListener(
         v -> presenter.addToBookmarks(article));
+    ((AbstractBaseActivity) getActivity()).setOnShareArticleClickListener(
+        v -> elbiladUtils.shareArticleLink(articleLink));
   }
 
   @Override public void showVideoNews(List<Video> videos) {

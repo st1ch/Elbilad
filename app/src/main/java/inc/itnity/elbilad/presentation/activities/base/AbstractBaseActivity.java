@@ -111,6 +111,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     toolbarDetailsViewHolder.ivBookmark.setOnClickListener(onBookmarkClickListener);
   }
 
+  public void setOnShareArticleClickListener(View.OnClickListener onShareArticleClickListener){
+    toolbarDetailsViewHolder.ivShare.setOnClickListener(onShareArticleClickListener);
+  }
+
   @Override public boolean onOptionsItemSelected(MenuItem item) {
 
     int id = item.getItemId();

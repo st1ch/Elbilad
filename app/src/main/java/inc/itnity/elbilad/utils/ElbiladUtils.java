@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import inc.itnity.elbilad.R;
@@ -37,5 +38,13 @@ public class ElbiladUtils {
 
   public String getArticleTimeDate(String time, String date) {
     return context.getString(R.string.date, time, date);
+  }
+
+  public void shareArticleLink(String articleLink){
+    Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject/Title");
+    intent.putExtra(android.content.Intent.EXTRA_TEXT, articleLink);
+    context.startActivity(Intent.createChooser(intent, "Choose sharing method"));
   }
 }
