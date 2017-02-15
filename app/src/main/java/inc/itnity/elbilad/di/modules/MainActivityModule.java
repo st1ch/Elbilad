@@ -15,6 +15,7 @@ import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastNewsUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
 import inc.itnity.elbilad.domain.usecases.GetPhotosUseCase;
+import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideosUseCase;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenterImpl;
@@ -34,6 +35,8 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenter;
 import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenter;
 import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.VideoDetailsPresenter;
+import inc.itnity.elbilad.presentation.presenters.VideoDetailsPresenterImpl;
 import inc.itnity.elbilad.utils.DialogHelper;
 
 /**
@@ -88,5 +91,10 @@ import inc.itnity.elbilad.utils.DialogHelper;
 
   @Provides LastNewsPresenter provideLastNewsPresenter(GetLastNewsUseCase getLastNewsUseCase) {
     return new LastNewsPresenterImpl(getLastNewsUseCase);
+  }
+
+  @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,
+      AddBookmarkUseCase addBookmarkUseCase) {
+    return new VideoDetailsPresenterImpl(getVideosUseCase, addBookmarkUseCase);
   }
 }

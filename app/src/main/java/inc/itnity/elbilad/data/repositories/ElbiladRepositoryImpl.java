@@ -128,6 +128,12 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     return remoteDataSource.getVideos().compose(videosCache.readWithLoader());
   }
 
+  @Override public Observable<Video> getVideo(String videoId) {
+    return videosCache.read()
+        .flatMap(Observable::from)
+        .filter(video -> video.getId().equals(videoId));
+  }
+
   @Override public Observable<List<Image>> getGallery(boolean refresh) {
     if (refresh) {
       return remoteDataSource.getGallery().compose(photosCache.replace());

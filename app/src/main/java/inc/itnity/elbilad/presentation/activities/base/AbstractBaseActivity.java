@@ -107,11 +107,21 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     }
   }
 
+  //public void showToolbar(){
+  //  toolbarDetailsViewHolder.rootView.setVisibility(View.GONE);
+  //  toolbarHomeViewHolder.rootView.setVisibility(View.GONE);
+  //}
+
+  public void hideToolbar() {
+    toolbarDetailsViewHolder.rootView.setVisibility(View.GONE);
+    toolbarHomeViewHolder.rootView.setVisibility(View.GONE);
+  }
+
   public void setOnBookmarkClickListener(View.OnClickListener onBookmarkClickListener) {
     toolbarDetailsViewHolder.ivBookmark.setOnClickListener(onBookmarkClickListener);
   }
 
-  public void setOnShareArticleClickListener(View.OnClickListener onShareArticleClickListener){
+  public void setOnShareArticleClickListener(View.OnClickListener onShareArticleClickListener) {
     toolbarDetailsViewHolder.ivShare.setOnClickListener(onShareArticleClickListener);
   }
 

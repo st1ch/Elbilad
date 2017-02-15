@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
+import inc.itnity.elbilad.presentation.fragments.VideoDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
@@ -59,10 +60,10 @@ import javax.inject.Singleton;
       //if (fragmentByTag != null && fragmentByTag.getClass().equals(fragment.getClass())) {
       //  fragmentManager.popBackStackImmediate(tag, 0);
       //} else {
-        fragmentManager.beginTransaction()
-            .replace(R.id.content_main, fragment, tag)
-            .addToBackStack(tag)
-            .commit();
+      fragmentManager.beginTransaction()
+          .replace(R.id.content_main, fragment, tag)
+          .addToBackStack(tag)
+          .commit();
       //}
     }
   }
@@ -120,7 +121,7 @@ import javax.inject.Singleton;
     }
   }
 
-  public void restoreRootFragment(){
+  public void restoreRootFragment() {
     popUntilLastFragment();
   }
 
@@ -142,32 +143,37 @@ import javax.inject.Singleton;
     open(fragment);
   }
 
-  public void startCategoryFragment(int categoryId, String categoryName){
+  public void startCategoryFragment(int categoryId, String categoryName) {
     Fragment fragment = CategoryNewsFragment.newInstance(categoryId, categoryName);
     openAsChildRoot(fragment);
   }
 
-  public void startHomeFragment(){
+  public void startHomeFragment() {
     Fragment fragment = HomeFragment.newInstance();
     openAsChildRoot(fragment);
   }
 
-  public void startBookmarksFragment(){
+  public void startBookmarksFragment() {
     Fragment fragment = BookmarksFragment.newInstance();
     openAsChildRoot(fragment);
   }
 
-  public void startLastNewsFragment(){
+  public void startLastNewsFragment() {
     Fragment fragment = LastNewsFragment.newInstance();
     openAsChildRoot(fragment);
   }
 
-  public void startVideosFragment(){
+  public void startVideosFragment() {
     Fragment fragment = VideosFragment.newInstance();
     openAsChildRoot(fragment);
   }
 
-  public void startPhotosFragment(){
+  public void startVideoDetailsFragment(String videoId) {
+    Fragment fragment = VideoDetailsFragment.newInstance(videoId);
+    open(fragment);
+  }
+
+  public void startPhotosFragment() {
     Fragment fragment = PhotosFragment.newInstance();
     openAsChildRoot(fragment);
   }

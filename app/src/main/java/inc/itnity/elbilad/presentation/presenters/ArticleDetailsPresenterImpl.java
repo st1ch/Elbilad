@@ -64,7 +64,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     }
   }
 
-  @Override public void addToBookmarks(Article article) {
+  @Override public void addToBookmarks(ArticleItem article) {
     addBookmarkUseCase.setArticle(article);
     addBookmarkUseCase.execute(addBookmarkSubscriber());
   }

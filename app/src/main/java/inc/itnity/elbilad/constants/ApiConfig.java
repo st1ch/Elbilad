@@ -11,6 +11,7 @@ public interface ApiConfig {
   String Authorization = "authorization";
   String Accept = "Accept";
   String TOKEN = "Basic bXlraGFpbG92aXNoOjgsc3RjMkZPWE49fDN5dUg=";
+  String YOUTUBE_KEY = "AIzaSyA_cpBzUR8o_Eg_m00LchbOsf09791lzgs";
   String ACCEPT_JSON = "application/json";
   String ACCEPT_HAL_JSON = "application/hal+json";
   String ACCEPT_ELBILAD = "application/vnd.elbilad.v1+json";

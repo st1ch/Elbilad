@@ -21,7 +21,7 @@ public interface ArticleItem {
   String getDate();
 
   interface TYPE {
-    int SIMPLE = -1;
+    int SIMPLE = 101;
     int TOP = 0;
     int TOP_5 = 1;
     int IMPORTANT = 2;

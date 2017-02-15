@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,8 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
 
   @Override public int getItemViewType(int position) {
     int type = getItem(position).getType();
+    Log.wtf("adapter", "getItemViewType: " + type);
+
     if (position == 0) {
       if (type == ArticleItem.TYPE.VIDEO) {
         return TYPE_TOP_VIDEO;
@@ -68,10 +71,10 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
             .inflate(R.layout.item_category_photo_top, parent, false));
       case ArticleItem.TYPE.VIDEO:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_category_news, parent, false));
+            .inflate(R.layout.item_category_video, parent, false));
       case ArticleItem.TYPE.GALLERY:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_category_news, parent, false));
+            .inflate(R.layout.item_category_photo, parent, false));
       default:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_news, parent, false));
@@ -81,10 +84,21 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
   @Override public void onBindViewHolder(SimpleNewsViewHolder holder, int position) {
     int viewType = getItemViewType(position);
 
+    Log.wtf("adapter", "type: " + viewType);
+
     ArticleItem article = getItem(position);
 
     switch (viewType) {
       case TYPE_TOP_VIDEO:
+        ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
+
+        if (!TextUtils.isEmpty(article.getImage())) {
+          imageLoaderHelper.loadUrlImageLarge(article.getImage(), holder.ivAvatar);
+        }
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
+        break;
       case TYPE_TOP_SIMPLE:
       case TYPE_TOP_PHOTO:
         ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
@@ -92,19 +106,38 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadUrlImageLarge(article.getImage(), holder.ivAvatar);
         }
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+        break;
+      case ArticleItem.TYPE.VIDEO:
+        if (!TextUtils.isEmpty(article.getImage())) {
+          imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+        }
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
+        break;
+      case ArticleItem.TYPE.GALLERY:
+        if (!TextUtils.isEmpty(article.getImage())) {
+          imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+        }
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
         break;
       default:
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
         }
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
         break;
     }
 
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
     holder.tvPreview.setText(article.getPreview());
-
-    holder.itemView.setOnClickListener(
-        v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
   }
 
   @Override public int getItemCount() {
