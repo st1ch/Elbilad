@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.OnClick;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.MenuCategoryAdapter;
@@ -95,7 +96,8 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
         fragmentNavigator.startHomeFragment();
         break;
       case R.id.tv_menu_last_news:
-        fragmentNavigator.startLastNewsFragment();
+        fragmentNavigator.startCategoryFragment(ApiConfig.LAST_NEWS_CATEGORY_ID,
+            getString(R.string.last_news));
         break;
       case R.id.tv_menu_bookmarks:
         fragmentNavigator.startBookmarksFragment();
