@@ -1,6 +1,6 @@
 package inc.itnity.elbilad.presentation.views;
 
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.presentation.views.base.ProgressView;
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface BookmarksView extends ProgressView {
-  void showBookmarks(List<ArticleItem> bookmarks);
+  void showBookmarks(List<Bookmark> bookmarks);
 }

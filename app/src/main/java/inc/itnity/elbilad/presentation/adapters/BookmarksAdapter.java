@@ -2,7 +2,6 @@ package inc.itnity.elbilad.presentation.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
+import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
@@ -26,10 +28,13 @@ import javax.inject.Inject;
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.SimpleNewsViewHolder> {
 
   private static final int TYPE_TOP_SIMPLE = 110;
+  private static final int TYPE_SIMPLE = 120;
   private static final int TYPE_TOP_VIDEO = 111;
+  private static final int TYPE_VIDEO = 121;
   private static final int TYPE_TOP_PHOTO = 112;
+  private static final int TYPE_PHOTO = 122;
 
-  private List<ArticleItem> articles = new ArrayList<>();
+  private List<Bookmark> bookmarks = new ArrayList<>();
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
@@ -43,19 +48,24 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
   }
 
   @Override public int getItemViewType(int position) {
-    int type = getItem(position).getType();
-    Log.wtf("adapter", "getItemViewType: " + type);
-
+    Bookmark.TYPE type = getItem(position).getType();
     if (position == 0) {
-      if (type == ArticleItem.TYPE.VIDEO) {
+      if (type.equals(Bookmark.TYPE.VIDEO)) {
         return TYPE_TOP_VIDEO;
-      } else if (type == ArticleItem.TYPE.GALLERY) {
+      } else if (type.equals(Bookmark.TYPE.PHOTO)) {
         return TYPE_TOP_PHOTO;
       } else {
         return TYPE_TOP_SIMPLE;
       }
     }
-    return type;
+
+    if (type.equals(Bookmark.TYPE.VIDEO)) {
+      return TYPE_VIDEO;
+    } else if (type.equals(Bookmark.TYPE.PHOTO)) {
+      return TYPE_PHOTO;
+    } else {
+      return TYPE_SIMPLE;
+    }
   }
 
   @Override public SimpleNewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,10 +79,10 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
       case TYPE_TOP_PHOTO:
         return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_photo_top, parent, false));
-      case ArticleItem.TYPE.VIDEO:
+      case TYPE_VIDEO:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_video, parent, false));
-      case ArticleItem.TYPE.GALLERY:
+      case TYPE_PHOTO:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_photo, parent, false));
       default:
@@ -84,73 +94,118 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
   @Override public void onBindViewHolder(SimpleNewsViewHolder holder, int position) {
     int viewType = getItemViewType(position);
 
-    Log.wtf("adapter", "type: " + viewType);
-
-    ArticleItem article = getItem(position);
+    Bookmark bookmark = getItem(position);
 
     switch (viewType) {
       case TYPE_TOP_VIDEO:
-        ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
+        Video topVideo = bookmark.getVideo();
 
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadUrlImageLarge(article.getImage(), holder.ivAvatar);
+        ((TopNewsViewHolder) holder).tvCategory.setText(topVideo.getCategoryTitle());
+
+        if (!TextUtils.isEmpty(topVideo.getImage())) {
+          imageLoaderHelper.loadUrlImageLarge(topVideo.getImage(), holder.ivAvatar);
         }
 
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(topVideo.getTime(), topVideo.getDate()));
+        holder.tvPreview.setText(topVideo.getPreview());
+
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
+            v -> fragmentNavigator.startVideoDetailsFragment(topVideo.getId()));
         break;
       case TYPE_TOP_SIMPLE:
-      case TYPE_TOP_PHOTO:
-        ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
+        Article topArticle = bookmark.getArticle();
 
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadUrlImageLarge(article.getImage(), holder.ivAvatar);
+        ((TopNewsViewHolder) holder).tvCategory.setText(topArticle.getCategoryTitle());
+
+        if (!TextUtils.isEmpty(topArticle.getImage())) {
+          imageLoaderHelper.loadUrlImageLarge(topArticle.getImage(), holder.ivAvatar);
         }
 
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(topArticle.getTime(), topArticle.getDate()));
+        holder.tvPreview.setText(topArticle.getPreview());
+
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+            v -> fragmentNavigator.startVideoDetailsFragment(topArticle.getId()));
         break;
-      case ArticleItem.TYPE.VIDEO:
+      case TYPE_TOP_PHOTO:
+        Image topPhoto = bookmark.getPhoto();
+
+        ((TopNewsViewHolder) holder).tvCategory.setText(topPhoto.getCategoryTitle());
+
+        if (!TextUtils.isEmpty(topPhoto.getImage())) {
+          imageLoaderHelper.loadUrlImageLarge(topPhoto.getImage(), holder.ivAvatar);
+        }
+
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(topPhoto.getTime(), topPhoto.getDate()));
+        holder.tvPreview.setText(topPhoto.getPreview());
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(topPhoto.getId()));
+        break;
+      case TYPE_VIDEO:
+        Video video = bookmark.getVideo();
+
+        if (!TextUtils.isEmpty(video.getImage())) {
+          imageLoaderHelper.loadUrlImageThumb(video.getImage(), holder.ivAvatar);
+        }
+
+        holder.tvDate.setText(elbiladUtils.getArticleTimeDate(video.getTime(), video.getDate()));
+        holder.tvPreview.setText(video.getPreview());
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(video.getId()));
+        break;
+      case TYPE_PHOTO:
+        Image photo = bookmark.getPhoto();
+
+        if (!TextUtils.isEmpty(photo.getImage())) {
+          imageLoaderHelper.loadUrlImageThumb(photo.getImage(), holder.ivAvatar);
+        }
+
+        holder.tvDate.setText(elbiladUtils.getArticleTimeDate(photo.getTime(), photo.getDate()));
+        holder.tvPreview.setText(photo.getPreview());
+
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(photo.getId()));
+        break;
+      case TYPE_SIMPLE:
+        Article article = bookmark.getArticle();
+
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
         }
+
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
+        holder.tvPreview.setText(article.getPreview());
 
         holder.itemView.setOnClickListener(
             v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
         break;
-      case ArticleItem.TYPE.GALLERY:
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
-        }
-
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
-        break;
-      default:
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
-        }
-
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
-        break;
     }
-
-    holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-    holder.tvPreview.setText(article.getPreview());
   }
 
   @Override public int getItemCount() {
-    return articles.size();
+    return bookmarks.size();
   }
 
-  private ArticleItem getItem(int position) {
-    return articles.get(position);
+  private Bookmark getItem(int position) {
+    return bookmarks.get(position);
   }
 
-  public void setArticles(List<ArticleItem> articles) {
-    this.articles.clear();
-    this.articles.addAll(articles);
+  public void setArticles(List<Bookmark> bookmarks) {
+    //for (BaseArticle article : articles) {
+    //  if (article.getType() == 10) {
+    //    Log.wtf("adapter", ((Video) article).toString());
+    //  } else {
+    //    Log.wtf("adapter", ((Article) article).toString());
+    //  }
+    //}
+    this.bookmarks.clear();
+    this.bookmarks.addAll(bookmarks);
     notifyDataSetChanged();
   }
 

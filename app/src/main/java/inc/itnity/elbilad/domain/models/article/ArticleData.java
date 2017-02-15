@@ -8,13 +8,13 @@ import java.util.List;
  */
 
 public class ArticleData {
-  @SerializedName("article") private List<Article> articles;
+  @SerializedName("article") private List<BaseArticle> articles;
 
-  public List<Article> getArticles() {
+  public List<BaseArticle> getArticles() {
     return articles;
   }
 
-  public void setArticles(List<Article> articles) {
+  public void setArticles(List<BaseArticle> articles) {
     this.articles = articles;
   }
 

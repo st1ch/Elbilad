@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.BookmarksAdapter;
@@ -74,7 +74,7 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
     rvNews.setAdapter(bookmarksAdapter);
   }
 
-  @Override public void showBookmarks(List<ArticleItem> bookmarks) {
+  @Override public void showBookmarks(List<Bookmark> bookmarks) {
     bookmarksAdapter.setArticles(bookmarks);
   }
 }

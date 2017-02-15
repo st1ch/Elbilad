@@ -1,10 +1,10 @@
 package inc.itnity.elbilad.presentation.presenters;
 
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
-import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.VideoDetailsView;
@@ -17,12 +17,12 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
     implements VideoDetailsPresenter {
 
   private GetVideoUseCase getVideosUseCase;
-  private AddBookmarkUseCase addBookmarkUseCase;
+  private AddVideoBookmarkUseCase addVideoBookmarkUseCase;
 
   public VideoDetailsPresenterImpl(GetVideoUseCase getVideosUseCase,
-      AddBookmarkUseCase addBookmarkUseCase) {
+      AddVideoBookmarkUseCase addVideoBookmarkUseCase) {
     this.getVideosUseCase = getVideosUseCase;
-    this.addBookmarkUseCase = addBookmarkUseCase;
+    this.addVideoBookmarkUseCase = addVideoBookmarkUseCase;
   }
 
   @Override public void onCreate(String videoId) {
@@ -31,13 +31,13 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
   }
 
   @Override public void addToBookmarks(Video video) {
-    addBookmarkUseCase.setArticle(video);
-    addBookmarkUseCase.execute(addBookmarkSubscriber());
+    addVideoBookmarkUseCase.setVideo(video);
+    addVideoBookmarkUseCase.execute(addBookmarkSubscriber());
   }
 
   @Override public void onDestroy() {
     getVideosUseCase.unsubscribe();
-    addBookmarkUseCase.unsubscribe();
+    addVideoBookmarkUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -57,10 +57,10 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
     };
   }
 
-  private BaseUseCaseSubscriber<ArticleItem> addBookmarkSubscriber() {
-    return new BaseUseCaseSubscriber<ArticleItem>() {
-      @Override public void onNext(ArticleItem articleItem) {
-        super.onNext(articleItem);
+  private BaseUseCaseSubscriber<Bookmark> addBookmarkSubscriber() {
+    return new BaseUseCaseSubscriber<Bookmark>() {
+      @Override public void onNext(Bookmark bookmark) {
+        super.onNext(bookmark);
 
         try {
           checkViewBound();

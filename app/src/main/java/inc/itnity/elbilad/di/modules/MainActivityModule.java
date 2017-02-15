@@ -4,8 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
 import inc.itnity.elbilad.di.MainActivityScope;
-import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
-import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
@@ -53,9 +53,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
     return new HomeScreenPresenterImpl(getHomeArticlesUseCase);
   }
 
-  @Provides MainMenuPresenter provideMainMenuPresenter(GetCategoriesUseCase getCategoriesUseCase,
-      OpenTabRxBus openTabRxBus) {
-    return new MainMenuPresenterImpl(getCategoriesUseCase, openTabRxBus);
+  @Provides MainMenuPresenter provideMainMenuPresenter(GetCategoriesUseCase getCategoriesUseCase) {
+    return new MainMenuPresenterImpl(getCategoriesUseCase);
   }
 
   @Provides BaseHomePresenter provideBaseHomePresenter(GetCategoriesUseCase getCategoriesUseCase) {
@@ -70,9 +69,9 @@ import inc.itnity.elbilad.utils.DialogHelper;
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
       GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
-      AddBookmarkUseCase addBookmarkUseCase) {
+      AddArticleBookmarkUseCase addArticleBookmarkUseCase) {
     return new ArticleDetailsPresenterImpl(getArticleUseCase, getLastVideosUseCase,
-        getLast6NewsArticlesUseCase, addBookmarkUseCase);
+        getLast6NewsArticlesUseCase, addArticleBookmarkUseCase);
   }
 
   @Provides VideoCategoryPresenter provideVideoCategoryPresenter(
@@ -94,7 +93,7 @@ import inc.itnity.elbilad.utils.DialogHelper;
   }
 
   @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,
-      AddBookmarkUseCase addBookmarkUseCase) {
-    return new VideoDetailsPresenterImpl(getVideosUseCase, addBookmarkUseCase);
+      AddVideoBookmarkUseCase addArticleBookmarkUseCase) {
+    return new VideoDetailsPresenterImpl(getVideosUseCase, addArticleBookmarkUseCase);
   }
 }

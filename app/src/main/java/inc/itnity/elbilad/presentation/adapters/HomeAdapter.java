@@ -95,7 +95,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     switch (viewType) {
       case ArticleItem.TYPE.TOP:
-        Article topArticle = (ArticleTop5) article;
+        ArticleTop5 topArticle = (ArticleTop5) article;
 
         String imageTop = topArticle.getImage();
         if (!TextUtils.isEmpty(imageTop)) {

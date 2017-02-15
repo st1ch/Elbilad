@@ -1,10 +1,10 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
-import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
@@ -22,16 +22,16 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
   private GetArticleUseCase getArticleUseCase;
   private GetLastVideosUseCase getLastVideosUseCase;
   private GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase;
-  private AddBookmarkUseCase addBookmarkUseCase;
+  private AddArticleBookmarkUseCase addArticleBookmarkUseCase;
 
   public ArticleDetailsPresenterImpl(GetArticleUseCase getArticleUseCase,
       GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
-      AddBookmarkUseCase addBookmarkUseCase) {
+      AddArticleBookmarkUseCase addArticleBookmarkUseCase) {
     this.getArticleUseCase = getArticleUseCase;
     this.getLastVideosUseCase = getLastVideosUseCase;
     this.getLast6NewsArticlesUseCase = getLast6NewsArticlesUseCase;
-    this.addBookmarkUseCase = addBookmarkUseCase;
+    this.addArticleBookmarkUseCase = addArticleBookmarkUseCase;
   }
 
   @Override public void onCreate(String articleId) {
@@ -64,16 +64,16 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     }
   }
 
-  @Override public void addToBookmarks(ArticleItem article) {
-    addBookmarkUseCase.setArticle(article);
-    addBookmarkUseCase.execute(addBookmarkSubscriber());
+  @Override public void addToBookmarks(Article article) {
+    addArticleBookmarkUseCase.setArticle(article);
+    addArticleBookmarkUseCase.execute(addBookmarkSubscriber());
   }
 
   @Override public void onDestroy() {
     getArticleUseCase.unsubscribe();
     getLast6NewsArticlesUseCase.unsubscribe();
     getLastVideosUseCase.unsubscribe();
-    addBookmarkUseCase.unsubscribe();
+    addArticleBookmarkUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -93,9 +93,9 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     };
   }
 
-  private BaseProgressSubscriber<ArticleItem> addBookmarkSubscriber() {
-    return new BaseProgressSubscriber<ArticleItem>(this) {
-      @Override public void onNext(ArticleItem article) {
+  private BaseProgressSubscriber<Bookmark> addBookmarkSubscriber() {
+    return new BaseProgressSubscriber<Bookmark>(this) {
+      @Override public void onNext(Bookmark article) {
         super.onNext(article);
 
         try {

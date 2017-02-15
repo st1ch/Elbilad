@@ -2,7 +2,7 @@ package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -29,7 +29,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final Provider<HomeArticles> homeArticlesCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
   private final ProviderGroup<Article> articleCache;
-  private final Provider<List<ArticleItem>> bookmarkedArticlesCache;
+  private final Provider<List<Bookmark>> bookmarkedArticlesCache;
   private final Provider<List<Video>> videosCache;
   private final Provider<List<Image>> photosCache;
 
@@ -46,7 +46,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
     this.lastNews6Cache = reactiveCache.<List<Article>>provider().withKey("lastNews6Cache");
     this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
-    this.bookmarkedArticlesCache = reactiveCache.<List<ArticleItem>>provider().withKey("bookmarks");
+    this.bookmarkedArticlesCache = reactiveCache.<List<Bookmark>>provider().withKey("bookmarks");
     this.videosCache = reactiveCache.<List<Video>>provider().withKey("videosCache");
     this.photosCache = reactiveCache.<List<Image>>provider().withKey("photosCache");
   }
@@ -141,19 +141,19 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     return remoteDataSource.getGallery().compose(photosCache.readWithLoader());
   }
 
-  @Override public Observable<ArticleItem> addToBookmark(ArticleItem article) {
+  @Override public Observable<Bookmark> addToBookmark(Bookmark bookmark) {
     return bookmarkedArticlesCache.readNullable().map(articles -> {
       if (articles == null) {
         articles = new ArrayList<>();
       }
       return articles;
     }).map(articles -> {
-      articles.add(0, article);
+      articles.add(0, bookmark);
       return articles;
-    }).compose(bookmarkedArticlesCache.replace()).map(articles -> article);
+    }).compose(bookmarkedArticlesCache.replace()).map(articles -> bookmark);
   }
 
-  @Override public Observable<List<ArticleItem>> getBookmarks() {
+  @Override public Observable<List<Bookmark>> getBookmarks() {
     return bookmarkedArticlesCache.readNullable();
   }
 }

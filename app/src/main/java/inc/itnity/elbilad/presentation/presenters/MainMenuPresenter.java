@@ -9,6 +9,4 @@ import inc.itnity.elbilad.presentation.views.MainMenuView;
 
 public interface MainMenuPresenter extends IPresenter<MainMenuView> {
   void onCreate();
-
-  void openBaseFragmentTab(int position);
 }

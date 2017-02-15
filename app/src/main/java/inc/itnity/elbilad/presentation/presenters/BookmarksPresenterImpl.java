@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.presentation.presenters;
 
-import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.BaseArticle;
+import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressPresenter;
@@ -29,9 +30,9 @@ public class BookmarksPresenterImpl extends ProgressPresenter<BookmarksView>
     super.onDestroy();
   }
 
-  private BaseProgressSubscriber<List<ArticleItem>> bookmarksSubscriber() {
-    return new BaseProgressSubscriber<List<ArticleItem>>(this) {
-      @Override public void onNext(List<ArticleItem> articleItems) {
+  private BaseProgressSubscriber<List<Bookmark>> bookmarksSubscriber() {
+    return new BaseProgressSubscriber<List<Bookmark>>(this) {
+      @Override public void onNext(List<Bookmark> articleItems) {
         super.onNext(articleItems);
 
         try {

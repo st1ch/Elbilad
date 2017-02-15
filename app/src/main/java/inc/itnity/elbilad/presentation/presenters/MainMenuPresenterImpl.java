@@ -1,6 +1,5 @@
 package inc.itnity.elbilad.presentation.presenters;
 
-import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
@@ -16,11 +15,9 @@ public class MainMenuPresenterImpl extends ProgressConnectionPresenter<MainMenuV
     implements MainMenuPresenter {
 
   private GetCategoriesUseCase getCategoriesUseCase;
-  private OpenTabRxBus openTabRxBus;
 
-  public MainMenuPresenterImpl(GetCategoriesUseCase getCategoriesUseCase, OpenTabRxBus openTabRxBus) {
+  public MainMenuPresenterImpl(GetCategoriesUseCase getCategoriesUseCase) {
     this.getCategoriesUseCase = getCategoriesUseCase;
-    this.openTabRxBus = openTabRxBus;
   }
 
   @Override public void onCreate() {
@@ -33,10 +30,6 @@ public class MainMenuPresenterImpl extends ProgressConnectionPresenter<MainMenuV
     } catch (ViewNotBoundException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override public void openBaseFragmentTab(int position) {
-    openTabRxBus.openTab(position);
   }
 
   @Override public void onDestroy() {
