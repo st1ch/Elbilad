@@ -11,7 +11,8 @@ import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
-import inc.itnity.elbilad.domain.usecases.GetLastNewsArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetLastNewsUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
 import inc.itnity.elbilad.domain.usecases.GetPhotosUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideosUseCase;
@@ -23,6 +24,8 @@ import inc.itnity.elbilad.presentation.presenters.BookmarksPresenter;
 import inc.itnity.elbilad.presentation.presenters.BookmarksPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenter;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.LastNewsPresenter;
+import inc.itnity.elbilad.presentation.presenters.LastNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenter;
@@ -63,10 +66,10 @@ import inc.itnity.elbilad.utils.DialogHelper;
 
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
       GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
-      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase,
+      GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
       AddBookmarkUseCase addBookmarkUseCase) {
     return new ArticleDetailsPresenterImpl(getArticleUseCase, getLastVideosUseCase,
-        getLastNewsArticlesUseCase, addBookmarkUseCase);
+        getLast6NewsArticlesUseCase, addBookmarkUseCase);
   }
 
   @Provides VideoCategoryPresenter provideVideoCategoryPresenter(
@@ -81,5 +84,9 @@ import inc.itnity.elbilad.utils.DialogHelper;
 
   @Provides BookmarksPresenter provideBookmarksPresenter(GetBookmarksUseCase getBookmarksUseCase) {
     return new BookmarksPresenterImpl(getBookmarksUseCase);
+  }
+
+  @Provides LastNewsPresenter provideLastNewsPresenter(GetLastNewsUseCase getLastNewsUseCase) {
+    return new LastNewsPresenterImpl(getLastNewsUseCase);
   }
 }

@@ -21,7 +21,8 @@ public interface ElbiladAPI {
   String CATEGORIE = "/categorie";
 
   String HOME_ARTICLES = "/home-requests";
-  String LAST_NEWS = "/bloc?type=last";
+  String LAST_6_NEWS = "/bloc?type=last";
+  String LAST_NEWS = "/flash";
   String VIDEOS = "/video";
   String GALLERY = "/galerie";
 
@@ -37,13 +38,14 @@ public interface ElbiladAPI {
 
   @GET(ARTICLE) Observable<List<Article>> getArticles();
 
-  @GET(ARTICLE) Observable<List<Article>> getCategoryArticles(
-      @Query(CATEGORIE_ID) int categoryId);
+  @GET(ARTICLE) Observable<List<Article>> getCategoryArticles(@Query(CATEGORIE_ID) int categoryId);
 
   @GET(ARTICLE + PATH_ARTICLE_ID) Observable<List<Article>> getArticle(
       @Path(ARTICLE_ID) String articleId);
 
-  @GET(ARTICLE + LAST_NEWS) Observable<List<Article>> getLastNews(@Query(LIMIT) int limit);
+  @GET(LAST_NEWS) Observable<List<Article>> getLastNews();
+
+  @GET(ARTICLE + LAST_6_NEWS) Observable<List<Article>> getLastNews(@Query(LIMIT) int limit);
 
   @GET(VIDEOS) Observable<List<Video>> getVideos();
 

@@ -24,6 +24,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private ElbiladRemoteDataSource remoteDataSource;
   private final Provider<List<Category>> categoryListCache;
   private final Provider<List<Article>> articleListCache;
+  private final Provider<List<Article>> lastNews6Cache;
   private final Provider<List<Article>> lastNewsCache;
   private final Provider<HomeArticles> homeArticlesCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
@@ -43,6 +44,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
             .withKey("categoryArticleListCache");
     this.articleCache =
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
+    this.lastNews6Cache = reactiveCache.<List<Article>>provider().withKey("lastNews6Cache");
     this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
     this.bookmarkedArticlesCache = reactiveCache.<List<ArticleItem>>provider().withKey("bookmarks");
     this.videosCache = reactiveCache.<List<Video>>provider().withKey("videosCache");
@@ -110,6 +112,13 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getLastNews().compose(lastNewsCache.replace());
     }
     return remoteDataSource.getLastNews().compose(lastNewsCache.readWithLoader());
+  }
+
+  @Override public Observable<List<Article>> getLast6News(boolean refresh) {
+    if (refresh) {
+      return remoteDataSource.getLast6News().compose(lastNews6Cache.replace());
+    }
+    return remoteDataSource.getLast6News().compose(lastNews6Cache.readWithLoader());
   }
 
   @Override public Observable<List<Video>> getVideos(boolean refresh) {

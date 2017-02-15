@@ -43,6 +43,10 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
   }
 
   @Override public Observable<List<Article>> getLastNews() {
+    return elbiladAPI.getLastNews();
+  }
+
+  @Override public Observable<List<Article>> getLast6News() {
     return elbiladAPI.getLastNews(ApiConfig.LAST_NEWS_LIMIT);
   }
 

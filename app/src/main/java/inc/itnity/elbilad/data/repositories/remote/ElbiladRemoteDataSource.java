@@ -26,6 +26,8 @@ public interface ElbiladRemoteDataSource {
 
   Observable<List<Article>> getLastNews();
 
+  Observable<List<Article>> getLast6News();
+
   Observable<List<Video>> getVideos();
 
   Observable<List<Image>> getGallery();

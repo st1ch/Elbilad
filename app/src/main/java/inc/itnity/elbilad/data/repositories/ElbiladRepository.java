@@ -31,6 +31,8 @@ public interface ElbiladRepository {
 
   Observable<List<Article>> getLastNews(boolean refresh);
 
+  Observable<List<Article>> getLast6News(boolean refresh);
+
   Observable<List<Video>> getVideos(boolean refresh);
 
   Observable<List<Image>> getGallery(boolean refresh);

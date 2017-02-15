@@ -6,7 +6,7 @@ import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
-import inc.itnity.elbilad.domain.usecases.GetLastNewsArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
@@ -21,16 +21,16 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
 
   private GetArticleUseCase getArticleUseCase;
   private GetLastVideosUseCase getLastVideosUseCase;
-  private GetLastNewsArticlesUseCase getLastNewsArticlesUseCase;
+  private GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase;
   private AddBookmarkUseCase addBookmarkUseCase;
 
   public ArticleDetailsPresenterImpl(GetArticleUseCase getArticleUseCase,
       GetLastVideosUseCase getLastVideosUseCase,
-      GetLastNewsArticlesUseCase getLastNewsArticlesUseCase,
+      GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
       AddBookmarkUseCase addBookmarkUseCase) {
     this.getArticleUseCase = getArticleUseCase;
     this.getLastVideosUseCase = getLastVideosUseCase;
-    this.getLastNewsArticlesUseCase = getLastNewsArticlesUseCase;
+    this.getLast6NewsArticlesUseCase = getLast6NewsArticlesUseCase;
     this.addBookmarkUseCase = addBookmarkUseCase;
   }
 
@@ -46,8 +46,8 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
       getLastVideosUseCase.setRefresh(false);
       getLastVideosUseCase.execute(videosSubscriber());
 
-      getLastNewsArticlesUseCase.setRefresh(false);
-      getLastNewsArticlesUseCase.execute(lastNewsSubscriber());
+      getLast6NewsArticlesUseCase.setRefresh(false);
+      getLast6NewsArticlesUseCase.execute(lastNewsSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();
     } catch (ConnectionException e) {
@@ -59,8 +59,8 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
       getLastVideosUseCase.setRefresh(false);
       getLastVideosUseCase.execute(videosSubscriber());
 
-      getLastNewsArticlesUseCase.setRefresh(false);
-      getLastNewsArticlesUseCase.execute(lastNewsSubscriber());
+      getLast6NewsArticlesUseCase.setRefresh(false);
+      getLast6NewsArticlesUseCase.execute(lastNewsSubscriber());
     }
   }
 
@@ -71,7 +71,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
 
   @Override public void onDestroy() {
     getArticleUseCase.unsubscribe();
-    getLastNewsArticlesUseCase.unsubscribe();
+    getLast6NewsArticlesUseCase.unsubscribe();
     getLastVideosUseCase.unsubscribe();
     addBookmarkUseCase.unsubscribe();
     super.onDestroy();

@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeLastNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
@@ -51,7 +51,7 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
       case PAGE_HOME:
         return HomeFragment.newInstance();
       case PAGE_LAST_NEWS:
-        return SimpleNewsFragment.newInstance(ApiConfig.LAST_NEWS_CATEGORY_ID);
+        return HomeLastNewsFragment.newInstance();
       case PAGE_BOOKMARKS:
         return HomeBookmarksFragment.newInstance();
       case PAGE_VIDEOS:

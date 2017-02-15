@@ -12,13 +12,13 @@ import rx.Observable;
  * Created by st1ch on 13.02.17.
  */
 
-public class GetLastNewsArticlesUseCase extends UseCase<List<Article>> {
+public class GetLast6NewsArticlesUseCase extends UseCase<List<Article>> {
 
   private ElbiladRepository elbiladRepository;
 
   private boolean refresh;
 
-  @Inject GetLastNewsArticlesUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
+  @Inject GetLast6NewsArticlesUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
       ElbiladRepository elbiladRepository) {
     super(subscribeOn, observeOn);
     this.elbiladRepository = elbiladRepository;
@@ -29,6 +29,6 @@ public class GetLastNewsArticlesUseCase extends UseCase<List<Article>> {
   }
 
   @Override protected Observable<List<Article>> getUseCaseObservable() {
-    return elbiladRepository.getLastNews(refresh);
+    return elbiladRepository.getLast6News(refresh);
   }
 }
