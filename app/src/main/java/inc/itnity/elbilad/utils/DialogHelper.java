@@ -7,14 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import inc.itnity.elbilad.R;
-import javax.inject.Inject;
 
 public class DialogHelper {
 
   private AppCompatActivity context;
   private Dialog dialog;
 
-  @Inject DialogHelper(AppCompatActivity context) {
+  public DialogHelper(AppCompatActivity context) {
     this.context = context;
   }
 

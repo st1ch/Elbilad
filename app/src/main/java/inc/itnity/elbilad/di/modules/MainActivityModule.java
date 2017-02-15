@@ -1,7 +1,9 @@
 package inc.itnity.elbilad.di.modules;
 
+import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
+import inc.itnity.elbilad.di.MainActivityScope;
 import inc.itnity.elbilad.domain.buses.OpenTabRxBus;
 import inc.itnity.elbilad.domain.usecases.AddBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
@@ -29,11 +31,16 @@ import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenter;
 import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenter;
 import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenterImpl;
+import inc.itnity.elbilad.utils.DialogHelper;
 
 /**
  * Created by st1ch on 20.01.17.
  */
 @Module public class MainActivityModule {
+
+  @Provides @MainActivityScope DialogHelper provideDialogHelper(AppCompatActivity activity) {
+    return new DialogHelper(activity);
+  }
 
   @Provides HomeScreenPresenter provideHomeScreenPresenter(
       GetHomeArticlesUseCase getHomeArticlesUseCase) {
