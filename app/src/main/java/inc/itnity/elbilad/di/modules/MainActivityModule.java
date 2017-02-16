@@ -5,6 +5,7 @@ import dagger.Module;
 import dagger.Provides;
 import inc.itnity.elbilad.di.MainActivityScope;
 import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.AddPhotoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
@@ -31,6 +32,8 @@ import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenter;
 import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.PhotoDetailsPresenter;
+import inc.itnity.elbilad.presentation.presenters.PhotoDetailsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenter;
 import inc.itnity.elbilad.presentation.presenters.SimpleNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.VideoCategoryPresenter;
@@ -95,5 +98,10 @@ import inc.itnity.elbilad.utils.DialogHelper;
   @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,
       AddVideoBookmarkUseCase addArticleBookmarkUseCase) {
     return new VideoDetailsPresenterImpl(getVideosUseCase, addArticleBookmarkUseCase);
+  }
+
+  @Provides PhotoDetailsPresenter providePhotoDetailsPresenter(GetPhotosUseCase getPhotosUseCase,
+      AddPhotoBookmarkUseCase addPhotoBookmarkUseCase) {
+    return new PhotoDetailsPresenterImpl(getPhotosUseCase, addPhotoBookmarkUseCase);
   }
 }

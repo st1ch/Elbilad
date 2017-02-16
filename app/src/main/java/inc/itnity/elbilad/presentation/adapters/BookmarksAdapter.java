@@ -142,8 +142,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
             elbiladUtils.getArticleTimeDate(topPhoto.getTime(), topPhoto.getDate()));
         holder.tvPreview.setText(topPhoto.getPreview());
 
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(topPhoto.getId()));
+        holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
         break;
       case TYPE_VIDEO:
         Video video = bookmark.getVideo();
@@ -168,8 +167,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvDate.setText(elbiladUtils.getArticleTimeDate(photo.getTime(), photo.getDate()));
         holder.tvPreview.setText(photo.getPreview());
 
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(photo.getId()));
+        holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
         break;
       case TYPE_SIMPLE:
         Article article = bookmark.getArticle();

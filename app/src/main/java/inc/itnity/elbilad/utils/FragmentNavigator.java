@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
+import inc.itnity.elbilad.presentation.fragments.PhotoDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.VideoDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
@@ -176,5 +177,10 @@ import javax.inject.Singleton;
   public void startPhotosFragment() {
     Fragment fragment = PhotosFragment.newInstance();
     openAsChildRoot(fragment);
+  }
+
+  public void startPhotoDetailsragment() {
+    Fragment fragment = PhotoDetailsFragment.newInstance();
+    open(fragment);
   }
 }

@@ -77,8 +77,8 @@ public class PhotoCategoryNewsAdapter
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
     holder.tvPreview.setText(article.getPreview());
 
-    //holder.itemView.setOnClickListener(
-    //    v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+    holder.itemView.setOnClickListener(
+        v -> fragmentNavigator.startPhotoDetailsragment());
   }
 
   @Override public int getItemCount() {

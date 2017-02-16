@@ -1,13 +1,14 @@
 package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,44 +23,46 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
   private LayoutInflater mLayoutInflater;
   private ImageLoaderHelper imageLoaderHelper;
 
-  private List<String> urls = new ArrayList<>();
+  private List<Image> photos = new ArrayList<>();
 
-  @Inject
-  PhotoSlidePagerAdapter(Context context, ImageLoaderHelper imageLoaderHelper) {
+  @Inject PhotoSlidePagerAdapter(Context context, ImageLoaderHelper imageLoaderHelper) {
     this.imageLoaderHelper = imageLoaderHelper;
     mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-    urls.add("http://enigma-project.ru/wp-content/uploads/2015/12/priroda-1.jpg?x42318");
-    urls.add("http://enigma-project.ru/wp-content/uploads/2015/12/priroda-3.jpg?x42318");
-    urls.add("http://cdn.fishki.net/upload/post/201411/26/1334081/zhivaja-priroda.jpg");
-    urls.add("http://www.yourfreedom.ru/custom-content/uploads/Priroda-1920x1200.jpg");
   }
 
-  @Override
-  public int getCount() {
-    return 4;
+  public void setPhotos(List<Image> photos) {
+    this.photos.clear();
+    this.photos.addAll(photos);
+    notifyDataSetChanged();
   }
 
-  @Override
-  public boolean isViewFromObject(View view, Object object) {
-    return view == ((FrameLayout) object);
+  public Image getPhoto(int position) {
+    return photos.get(position);
   }
 
-  @Override
-  public Object instantiateItem(ViewGroup container, int position) {
-    View itemView = mLayoutInflater.inflate(R.layout.item_category_news, container, false);
+  @Override public int getCount() {
+    return photos.size();
+  }
 
-    ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_image);
+  @Override public boolean isViewFromObject(View view, Object object) {
+    return view == ((ConstraintLayout) object);
+  }
 
-    imageLoaderHelper.loadUrlImage(urls.get(position), imageView);
+  @Override public Object instantiateItem(ViewGroup container, int position) {
+    View itemView = mLayoutInflater.inflate(R.layout.item_photo_details, container, false);
+
+    Image photo = getPhoto(position);
+
+    ImageView slide = (ImageView) itemView.findViewById(R.id.iv_photo_slide);
+
+    imageLoaderHelper.loadUrlImageLarge(photo.getImage(), slide);
 
     container.addView(itemView);
 
     return itemView;
   }
 
-  @Override
-  public void destroyItem(ViewGroup container, int position, Object object) {
+  @Override public void destroyItem(ViewGroup container, int position, Object object) {
     container.removeViewAt(position);
   }
 }
