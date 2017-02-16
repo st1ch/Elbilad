@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Video;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +24,14 @@ import javax.inject.Inject;
 public class VideoSlideAdapter extends RecyclerView.Adapter<VideoSlideAdapter.VideoViewHolder> {
 
   private ImageLoaderHelper imageLoaderHelper;
+  private FragmentNavigator fragmentNavigator;
 
   private List<Video> videos = new ArrayList<>();
 
-  @Inject
-  public VideoSlideAdapter(ImageLoaderHelper imageLoaderHelper) {
+  @Inject VideoSlideAdapter(ImageLoaderHelper imageLoaderHelper,
+      FragmentNavigator fragmentNavigator) {
     this.imageLoaderHelper = imageLoaderHelper;
+    this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override
@@ -47,9 +50,12 @@ public class VideoSlideAdapter extends RecyclerView.Adapter<VideoSlideAdapter.Vi
 
     holder.tvTitle.setText(video.getTitle());
     holder.tvDate.setText(getArticleDate(holder, video.getDate(), video.getTime()));
+
+    holder.itemView.setOnClickListener(
+        v -> fragmentNavigator.startVideoDetailsFragment(video.getId()));
   }
 
-  private String getArticleDate(VideoViewHolder holder, String date, String time){
+  private String getArticleDate(VideoViewHolder holder, String date, String time) {
     return holder.itemView.getContext().getString(R.string.date, time, date);
   }
 

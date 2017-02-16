@@ -25,7 +25,7 @@ public class LastNewsPresenterImpl extends ProgressConnectionPresenter<LastNewsV
       checkViewBound();
       checkConnection();
 
-      getLastNewsUseCase.setRefresh(false);
+      getLastNewsUseCase.setRefresh(true);
       getLastNewsUseCase.execute(articlesSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();

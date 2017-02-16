@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,14 @@ import java.util.List;
 public class GallerySlideAdapter extends RecyclerView.Adapter<GallerySlideAdapter.ImageViewHolder> {
 
   private ImageLoaderHelper imageLoaderHelper;
+  private FragmentNavigator fragmentNavigator;
 
   private List<Image> images = new ArrayList<>();
 
-  public GallerySlideAdapter(ImageLoaderHelper imageLoaderHelper) {
+  public GallerySlideAdapter(ImageLoaderHelper imageLoaderHelper,
+      FragmentNavigator fragmentNavigator) {
     this.imageLoaderHelper = imageLoaderHelper;
+    this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override
@@ -45,6 +49,8 @@ public class GallerySlideAdapter extends RecyclerView.Adapter<GallerySlideAdapte
 
     holder.tvTitle.setText(image.getTitle());
     holder.tvDate.setText(getArticleDate(holder, image.getDate(), image.getTime()));
+
+    holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
   }
 
   private String getArticleDate(ImageViewHolder holder, String date, String time) {

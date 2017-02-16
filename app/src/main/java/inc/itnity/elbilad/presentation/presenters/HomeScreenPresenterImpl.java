@@ -20,8 +20,19 @@ public class HomeScreenPresenterImpl extends ProgressConnectionPresenter<HomeScr
   }
 
   @Override public void onCreate() {
-    getHomeArticlesUseCase.setRefresh(false);
-    getHomeArticlesUseCase.execute(articlesSubscriber());
+    try {
+      checkViewBound();
+      checkConnection();
+
+      getHomeArticlesUseCase.setRefresh(true);
+      getHomeArticlesUseCase.execute(articlesSubscriber());
+    } catch (ViewNotBoundException e) {
+      e.printStackTrace();
+    } catch (ConnectionException e) {
+      e.printStackTrace();
+      getHomeArticlesUseCase.setRefresh(true);
+      getHomeArticlesUseCase.execute(articlesSubscriber());
+    }
   }
 
   private BaseProgressSubscriber<HomeArticles> articlesSubscriber() {

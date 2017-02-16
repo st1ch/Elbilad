@@ -25,7 +25,7 @@ public class SimpleNewsPresenterImpl extends ProgressConnectionPresenter<SimpleN
       checkViewBound();
       checkConnection();
 
-      getCategoryArticlesUseCase.setRefresh(false);
+      getCategoryArticlesUseCase.setRefresh(true);
       getCategoryArticlesUseCase.setCategoryId(categoryId);
       getCategoryArticlesUseCase.execute(articlesSubscriber());
     } catch (ViewNotBoundException e) {

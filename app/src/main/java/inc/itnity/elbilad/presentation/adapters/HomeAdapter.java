@@ -99,7 +99,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
         String imageTop = topArticle.getImage();
         if (!TextUtils.isEmpty(imageTop)) {
-          imageLoaderHelper.loadUrlImageUneSlide(imageTop, ((TopNewsItemViewHolder) holder).ivImage);
+          imageLoaderHelper.loadUrlImageUneSlide(imageTop,
+              ((TopNewsItemViewHolder) holder).ivImage);
         }
 
         ((TopNewsItemViewHolder) holder).tvTitle.setText(topArticle.getTitle());
@@ -162,6 +163,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((VideoArticleItemViewHolder) holder).tvAuthor.setText(videoImageArticle.getAuthor());
         ((VideoArticleItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, videoImageArticle.getDate(), videoImageArticle.getTime()));
+
+        //((VideoArticleItemViewHolder) holder).itemView.setOnClickListener(
+        //    v -> fragmentNavigator.startVideoDetailsFragment());
         break;
       case ArticleItem.TYPE.VIDEO:
         LinearLayoutManager videoLayoutManager =
@@ -170,7 +174,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((VideoItemViewHolder) holder).rvVideoNews.setLayoutManager(videoLayoutManager);
         ((VideoItemViewHolder) holder).rvVideoNews.addItemDecoration(
             new HorizontalSpaceItemDecoration());
-        VideoSlideAdapter videoSlideAdapter = new VideoSlideAdapter(imageLoaderHelper);
+        VideoSlideAdapter videoSlideAdapter =
+            new VideoSlideAdapter(imageLoaderHelper, fragmentNavigator);
         ((VideoItemViewHolder) holder).rvVideoNews.setAdapter(videoSlideAdapter);
         videoSlideAdapter.setVideos(videos);
         break;
@@ -181,7 +186,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((GalleryItemViewHolder) holder).rvGalleryNews.setLayoutManager(galleryLayoutManager);
         ((GalleryItemViewHolder) holder).rvGalleryNews.addItemDecoration(
             new HorizontalSpaceItemDecoration());
-        GallerySlideAdapter gallerySlideAdapter = new GallerySlideAdapter(imageLoaderHelper);
+        GallerySlideAdapter gallerySlideAdapter =
+            new GallerySlideAdapter(imageLoaderHelper, fragmentNavigator);
         ((GalleryItemViewHolder) holder).rvGalleryNews.setAdapter(gallerySlideAdapter);
         gallerySlideAdapter.setImages(gallery);
         break;

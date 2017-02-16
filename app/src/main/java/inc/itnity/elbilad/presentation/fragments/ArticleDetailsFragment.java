@@ -137,6 +137,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   @Override public void showLastNews(List<Article> articles) {
     rvLastNews.setLayoutManager(new LinearLayoutManager(getActivity()));
+    rvLastNews.setNestedScrollingEnabled(false);
     rvLastNews.addItemDecoration(new VerticalSpaceItemDecoration());
     rvLastNews.setAdapter(simpleNewsAdapter);
 

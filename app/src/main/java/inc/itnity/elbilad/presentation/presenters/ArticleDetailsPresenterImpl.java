@@ -39,14 +39,14 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
       checkViewBound();
       checkConnection();
 
-      getArticleUseCase.setRefresh(false);
+      getArticleUseCase.setRefresh(true);
       getArticleUseCase.setArticleId(articleId);
       getArticleUseCase.execute(articleSubscriber());
 
-      getLastVideosUseCase.setRefresh(false);
+      getLastVideosUseCase.setRefresh(true);
       getLastVideosUseCase.execute(videosSubscriber());
 
-      getLast6NewsArticlesUseCase.setRefresh(false);
+      getLast6NewsArticlesUseCase.setRefresh(true);
       getLast6NewsArticlesUseCase.execute(lastNewsSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();

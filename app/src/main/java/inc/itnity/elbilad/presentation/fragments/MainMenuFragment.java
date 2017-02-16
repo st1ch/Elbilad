@@ -51,6 +51,7 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
   private void initContent() {
     rvCategories.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvCategories.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
+    rvCategories.setNestedScrollingEnabled(false);
     rvCategories.setAdapter(menuCategoryAdapter);
     menuCategoryAdapter.setCategoryClickListener((position, id, title) -> {
       fragmentNavigator.startCategoryFragment(id, title);
