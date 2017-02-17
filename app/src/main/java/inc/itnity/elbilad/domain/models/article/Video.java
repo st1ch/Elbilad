@@ -14,9 +14,25 @@ public class Video extends BaseArticle {
   @SerializedName("type_video") private String videoType;
   @SerializedName("youtube_id") private String youtubeId;
   @SerializedName("local_video") private String localVideo;
+  private boolean isArticle;
 
   public Video() {
     super.setType(TYPE.VIDEO);
+  }
+
+  public Video(ArticleVideo articleVideo) {
+    id = articleVideo.getId();
+    title = articleVideo.getTitle();
+    categoryTitle = articleVideo.getCategoryTitle();
+    date = articleVideo.getFullDate();
+    image = articleVideo.getImage();
+    link = articleVideo.getLink();
+
+    categoryId = articleVideo.getCategoryId();
+    preview = articleVideo.getPreview();
+    videoType = "remote";
+    youtubeId = articleVideo.getYoutubeCode();
+    isArticle = true;
   }
 
   @Override public String getPreview() {
@@ -41,6 +57,10 @@ public class Video extends BaseArticle {
 
   public String getLocalVideo() {
     return localVideo;
+  }
+
+  public boolean isArticle() {
+    return isArticle;
   }
 
   @Override public String toString() {

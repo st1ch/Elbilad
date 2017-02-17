@@ -39,10 +39,12 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
   @Inject ElbiladUtils elbiladUtils;
 
   private static final String ARG_VIDEO_ID = "video_id_arg";
+  private static final String ARG_IS_ARTICLE = "is_article_arg";
 
-  public static VideoDetailsFragment newInstance(String videoId) {
+  public static VideoDetailsFragment newInstance(String videoId, boolean isArticle) {
     Bundle args = new Bundle();
     args.putString(ARG_VIDEO_ID, videoId);
+    args.putBoolean(ARG_IS_ARTICLE, isArticle);
     VideoDetailsFragment fragment = new VideoDetailsFragment();
     fragment.setArguments(args);
     return fragment;
@@ -70,7 +72,8 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
     View rootView = super.onCreateView(inflater, container, savedInstanceState);
     ((AbstractBaseActivity) getActivity()).hideToolbar();
 
-    presenter.onCreate(getArguments().getString(ARG_VIDEO_ID));
+    presenter.onCreate(getArguments().getString(ARG_VIDEO_ID),
+        getArguments().getBoolean(ARG_IS_ARTICLE));
 
     return rootView;
   }

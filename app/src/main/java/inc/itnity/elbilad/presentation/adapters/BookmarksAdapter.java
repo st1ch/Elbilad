@@ -111,7 +111,8 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(topVideo.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(topVideo.getId()));
+            v -> fragmentNavigator.startVideoDetailsFragment(topVideo.getId(),
+                topVideo.isArticle()));
         break;
       case TYPE_TOP_SIMPLE:
         Article topArticle = bookmark.getArticle();
@@ -127,7 +128,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(topArticle.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(topArticle.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
         break;
       case TYPE_TOP_PHOTO:
         Image topPhoto = bookmark.getPhoto();
@@ -155,7 +156,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(video.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(video.getId()));
+            v -> fragmentNavigator.startVideoDetailsFragment(video.getId(), video.isArticle()));
         break;
       case TYPE_PHOTO:
         Image photo = bookmark.getPhoto();
@@ -181,7 +182,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(article.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
         break;
     }
   }

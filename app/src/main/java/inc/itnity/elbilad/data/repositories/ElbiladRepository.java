@@ -37,6 +37,8 @@ public interface ElbiladRepository {
 
   Observable<Video> getVideo(String videoId);
 
+  Observable<Video> getVideoArticle(String videoId);
+
   Observable<List<Image>> getGallery(boolean refresh);
 
   Observable<Bookmark> addToBookmark(Bookmark bookmark);

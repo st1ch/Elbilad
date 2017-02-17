@@ -52,7 +52,7 @@ public class VideoSlideAdapter extends RecyclerView.Adapter<VideoSlideAdapter.Vi
     holder.tvDate.setText(getArticleDate(holder, video.getDate(), video.getTime()));
 
     holder.itemView.setOnClickListener(
-        v -> fragmentNavigator.startVideoDetailsFragment(video.getId()));
+        v -> fragmentNavigator.startVideoDetailsFragment(video.getId(), false));
   }
 
   private String getArticleDate(VideoViewHolder holder, String date, String time) {

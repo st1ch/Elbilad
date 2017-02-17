@@ -11,7 +11,6 @@ import butterknife.BindView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
-import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.HomeScreenPresenter;
@@ -22,7 +21,7 @@ import javax.inject.Inject;
  * Created by st1ch on 18.01.17.
  */
 
-public class HomeFragment extends AbstractBaseFragment implements HomeScreenView {
+public class HomeMainFragment extends AbstractBaseFragment implements HomeScreenView {
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
 
@@ -30,16 +29,13 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
 
   @Inject HomeAdapter adapter;
 
-  public static HomeFragment newInstance() {
-    return new HomeFragment();
+  public static HomeMainFragment newInstance() {
+    return new HomeMainFragment();
   }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    ((AbstractBaseActivity) getActivity()).showHomeToolbar();
-    ((AbstractBaseActivity) getActivity()).hideTitleLogo();
-    ((AbstractBaseActivity) getActivity()).setTitleToolBar(getString(R.string.home));
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();

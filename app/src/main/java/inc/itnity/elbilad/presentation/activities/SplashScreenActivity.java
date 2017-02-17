@@ -53,6 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
   @Override public void showDataLoaded() {
     Intent intent = new Intent(this, MainActivity.class);
     startActivity(intent);
+    finish();
   }
 
   @Override public void onDataNotAvailable() {

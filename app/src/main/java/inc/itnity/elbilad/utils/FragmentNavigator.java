@@ -169,8 +169,8 @@ import javax.inject.Singleton;
     openAsChildRoot(fragment);
   }
 
-  public void startVideoDetailsFragment(String videoId) {
-    Fragment fragment = VideoDetailsFragment.newInstance(videoId);
+  public void startVideoDetailsFragment(String videoId, boolean isArticle) {
+    Fragment fragment = VideoDetailsFragment.newInstance(videoId, isArticle);
     open(fragment);
   }
 

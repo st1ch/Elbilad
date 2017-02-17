@@ -78,7 +78,7 @@ public class VideoCategoryNewsAdapter
     holder.tvPreview.setText(article.getPreview());
 
     holder.itemView.setOnClickListener(
-        v -> fragmentNavigator.startVideoDetailsFragment(article.getId()));
+        v -> fragmentNavigator.startVideoDetailsFragment(article.getId(), false));
   }
 
   @Override public int getItemCount() {

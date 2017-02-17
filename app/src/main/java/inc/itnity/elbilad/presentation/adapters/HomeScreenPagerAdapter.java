@@ -7,8 +7,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.HomeFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeLastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeMainFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
@@ -34,11 +34,10 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
     pagesCount = STATIC_TABS_COUNT + categories.size();
 
     titles.add(context.getString(R.string.home));
+    titles.add(context.getString(R.string.last_news));
     titles.add(context.getString(R.string.bookmarks));
-    titles.add(context.getString(R.string.last_news));
-    titles.add(context.getString(R.string.last_news));
-    titles.add(context.getString(R.string.last_news));
-    titles.add(context.getString(R.string.last_news));
+    titles.add(context.getString(R.string.videos));
+    titles.add(context.getString(R.string.photos));
     titles.trimToSize();
   }
 
@@ -49,7 +48,7 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
   @Override public Fragment getItem(int position) {
     switch (position) {
       case PAGE_HOME:
-        return HomeFragment.newInstance();
+        return HomeMainFragment.newInstance();
       case PAGE_LAST_NEWS:
         return HomeLastNewsFragment.newInstance();
       case PAGE_BOOKMARKS:

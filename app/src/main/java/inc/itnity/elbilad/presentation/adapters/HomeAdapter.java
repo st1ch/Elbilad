@@ -164,8 +164,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((VideoArticleItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, videoImageArticle.getDate(), videoImageArticle.getTime()));
 
-        //((VideoArticleItemViewHolder) holder).itemView.setOnClickListener(
-        //    v -> fragmentNavigator.startVideoDetailsFragment());
+        ((VideoArticleItemViewHolder) holder).itemView.setOnClickListener(
+            v -> fragmentNavigator.startVideoDetailsFragment(videoImageArticle.getId(), true));
         break;
       case ArticleItem.TYPE.VIDEO:
         LinearLayoutManager videoLayoutManager =

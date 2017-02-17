@@ -34,7 +34,11 @@ public abstract class BaseArticle implements ArticleItem {
   }
 
   public String getTime() {
-    return date.split("T")[1].split("\\+")[0];
+    return date.split("T")[1];
+  }
+
+  public String getFullDate(){
+    return date;
   }
 
   public String getImage() {

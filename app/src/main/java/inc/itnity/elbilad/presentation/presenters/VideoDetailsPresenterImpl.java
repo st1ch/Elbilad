@@ -5,6 +5,7 @@ import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.GetVideoArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.VideoDetailsView;
@@ -17,17 +18,25 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
     implements VideoDetailsPresenter {
 
   private GetVideoUseCase getVideosUseCase;
+  private GetVideoArticleUseCase getVideoArticleUseCase;
   private AddVideoBookmarkUseCase addVideoBookmarkUseCase;
 
   public VideoDetailsPresenterImpl(GetVideoUseCase getVideosUseCase,
+      GetVideoArticleUseCase getVideoArticleUseCase,
       AddVideoBookmarkUseCase addVideoBookmarkUseCase) {
     this.getVideosUseCase = getVideosUseCase;
+    this.getVideoArticleUseCase = getVideoArticleUseCase;
     this.addVideoBookmarkUseCase = addVideoBookmarkUseCase;
   }
 
-  @Override public void onCreate(String videoId) {
-    getVideosUseCase.setVideoId(videoId);
-    getVideosUseCase.execute(videoSubscriber());
+  @Override public void onCreate(String videoId, boolean isArticle) {
+    if (!isArticle) {
+      getVideosUseCase.setVideoId(videoId);
+      getVideosUseCase.execute(videoSubscriber());
+    } else {
+      getVideoArticleUseCase.setVideoId(videoId);
+      getVideoArticleUseCase.execute(videoSubscriber());
+    }
   }
 
   @Override public void addToBookmarks(Video video) {

@@ -134,6 +134,14 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
         .filter(video -> video.getId().equals(videoId));
   }
 
+  @Override public Observable<Video> getVideoArticle(String videoId) {
+    return homeArticlesCache.read()
+        .map(HomeArticles::getVideoArticles)
+        .flatMap(Observable::from)
+        .filter(articleVideo -> articleVideo.getId().equals(videoId))
+        .map(Video::new);
+  }
+
   @Override public Observable<List<Image>> getGallery(boolean refresh) {
     if (refresh) {
       return remoteDataSource.getGallery().compose(photosCache.replace());
