@@ -4,17 +4,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import inc.itnity.elbilad.ElbiladApplication;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.di.components.DaggerMainActivityComponent;
 import inc.itnity.elbilad.di.components.MainActivityComponent;
 import inc.itnity.elbilad.di.modules.ActivityContextModule;
+import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import javax.inject.Inject;
 
@@ -22,6 +25,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     implements FragmentNavigator.NavigationListener {
 
   @Inject protected FragmentNavigator fragmentNavigator;
+
+  @Inject RefreshTabRxBus refreshTabRxBus;
 
   private ToolbarHomeViewHolder toolbarHomeViewHolder;
   private ToolbarDetailsViewHolder toolbarDetailsViewHolder;
@@ -154,6 +159,10 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     ToolbarHomeViewHolder(View view) {
       ButterKnife.bind(this, view);
       rootView = view;
+    }
+
+    @OnClick(R.id.iv_refresh) void onRefreshClick() {
+      refreshTabRxBus.refreshTab();
     }
   }
 

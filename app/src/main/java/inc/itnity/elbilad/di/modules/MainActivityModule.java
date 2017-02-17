@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
 import inc.itnity.elbilad.di.MainActivityScope;
+import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddPhotoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
@@ -53,8 +54,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
   }
 
   @Provides HomeScreenPresenter provideHomeScreenPresenter(
-      GetHomeArticlesUseCase getHomeArticlesUseCase) {
-    return new HomeScreenPresenterImpl(getHomeArticlesUseCase);
+      GetHomeArticlesUseCase getHomeArticlesUseCase, RefreshTabRxBus refreshTabRxBus) {
+    return new HomeScreenPresenterImpl(getHomeArticlesUseCase, refreshTabRxBus);
   }
 
   @Provides MainMenuPresenter provideMainMenuPresenter(GetCategoriesUseCase getCategoriesUseCase) {
@@ -66,8 +67,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
   }
 
   @Provides SimpleNewsPresenter provideSimpleNewsPresenter(
-      GetCategoryArticlesUseCase getCategoryArticlesUseCase) {
-    return new SimpleNewsPresenterImpl(getCategoryArticlesUseCase);
+      GetCategoryArticlesUseCase getCategoryArticlesUseCase, RefreshTabRxBus refreshTabRxBus) {
+    return new SimpleNewsPresenterImpl(getCategoryArticlesUseCase, refreshTabRxBus);
   }
 
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
@@ -78,22 +79,24 @@ import inc.itnity.elbilad.utils.DialogHelper;
         getLast6NewsArticlesUseCase, addArticleBookmarkUseCase);
   }
 
-  @Provides VideoCategoryPresenter provideVideoCategoryPresenter(
-      GetVideosUseCase getVideosUseCase) {
-    return new VideoCategoryPresenterImpl(getVideosUseCase);
+  @Provides VideoCategoryPresenter provideVideoCategoryPresenter(GetVideosUseCase getVideosUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
+    return new VideoCategoryPresenterImpl(getVideosUseCase, refreshTabRxBus);
   }
 
-  @Provides PhotoCategoryPresenter providePhotoCategoryPresenter(
-      GetPhotosUseCase getPhotosUseCase) {
-    return new PhotoCategoryPresenterImpl(getPhotosUseCase);
+  @Provides PhotoCategoryPresenter providePhotoCategoryPresenter(GetPhotosUseCase getPhotosUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
+    return new PhotoCategoryPresenterImpl(getPhotosUseCase, refreshTabRxBus);
   }
 
-  @Provides BookmarksPresenter provideBookmarksPresenter(GetBookmarksUseCase getBookmarksUseCase) {
-    return new BookmarksPresenterImpl(getBookmarksUseCase);
+  @Provides BookmarksPresenter provideBookmarksPresenter(GetBookmarksUseCase getBookmarksUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
+    return new BookmarksPresenterImpl(getBookmarksUseCase, refreshTabRxBus);
   }
 
-  @Provides LastNewsPresenter provideLastNewsPresenter(GetLastNewsUseCase getLastNewsUseCase) {
-    return new LastNewsPresenterImpl(getLastNewsUseCase);
+  @Provides LastNewsPresenter provideLastNewsPresenter(GetLastNewsUseCase getLastNewsUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
+    return new LastNewsPresenterImpl(getLastNewsUseCase, refreshTabRxBus);
   }
 
   @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,

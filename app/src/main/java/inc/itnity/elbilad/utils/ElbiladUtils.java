@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v7.app.AppCompatActivity;
 import inc.itnity.elbilad.R;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -19,9 +20,9 @@ public class ElbiladUtils {
 
   private DateFormat articleDateFormat = new SimpleDateFormat("hh:mm | dd-MM-yyyy", Locale.ENGLISH);
 
-  private Context context;
+  private AppCompatActivity context;
 
-  @Inject ElbiladUtils(Context context) {
+  @Inject ElbiladUtils(AppCompatActivity context) {
     this.context = context;
   }
 

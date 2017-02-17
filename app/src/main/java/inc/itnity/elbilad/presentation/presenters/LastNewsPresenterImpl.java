@@ -1,7 +1,9 @@
 package inc.itnity.elbilad.presentation.presenters;
 
+import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
+import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.GetLastNewsUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.LastNewsView;
@@ -16,8 +18,13 @@ public class LastNewsPresenterImpl extends ProgressConnectionPresenter<LastNewsV
 
   private GetLastNewsUseCase getLastNewsUseCase;
 
-  public LastNewsPresenterImpl(GetLastNewsUseCase getLastNewsUseCase) {
+  private RefreshTabRxBus refreshTabRxBus;
+  private BaseUseCaseSubscriber<Boolean> refreshTabSubscriber;
+
+  public LastNewsPresenterImpl(GetLastNewsUseCase getLastNewsUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
     this.getLastNewsUseCase = getLastNewsUseCase;
+    this.refreshTabRxBus = refreshTabRxBus;
   }
 
   @Override public void onCreate() {
@@ -34,10 +41,19 @@ public class LastNewsPresenterImpl extends ProgressConnectionPresenter<LastNewsV
       getLastNewsUseCase.setRefresh(false);
       getLastNewsUseCase.execute(articlesSubscriber());
     }
+
+    if (refreshTabSubscriber == null) {
+      refreshTabSubscriber = refreshTabSubscriber();
+      refreshTabRxBus.getOpenTabObservable().subscribe(refreshTabSubscriber);
+    }
   }
 
   @Override public void onDestroy() {
     getLastNewsUseCase.unsubscribe();
+    if(refreshTabSubscriber != null && !refreshTabSubscriber.isUnsubscribed()){
+      refreshTabSubscriber.unsubscribe();
+      refreshTabSubscriber = null;
+    }
     super.onDestroy();
   }
 
@@ -52,6 +68,16 @@ public class LastNewsPresenterImpl extends ProgressConnectionPresenter<LastNewsV
         } catch (ViewNotBoundException e) {
           e.printStackTrace();
         }
+      }
+    };
+  }
+
+  private BaseUseCaseSubscriber<Boolean> refreshTabSubscriber() {
+    return new BaseUseCaseSubscriber<Boolean>() {
+      @Override public void onNext(Boolean aBoolean) {
+        super.onNext(aBoolean);
+
+        onCreate();
       }
     };
   }
