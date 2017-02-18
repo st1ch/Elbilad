@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
@@ -28,6 +29,7 @@ import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
 import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
+import inc.itnity.elbilad.utils.PermissionUtils;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -54,12 +56,17 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   @BindView(R.id.iv_image) ImageView ivImage;
   @BindView(R.id.tv_title_text) TextView tvTitleText;
 
+  @BindView(R.id.iv_journal) ImageView ivJournal;
+  @BindView(R.id.tv_number) TextView tvNumber;
+
   @BindView(R.id.rv_video) RecyclerView rvVideo;
   @BindView(R.id.rv_last_news) RecyclerView rvLastNews;
 
   @Inject ImageLoaderHelper imageLoaderHelper;
 
   @Inject ElbiladUtils elbiladUtils;
+
+  @Inject PermissionUtils permissionUtils;
 
   @Inject ArticleDetailsPresenter presenter;
 
@@ -129,6 +136,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
     LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
     layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     rvVideo.setLayoutManager(layoutManager);
+    rvVideo.setNestedScrollingEnabled(false);
     rvVideo.addItemDecoration(new HorizontalSpaceItemDecoration());
     rvVideo.setAdapter(videoSlideAdapter);
 
@@ -142,5 +150,15 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
     rvLastNews.setAdapter(simpleNewsAdapter);
 
     simpleNewsAdapter.setArticles(articles);
+  }
+
+  @Override public void showJournal(Journal journal) {
+    tvNumber.setText(getString(R.string.journal_number, journal.getNumber(),
+        journal.getDateString()));
+    ivJournal.setOnClickListener(v -> {
+      if (permissionUtils.requestExternalStoragePermissions()) {
+        presenter.downloadJournal(journal);
+      }
+    });
   }
 }

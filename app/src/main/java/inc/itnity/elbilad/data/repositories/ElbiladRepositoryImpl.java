@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
@@ -32,6 +33,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final Provider<List<Bookmark>> bookmarkedArticlesCache;
   private final Provider<List<Video>> videosCache;
   private final Provider<List<Image>> photosCache;
+  private final Provider<Journal> journalCache;
 
   public ElbiladRepositoryImpl(ElbiladRemoteDataSource remoteDataSource,
       ReactiveCache reactiveCache) {
@@ -49,6 +51,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     this.bookmarkedArticlesCache = reactiveCache.<List<Bookmark>>provider().withKey("bookmarks");
     this.videosCache = reactiveCache.<List<Video>>provider().withKey("videosCache");
     this.photosCache = reactiveCache.<List<Image>>provider().withKey("photosCache");
+    this.journalCache = reactiveCache.<Journal>provider().withKey("journalCache");
   }
 
   @Override public Observable<Boolean> loadCategoriesAndHomeArticles(boolean refresh) {
@@ -163,5 +166,16 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
 
   @Override public Observable<List<Bookmark>> getBookmarks() {
     return bookmarkedArticlesCache.readNullable();
+  }
+
+  @Override public Observable<Journal> getJournalData(boolean refresh) {
+    if (refresh) {
+      return remoteDataSource.getJournalData().compose(journalCache.replace());
+    }
+    return remoteDataSource.getJournalData().compose(journalCache.readWithLoader());
+  }
+
+  @Override public Observable<String> downloadJournal(String url, String filename) {
+    return remoteDataSource.downloadJournal(url, filename);
   }
 }

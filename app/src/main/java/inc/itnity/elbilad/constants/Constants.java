@@ -6,4 +6,7 @@ package inc.itnity.elbilad.constants;
 
 public interface Constants {
   int STATIC_TABS_COUNT = 5;
+
+  int REQUEST_PERMISSIONS_ELBILAD = 1;
+
 }

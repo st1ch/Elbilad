@@ -8,11 +8,13 @@ import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddPhotoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.DownloadJournalUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastNewsUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
@@ -54,8 +56,10 @@ import inc.itnity.elbilad.utils.DialogHelper;
   }
 
   @Provides HomeScreenPresenter provideHomeScreenPresenter(
-      GetHomeArticlesUseCase getHomeArticlesUseCase, RefreshTabRxBus refreshTabRxBus) {
-    return new HomeScreenPresenterImpl(getHomeArticlesUseCase, refreshTabRxBus);
+      GetHomeArticlesUseCase getHomeArticlesUseCase, RefreshTabRxBus refreshTabRxBus,
+      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase) {
+    return new HomeScreenPresenterImpl(getHomeArticlesUseCase, getJournalDataUseCase,
+        downloadJournalUseCase, refreshTabRxBus);
   }
 
   @Provides MainMenuPresenter provideMainMenuPresenter(GetCategoriesUseCase getCategoriesUseCase) {
@@ -74,9 +78,11 @@ import inc.itnity.elbilad.utils.DialogHelper;
   @Provides ArticleDetailsPresenter provideArticleDetailsPresenter(
       GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
-      AddArticleBookmarkUseCase addArticleBookmarkUseCase) {
-    return new ArticleDetailsPresenterImpl(getArticleUseCase, getLastVideosUseCase,
-        getLast6NewsArticlesUseCase, addArticleBookmarkUseCase);
+      AddArticleBookmarkUseCase addArticleBookmarkUseCase,
+      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase) {
+    return new ArticleDetailsPresenterImpl(getArticleUseCase, getJournalDataUseCase,
+        downloadJournalUseCase, getLastVideosUseCase, getLast6NewsArticlesUseCase,
+        addArticleBookmarkUseCase);
   }
 
   @Provides VideoCategoryPresenter provideVideoCategoryPresenter(GetVideosUseCase getVideosUseCase,

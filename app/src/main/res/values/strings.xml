@@ -24,4 +24,6 @@
   <string name="news_title_culture">الثقافي</string>
   <string name="news_title_rasid">الراصد</string>
   <string name="added_to_bookmarks">Added to bookmarks</string>
+  <string name="journal_title">النسخة الورقية</string>
+  <string name="journal_number">№ %1$s %2$s</string>
 </resources>

@@ -1,11 +1,15 @@
 package inc.itnity.elbilad.presentation.presenters;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
+import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.DownloadJournalUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
+import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
@@ -20,15 +24,20 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     implements ArticleDetailsPresenter {
 
   private GetArticleUseCase getArticleUseCase;
+  private GetJournalDataUseCase getJournalDataUseCase;
+  private DownloadJournalUseCase downloadJournalUseCase;
   private GetLastVideosUseCase getLastVideosUseCase;
   private GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase;
   private AddArticleBookmarkUseCase addArticleBookmarkUseCase;
 
   public ArticleDetailsPresenterImpl(GetArticleUseCase getArticleUseCase,
+      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase,
       GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
       AddArticleBookmarkUseCase addArticleBookmarkUseCase) {
     this.getArticleUseCase = getArticleUseCase;
+    this.getJournalDataUseCase = getJournalDataUseCase;
+    this.downloadJournalUseCase = downloadJournalUseCase;
     this.getLastVideosUseCase = getLastVideosUseCase;
     this.getLast6NewsArticlesUseCase = getLast6NewsArticlesUseCase;
     this.addArticleBookmarkUseCase = addArticleBookmarkUseCase;
@@ -48,6 +57,9 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
 
       getLast6NewsArticlesUseCase.setRefresh(true);
       getLast6NewsArticlesUseCase.execute(lastNewsSubscriber());
+
+      getJournalDataUseCase.setRefresh(true);
+      getJournalDataUseCase.execute(journalSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();
     } catch (ConnectionException e) {
@@ -61,6 +73,9 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
 
       getLast6NewsArticlesUseCase.setRefresh(false);
       getLast6NewsArticlesUseCase.execute(lastNewsSubscriber());
+
+      getJournalDataUseCase.setRefresh(false);
+      getJournalDataUseCase.execute(journalSubscriber());
     }
   }
 
@@ -69,11 +84,27 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     addArticleBookmarkUseCase.execute(addBookmarkSubscriber());
   }
 
+  @Override public void downloadJournal(Journal journal) {
+    try {
+      checkViewBound();
+      checkConnection();
+
+      downloadJournalUseCase.setJournal(journal);
+      downloadJournalUseCase.execute(downloadJournalSubscriber());
+    } catch (ViewNotBoundException e) {
+      e.printStackTrace();
+    } catch (ConnectionException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void onDestroy() {
     getArticleUseCase.unsubscribe();
     getLast6NewsArticlesUseCase.unsubscribe();
     getLastVideosUseCase.unsubscribe();
     addArticleBookmarkUseCase.unsubscribe();
+    getJournalDataUseCase.unsubscribe();
+    downloadJournalUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -139,5 +170,25 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
         }
       }
     };
+  }
+
+  private BaseUseCaseSubscriber<Journal> journalSubscriber() {
+    return new BaseUseCaseSubscriber<Journal>() {
+      @Override public void onNext(Journal journal) {
+        super.onNext(journal);
+
+        try {
+          checkViewBound();
+
+          getView().showJournal(journal);
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
+
+  private BaseUseCaseSubscriber<String> downloadJournalSubscriber(){
+    return new BaseUseCaseSubscriber<>();
   }
 }

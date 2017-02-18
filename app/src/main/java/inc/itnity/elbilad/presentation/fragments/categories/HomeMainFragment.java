@@ -7,8 +7,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeAdapter;
@@ -24,6 +27,10 @@ import javax.inject.Inject;
 public class HomeMainFragment extends AbstractBaseFragment implements HomeScreenView {
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
+
+  @BindView(R.id.iv_journal) ImageView ivJournal;
+
+  @BindView(R.id.tv_number) TextView tvNumber;
 
   @Inject HomeScreenPresenter presenter;
 
@@ -46,6 +53,7 @@ public class HomeMainFragment extends AbstractBaseFragment implements HomeScreen
 
   private void initContent() {
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
+    rvNews.setNestedScrollingEnabled(false);
     rvNews.setAdapter(adapter);
   }
 
@@ -67,5 +75,11 @@ public class HomeMainFragment extends AbstractBaseFragment implements HomeScreen
 
   @Override public void showLoadedArticles(HomeArticles articles) {
     adapter.setArticles(articles);
+  }
+
+  @Override public void showJournal(Journal journal) {
+    tvNumber.setText(
+        getString(R.string.journal_number, journal.getNumber(), journal.getDateString()));
+    ivJournal.setOnClickListener(v -> presenter.downloadJournal(journal));
   }
 }

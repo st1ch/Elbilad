@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.views;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.presentation.views.base.ConnectionView;
 
@@ -11,4 +12,5 @@ public interface HomeScreenView extends ConnectionView {
 
   void showLoadedArticles(HomeArticles articles);
 
+  void showJournal(Journal journal);
 }

@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.data.repositories.remote;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -31,4 +32,8 @@ public interface ElbiladRemoteDataSource {
   Observable<List<Video>> getVideos();
 
   Observable<List<Image>> getGallery();
+
+  Observable<Journal> getJournalData();
+
+  Observable<String> downloadJournal(String url, String filename);
 }

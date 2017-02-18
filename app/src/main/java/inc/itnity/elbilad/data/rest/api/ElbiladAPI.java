@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.data.rest.api;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -25,6 +26,7 @@ public interface ElbiladAPI {
   String LAST_NEWS = "/flash";
   String VIDEOS = "/video";
   String GALLERY = "/galerie";
+  String PDF = "/pdf";
 
   String CATEGORIE_ID = "categorie_id";
   String ARTICLE_ID = "article_id";
@@ -50,4 +52,6 @@ public interface ElbiladAPI {
   @GET(VIDEOS) Observable<List<Video>> getVideos();
 
   @GET(GALLERY) Observable<List<Image>> getGallery();
+
+  @GET(PDF) Observable<Journal> getJournalData();
 }

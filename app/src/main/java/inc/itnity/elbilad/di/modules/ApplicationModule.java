@@ -13,6 +13,7 @@ import inc.itnity.elbilad.data.rest.ApiManager;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
+import inc.itnity.elbilad.utils.rx_downloader.RxDownloader;
 import io.reactivecache.ReactiveCache;
 import io.victoralbertos.jolyglot.GsonSpeaker;
 import javax.inject.Singleton;
@@ -22,8 +23,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by st1ch on 15.01.17.
  */
-@Module
-public class ApplicationModule {
+@Module public class ApplicationModule {
   private Context mContext;
 
   public ApplicationModule(Context context) {
@@ -43,14 +43,15 @@ public class ApplicationModule {
   }
 
   @Provides @Singleton ReactiveCache provideReactiveCache(Context context) {
-    return new ReactiveCache.Builder()
-        .using(context.getFilesDir(), new GsonSpeaker());
+    return new ReactiveCache.Builder().using(context.getFilesDir(), new GsonSpeaker());
+  }
+
+  @Provides @Singleton RxDownloader provideRxDownloader(Context context) {
+    return new RxDownloader(context);
   }
 
   @Provides @Singleton Gson provideGson() {
-    return new GsonBuilder()
-        .serializeNulls()
-        .create();
+    return new GsonBuilder().serializeNulls().create();
   }
 
   @Provides @Singleton ApiManager provideApiManager(Gson gson) {
@@ -61,8 +62,9 @@ public class ApplicationModule {
     return apiManager.getRetrofit().create(ElbiladAPI.class);
   }
 
-  @Provides @Singleton ElbiladRemoteDataSource provideElbiladRemoteDataSource(ElbiladAPI api) {
-    return new ElbiladRemoteDataSourceImpl(api);
+  @Provides @Singleton ElbiladRemoteDataSource provideElbiladRemoteDataSource(ElbiladAPI api,
+      RxDownloader rxDownloader) {
+    return new ElbiladRemoteDataSourceImpl(api, rxDownloader);
   }
 
   @Provides @Singleton ElbiladRepository provideElbiladRepository(

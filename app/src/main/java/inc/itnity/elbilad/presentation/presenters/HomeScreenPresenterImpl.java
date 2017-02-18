@@ -1,10 +1,13 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
+import inc.itnity.elbilad.domain.usecases.DownloadJournalUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.HomeScreenView;
 
@@ -16,13 +19,18 @@ public class HomeScreenPresenterImpl extends ProgressConnectionPresenter<HomeScr
     implements HomeScreenPresenter {
 
   private GetHomeArticlesUseCase getHomeArticlesUseCase;
+  private GetJournalDataUseCase getJournalDataUseCase;
+  private DownloadJournalUseCase downloadJournalUseCase;
 
   private RefreshTabRxBus refreshTabRxBus;
   private BaseUseCaseSubscriber<Boolean> refreshTabSubscriber;
 
   public HomeScreenPresenterImpl(GetHomeArticlesUseCase getHomeArticlesUseCase,
+      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase,
       RefreshTabRxBus refreshTabRxBus) {
     this.getHomeArticlesUseCase = getHomeArticlesUseCase;
+    this.getJournalDataUseCase = getJournalDataUseCase;
+    this.downloadJournalUseCase = downloadJournalUseCase;
     this.refreshTabRxBus = refreshTabRxBus;
   }
 
@@ -33,12 +41,17 @@ public class HomeScreenPresenterImpl extends ProgressConnectionPresenter<HomeScr
 
       getHomeArticlesUseCase.setRefresh(true);
       getHomeArticlesUseCase.execute(articlesSubscriber());
+
+      getJournalDataUseCase.setRefresh(true);
+      getJournalDataUseCase.execute(journalSubscriber());
     } catch (ViewNotBoundException e) {
       e.printStackTrace();
     } catch (ConnectionException e) {
       e.printStackTrace();
-      getHomeArticlesUseCase.setRefresh(true);
+      getHomeArticlesUseCase.setRefresh(false);
       getHomeArticlesUseCase.execute(articlesSubscriber());
+      getJournalDataUseCase.setRefresh(false);
+      getJournalDataUseCase.execute(journalSubscriber());
     }
 
     if (refreshTabSubscriber == null) {
@@ -47,9 +60,26 @@ public class HomeScreenPresenterImpl extends ProgressConnectionPresenter<HomeScr
     }
   }
 
+  @Override public void downloadJournal(Journal journal) {
+    try {
+      checkViewBound();
+      checkConnection();
+
+      downloadJournalUseCase.setJournal(journal);
+      downloadJournalUseCase.execute(downloadJournalSubscriber());
+    } catch (ViewNotBoundException e) {
+      e.printStackTrace();
+    } catch (ConnectionException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void onDestroy() {
     getHomeArticlesUseCase.unsubscribe();
-    if(refreshTabSubscriber != null && !refreshTabSubscriber.isUnsubscribed()){
+    getJournalDataUseCase.unsubscribe();
+    downloadJournalUseCase.unsubscribe();
+
+    if (refreshTabSubscriber != null && !refreshTabSubscriber.isUnsubscribed()) {
       refreshTabSubscriber.unsubscribe();
       refreshTabSubscriber = null;
     }
@@ -79,5 +109,25 @@ public class HomeScreenPresenterImpl extends ProgressConnectionPresenter<HomeScr
         onCreate();
       }
     };
+  }
+
+  private BaseUseCaseSubscriber<Journal> journalSubscriber() {
+    return new BaseUseCaseSubscriber<Journal>() {
+      @Override public void onNext(Journal journal) {
+        super.onNext(journal);
+
+        try {
+          checkViewBound();
+
+          getView().showJournal(journal);
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
+
+  private BaseUseCaseSubscriber<String> downloadJournalSubscriber(){
+    return new BaseUseCaseSubscriber<>();
   }
 }

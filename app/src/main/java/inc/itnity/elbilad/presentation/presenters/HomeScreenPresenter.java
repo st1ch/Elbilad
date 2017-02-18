@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.presenters;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.presentation.presenters.base.IPresenter;
 import inc.itnity.elbilad.presentation.views.HomeScreenView;
 
@@ -9,4 +10,6 @@ import inc.itnity.elbilad.presentation.views.HomeScreenView;
 
 public interface HomeScreenPresenter extends IPresenter<HomeScreenView> {
   void onCreate();
+
+  void downloadJournal(Journal journal);
 }

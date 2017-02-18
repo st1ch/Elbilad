@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.data.repositories;
 
+import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
@@ -45,4 +46,7 @@ public interface ElbiladRepository {
 
   Observable<List<Bookmark>> getBookmarks();
 
+  Observable<Journal> getJournalData(boolean refresh);
+
+  Observable<String> downloadJournal(String url, String filename);
 }
