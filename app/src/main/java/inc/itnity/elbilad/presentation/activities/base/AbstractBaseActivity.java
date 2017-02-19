@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -72,7 +71,7 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
   }
 
   public void setTitleToolBar(String title) {
-    if (toolbarHomeViewHolder.toolbar != null && toolbarHomeViewHolder.tvTitleText != null) {
+    if (toolbarHomeViewHolder.tvTitleText != null) {
       toolbarHomeViewHolder.tvTitleText.setText(title);
     }
   }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,7 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
   }) public void onMenuItemsClick(View view) {
     switch (view.getId()) {
       case R.id.tv_menu_home:
-        fragmentNavigator.startHomeFragment();
+        fragmentNavigator.startHomeScreenFragment();
         break;
       case R.id.tv_menu_last_news:
         fragmentNavigator.startLastNewsFragment();
