@@ -44,6 +44,8 @@ public interface ElbiladRepository {
 
   Observable<Bookmark> addToBookmark(Bookmark bookmark);
 
+  Observable<Bookmark> removeBookmark(Bookmark bookmark);
+
   Observable<List<Bookmark>> getBookmarks();
 
   Observable<Journal> getJournalData(boolean refresh);

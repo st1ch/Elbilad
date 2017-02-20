@@ -146,6 +146,14 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
 
   }
 
+  public void showArticleBookmarked() {
+    toolbarDetailsViewHolder.ivBookmark.setImageResource(R.drawable.ic_bookmark_gold);
+  }
+
+  public void showArticleNOTBookmarked() {
+    toolbarDetailsViewHolder.ivBookmark.setImageResource(R.drawable.ic_bookmark);
+  }
+
   class ToolbarHomeViewHolder {
 
     View rootView;

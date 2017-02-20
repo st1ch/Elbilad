@@ -21,4 +21,6 @@ public interface ArticleDetailsView extends ConnectionView {
   void showLastNews(List<Article> articles);
 
   void showJournal(Journal journal);
+
+  void showRemovedFromBookmarks();
 }

@@ -43,6 +43,8 @@ public class Article extends BaseArticle {
     return youtubeCode;
   }
 
+
+
   @Override public String toString() {
     return super.toString()
         + " Article{"

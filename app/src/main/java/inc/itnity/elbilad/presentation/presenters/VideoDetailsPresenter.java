@@ -12,4 +12,6 @@ public interface VideoDetailsPresenter extends IPresenter<VideoDetailsView> {
   void onCreate(String videoId, boolean isArticle);
 
   void addToBookmarks(Video video);
+
+  void removeBookmark(Video video);
 }

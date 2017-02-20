@@ -12,6 +12,7 @@ import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
+import inc.itnity.elbilad.domain.usecases.RemoveArticleBookmarkUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
 import java.util.List;
@@ -29,18 +30,21 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
   private GetLastVideosUseCase getLastVideosUseCase;
   private GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase;
   private AddArticleBookmarkUseCase addArticleBookmarkUseCase;
+  private RemoveArticleBookmarkUseCase removeArticleBookmarkUseCase;
 
   public ArticleDetailsPresenterImpl(GetArticleUseCase getArticleUseCase,
       GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase,
       GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
-      AddArticleBookmarkUseCase addArticleBookmarkUseCase) {
+      AddArticleBookmarkUseCase addArticleBookmarkUseCase,
+      RemoveArticleBookmarkUseCase removeArticleBookmarkUseCase) {
     this.getArticleUseCase = getArticleUseCase;
     this.getJournalDataUseCase = getJournalDataUseCase;
     this.downloadJournalUseCase = downloadJournalUseCase;
     this.getLastVideosUseCase = getLastVideosUseCase;
     this.getLast6NewsArticlesUseCase = getLast6NewsArticlesUseCase;
     this.addArticleBookmarkUseCase = addArticleBookmarkUseCase;
+    this.removeArticleBookmarkUseCase = removeArticleBookmarkUseCase;
   }
 
   @Override public void onCreate(String articleId) {
@@ -98,6 +102,11 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     }
   }
 
+  @Override public void removeBookmark(Article article) {
+    removeArticleBookmarkUseCase.setArticle(article);
+    removeArticleBookmarkUseCase.execute(removeBookmarkSubscriber());
+  }
+
   @Override public void onDestroy() {
     getArticleUseCase.unsubscribe();
     getLast6NewsArticlesUseCase.unsubscribe();
@@ -105,6 +114,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     addArticleBookmarkUseCase.unsubscribe();
     getJournalDataUseCase.unsubscribe();
     downloadJournalUseCase.unsubscribe();
+    removeArticleBookmarkUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -133,6 +143,22 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
           checkViewBound();
 
           getView().showAddedToBookmarks();
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
+
+  private BaseProgressSubscriber<Bookmark> removeBookmarkSubscriber() {
+    return new BaseProgressSubscriber<Bookmark>(this) {
+      @Override public void onNext(Bookmark article) {
+        super.onNext(article);
+
+        try {
+          checkViewBound();
+
+          getView().showRemovedFromBookmarks();
         } catch (ViewNotBoundException e) {
           e.printStackTrace();
         }
@@ -188,7 +214,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     };
   }
 
-  private BaseUseCaseSubscriber<String> downloadJournalSubscriber(){
+  private BaseUseCaseSubscriber<String> downloadJournalSubscriber() {
     return new BaseUseCaseSubscriber<>();
   }
 }

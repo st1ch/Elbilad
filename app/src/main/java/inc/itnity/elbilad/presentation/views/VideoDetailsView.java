@@ -11,4 +11,6 @@ public interface VideoDetailsView extends ConnectionView {
   void showVideo(Video video);
 
   void showAddedToBookmarks();
+
+  void showRemovedFromBookmarks();
 }

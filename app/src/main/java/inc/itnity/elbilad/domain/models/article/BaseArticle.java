@@ -14,6 +14,7 @@ public abstract class BaseArticle implements ArticleItem {
   @SerializedName("date") protected String date;
   @SerializedName("image") protected String image;
   @SerializedName("link") protected String link;
+  private boolean isBookmarked;
 
   private int type;
 
@@ -49,12 +50,33 @@ public abstract class BaseArticle implements ArticleItem {
     return link;
   }
 
+  public boolean isBookmarked() {
+    return isBookmarked;
+  }
+
+  public void setBookmarked(boolean bookmarked) {
+    isBookmarked = bookmarked;
+  }
+
   @Override public int getType() {
     return type;
   }
 
   protected void setType(int type) {
     this.type = type;
+  }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    BaseArticle article = (BaseArticle) o;
+
+    return id.equals(article.id);
+  }
+
+  @Override public int hashCode() {
+    return id.hashCode();
   }
 
   @Override public String toString() {

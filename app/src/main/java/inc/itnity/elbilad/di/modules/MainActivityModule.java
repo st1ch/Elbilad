@@ -22,6 +22,8 @@ import inc.itnity.elbilad.domain.usecases.GetPhotosUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideosUseCase;
+import inc.itnity.elbilad.domain.usecases.RemoveArticleBookmarkUseCase;
+import inc.itnity.elbilad.domain.usecases.RemoveVideoBookmarkUseCase;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenter;
 import inc.itnity.elbilad.presentation.presenters.ArticleDetailsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
@@ -79,10 +81,11 @@ import inc.itnity.elbilad.utils.DialogHelper;
       GetArticleUseCase getArticleUseCase, GetLastVideosUseCase getLastVideosUseCase,
       GetLast6NewsArticlesUseCase getLast6NewsArticlesUseCase,
       AddArticleBookmarkUseCase addArticleBookmarkUseCase,
-      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase) {
+      GetJournalDataUseCase getJournalDataUseCase, DownloadJournalUseCase downloadJournalUseCase,
+      RemoveArticleBookmarkUseCase removeArticleBookmarkUseCase) {
     return new ArticleDetailsPresenterImpl(getArticleUseCase, getJournalDataUseCase,
         downloadJournalUseCase, getLastVideosUseCase, getLast6NewsArticlesUseCase,
-        addArticleBookmarkUseCase);
+        addArticleBookmarkUseCase, removeArticleBookmarkUseCase);
   }
 
   @Provides VideoCategoryPresenter provideVideoCategoryPresenter(GetVideosUseCase getVideosUseCase,
@@ -107,9 +110,10 @@ import inc.itnity.elbilad.utils.DialogHelper;
 
   @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,
       GetVideoArticleUseCase getVideoArticleUseCase,
-      AddVideoBookmarkUseCase addArticleBookmarkUseCase) {
+      AddVideoBookmarkUseCase addArticleBookmarkUseCase,
+      RemoveVideoBookmarkUseCase removeVideoBookmarkUseCase) {
     return new VideoDetailsPresenterImpl(getVideosUseCase, getVideoArticleUseCase,
-        addArticleBookmarkUseCase);
+        addArticleBookmarkUseCase, removeVideoBookmarkUseCase);
   }
 
   @Provides PhotoDetailsPresenter providePhotoDetailsPresenter(GetPhotosUseCase getPhotosUseCase,

@@ -15,4 +15,6 @@ public interface ArticleDetailsPresenter extends IPresenter<ArticleDetailsView> 
   void addToBookmarks(Article article);
 
   void downloadJournal(Journal journal);
+
+  void removeBookmark(Article article);
 }

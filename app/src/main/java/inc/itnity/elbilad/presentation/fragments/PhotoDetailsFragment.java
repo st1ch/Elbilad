@@ -103,9 +103,9 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
         photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()).getLink());
   }
 
-  @OnClick(R.id.iv_bookmark) void onBookmarkClick() {
-    presenter.addToBookmarks(photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()));
-  }
+  //@OnClick(R.id.iv_bookmark) void onBookmarkClick() {
+  //  //presenter.addToBookmarks(photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()));
+  //}
 
   @OnClick(R.id.iv_arrow_left) void onArrowLeftClick() {
     vpPhotoSlide.setCurrentItem(getPreviousSlidePosition(), true);

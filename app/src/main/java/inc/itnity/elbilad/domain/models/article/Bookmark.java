@@ -47,6 +47,24 @@ public class Bookmark {
     VIDEO, PHOTO, ARTICLE
   }
 
+  @Override public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Bookmark bookmark = (Bookmark) o;
+
+    if (video != null ? !video.equals(bookmark.video) : bookmark.video != null) return false;
+    if (photo != null ? !photo.equals(bookmark.photo) : bookmark.photo != null) return false;
+    return article != null ? article.equals(bookmark.article) : bookmark.article == null;
+  }
+
+  @Override public int hashCode() {
+    int result = video != null ? video.hashCode() : 0;
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
+    result = 31 * result + (article != null ? article.hashCode() : 0);
+    return result;
+  }
+
   @Override public String toString() {
     return "Bookmark{"
         + "video="

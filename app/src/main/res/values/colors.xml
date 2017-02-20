@@ -22,4 +22,5 @@
   <color name="tab_bg">#0F0F0F</color>
 
   <color name="journal_number">#F6A623</color>
+  <color name="bookmarked">#F6A623</color>
 </resources>

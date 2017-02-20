@@ -39,16 +39,16 @@
       app:layout_constraintLeft_toLeftOf="@id/vp_photo_slide"
       />
 
-  <ImageView
-      android:id="@+id/iv_bookmark"
-      android:layout_width="12dp"
-      android:layout_height="12dp"
-      android:layout_marginLeft="@dimen/space_8dp"
-      android:src="@drawable/ic_bookmark"
-      app:layout_constraintBottom_toBottomOf="@id/iv_share"
-      app:layout_constraintLeft_toRightOf="@id/iv_share"
-      app:layout_constraintTop_toTopOf="@id/iv_share"
-      />
+  <!--<ImageView-->
+      <!--android:id="@+id/iv_bookmark"-->
+      <!--android:layout_width="12dp"-->
+      <!--android:layout_height="12dp"-->
+      <!--android:layout_marginLeft="@dimen/space_8dp"-->
+      <!--android:src="@drawable/ic_bookmark"-->
+      <!--app:layout_constraintBottom_toBottomOf="@id/iv_share"-->
+      <!--app:layout_constraintLeft_toRightOf="@id/iv_share"-->
+      <!--app:layout_constraintTop_toTopOf="@id/iv_share"-->
+      <!--/>-->
 
   <TextView
       android:id="@+id/tv_description"
@@ -63,7 +63,7 @@
       android:textColor="@android:color/white"
       android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="@id/vp_photo_slide"
-      app:layout_constraintLeft_toRightOf="@id/iv_bookmark"
+      app:layout_constraintLeft_toRightOf="@id/iv_share"
       app:layout_constraintRight_toRightOf="@id/vp_photo_slide"
       tools:text="asdasln dla sd dasasdasn"
       />

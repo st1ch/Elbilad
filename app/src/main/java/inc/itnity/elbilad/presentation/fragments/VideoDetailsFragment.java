@@ -41,6 +41,8 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
   private static final String ARG_VIDEO_ID = "video_id_arg";
   private static final String ARG_IS_ARTICLE = "is_article_arg";
 
+  private boolean isBookmarked;
+
   public static VideoDetailsFragment newInstance(String videoId, boolean isArticle) {
     Bundle args = new Bundle();
     args.putString(ARG_VIDEO_ID, videoId);
@@ -81,8 +83,22 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
   @Override public void showVideo(Video video) {
     tvDescription.setText(video.getPreview());
 
+    isBookmarked = video.isBookmarked();
+
+    if (isBookmarked) {
+      ivBookmark.setImageResource(R.drawable.ic_bookmark_gold);
+    } else {
+      ivBookmark.setImageResource(R.drawable.ic_bookmark);
+    }
+
     ivShare.setOnClickListener(v -> elbiladUtils.shareArticleLink(video.getLink()));
-    ivBookmark.setOnClickListener(v -> presenter.addToBookmarks(video));
+    ivBookmark.setOnClickListener(v -> {
+      if (isBookmarked) {
+        presenter.removeBookmark(video);
+      } else {
+        presenter.addToBookmarks(video);
+      }
+    });
 
     if (!TextUtils.isEmpty(video.getImage())) {
       imageLoaderHelper.loadUrlImageLarge(video.getImage(), youtubeContentVideo);
@@ -92,6 +108,12 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
   }
 
   @Override public void showAddedToBookmarks() {
-    super.showSnackbarMessage(getString(R.string.added_to_bookmarks));
+    isBookmarked = true;
+    ivBookmark.setImageResource(R.drawable.ic_bookmark_gold);
+  }
+
+  @Override public void showRemovedFromBookmarks() {
+    isBookmarked = false;
+    ivBookmark.setImageResource(R.drawable.ic_bookmark);
   }
 }

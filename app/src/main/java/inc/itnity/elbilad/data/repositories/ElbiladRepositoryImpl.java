@@ -98,9 +98,13 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
 
   @Override public Observable<Article> getArticle(boolean refresh, String articleId) {
     if (refresh) {
-      return remoteDataSource.getArticle(articleId).compose(articleCache.replace(articleId));
+      return remoteDataSource.getArticle(articleId)
+          .compose(articleCache.replace(articleId))
+          .compose(checkArticleBookmarked(articleId));
     }
-    return remoteDataSource.getArticle(articleId).compose(articleCache.readWithLoader(articleId));
+    return remoteDataSource.getArticle(articleId)
+        .compose(articleCache.readWithLoader(articleId))
+        .compose(checkArticleBookmarked(articleId));
   }
 
   @Override public Observable<List<Video>> getVideoList(boolean refresh) {
@@ -134,7 +138,8 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   @Override public Observable<Video> getVideo(String videoId) {
     return videosCache.read()
         .flatMap(Observable::from)
-        .filter(video -> video.getId().equals(videoId));
+        .filter(video -> video.getId().equals(videoId))
+        .compose(checkVideoBookmarked(videoId));
   }
 
   @Override public Observable<Video> getVideoArticle(String videoId) {
@@ -164,6 +169,13 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     }).compose(bookmarkedArticlesCache.replace()).map(articles -> bookmark);
   }
 
+  @Override public Observable<Bookmark> removeBookmark(Bookmark bookmark) {
+    return bookmarkedArticlesCache.read().map(articles -> {
+      articles.remove(bookmark);
+      return articles;
+    }).compose(bookmarkedArticlesCache.replace()).map(articles -> bookmark);
+  }
+
   @Override public Observable<List<Bookmark>> getBookmarks() {
     return bookmarkedArticlesCache.readNullable();
   }
@@ -177,5 +189,66 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
 
   @Override public Observable<String> downloadJournal(String url, String filename) {
     return remoteDataSource.downloadJournal(url, filename);
+  }
+
+  private Observable<Boolean> checkArticleIsBookmarked(String articleId) {
+    return getBookmarks().flatMap(bookmarks -> {
+      boolean bookmarked = false;
+      if (bookmarks == null) {
+        return Observable.just(bookmarked);
+      }
+      for (Bookmark bookmark : bookmarks) {
+        if (bookmark.getArticle() != null && bookmark.getArticle().getId().equals(articleId)) {
+          bookmarked = true;
+        }
+      }
+      return Observable.just(bookmarked);
+    });
+  }
+
+  private Observable<Boolean> checkVideoIsBookmarked(String articleId) {
+    return getBookmarks().flatMap(bookmarks -> {
+      boolean bookmarked = false;
+      if (bookmarks == null) {
+        return Observable.just(bookmarked);
+      }
+      for (Bookmark bookmark : bookmarks) {
+        if (bookmark.getVideo() != null && bookmark.getVideo().getId().equals(articleId)) {
+          bookmarked = true;
+        }
+      }
+      return Observable.just(bookmarked);
+    });
+  }
+
+  //private Observable<Boolean> checkPhotoIsBookmarked(String articleId) {
+  //  return getBookmarks().flatMap(bookmarks -> {
+  //    boolean bookmarked = false;
+  //    if (bookmarks == null) {
+  //      return Observable.just(bookmarked);
+  //    }
+  //    for (Bookmark bookmark : bookmarks) {
+  //      if (bookmark.getPhoto() != null && bookmark.getPhoto().getId().equals(articleId)) {
+  //        bookmarked = true;
+  //      }
+  //    }
+  //    return Observable.just(bookmarked);
+  //  });
+  //}
+
+  private <T> Observable.Transformer<Article, Article> checkArticleBookmarked(String articleId) {
+    return observable -> Observable.zip(observable, checkArticleIsBookmarked(articleId),
+        (article, isBookmarked) -> {
+          article.setBookmarked(isBookmarked);
+          return article;
+        });
+  }
+
+  private <T> Observable.Transformer<Video, Video> checkVideoBookmarked(String videoId) {
+    return observable -> Observable.zip(observable, checkVideoIsBookmarked(videoId),
+        (video, isBookmarked) -> {
+          video.setBookmarked(isBookmarked);
+          return video;
+        });
   }
 }

@@ -7,6 +7,7 @@ import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
+import inc.itnity.elbilad.domain.usecases.RemoveVideoBookmarkUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.VideoDetailsView;
 
@@ -20,13 +21,16 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
   private GetVideoUseCase getVideosUseCase;
   private GetVideoArticleUseCase getVideoArticleUseCase;
   private AddVideoBookmarkUseCase addVideoBookmarkUseCase;
+  private RemoveVideoBookmarkUseCase removeVideoBookmarkUseCase;
 
   public VideoDetailsPresenterImpl(GetVideoUseCase getVideosUseCase,
       GetVideoArticleUseCase getVideoArticleUseCase,
-      AddVideoBookmarkUseCase addVideoBookmarkUseCase) {
+      AddVideoBookmarkUseCase addVideoBookmarkUseCase,
+      RemoveVideoBookmarkUseCase removeVideoBookmarkUseCase) {
     this.getVideosUseCase = getVideosUseCase;
     this.getVideoArticleUseCase = getVideoArticleUseCase;
     this.addVideoBookmarkUseCase = addVideoBookmarkUseCase;
+    this.removeVideoBookmarkUseCase = removeVideoBookmarkUseCase;
   }
 
   @Override public void onCreate(String videoId, boolean isArticle) {
@@ -44,9 +48,16 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
     addVideoBookmarkUseCase.execute(addBookmarkSubscriber());
   }
 
+  @Override public void removeBookmark(Video video) {
+    removeVideoBookmarkUseCase.setVideo(video);
+    removeVideoBookmarkUseCase.execute(removeBookmarkSubscriber());
+  }
+
   @Override public void onDestroy() {
     getVideosUseCase.unsubscribe();
+    getVideoArticleUseCase.unsubscribe();
     addVideoBookmarkUseCase.unsubscribe();
+    removeVideoBookmarkUseCase.unsubscribe();
     super.onDestroy();
   }
 
@@ -81,4 +92,21 @@ public class VideoDetailsPresenterImpl extends ProgressConnectionPresenter<Video
       }
     };
   }
+
+  private BaseProgressSubscriber<Bookmark> removeBookmarkSubscriber() {
+    return new BaseProgressSubscriber<Bookmark>(this) {
+      @Override public void onNext(Bookmark article) {
+        super.onNext(article);
+
+        try {
+          checkViewBound();
+
+          getView().showRemovedFromBookmarks();
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
 }
+

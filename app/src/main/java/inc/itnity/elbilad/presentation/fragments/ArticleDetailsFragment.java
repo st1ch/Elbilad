@@ -76,6 +76,8 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   private String articleLink;
 
+  private boolean isBookmarked;
+
   @Override public int getContentView() {
     return R.layout.fragment_article_details;
   }
@@ -107,11 +109,21 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   }
 
   @Override public void showAddedToBookmarks() {
-    super.showSnackbarMessage(getString(R.string.added_to_bookmarks));
+    //super.showSnackbarMessage(getString(R.string.added_to_bookmarks));
+    ((AbstractBaseActivity) getActivity()).showArticleBookmarked();
+    isBookmarked = true;
   }
 
   @Override public void showArticle(Article article) {
     ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getTitle());
+
+    isBookmarked = article.isBookmarked();
+
+    if (isBookmarked) {
+      ((AbstractBaseActivity) getActivity()).showArticleBookmarked();
+    } else {
+      ((AbstractBaseActivity) getActivity()).showArticleNOTBookmarked();
+    }
 
     tvText.setText(Html.fromHtml(article.getText()));
     tvTitle.setText(article.getTitle());
@@ -126,8 +138,13 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
     articleLink = article.getLink();
 
-    ((AbstractBaseActivity) getActivity()).setOnBookmarkClickListener(
-        v -> presenter.addToBookmarks(article));
+    ((AbstractBaseActivity) getActivity()).setOnBookmarkClickListener(v -> {
+      if (isBookmarked) {
+        presenter.removeBookmark(article);
+      } else {
+        presenter.addToBookmarks(article);
+      }
+    });
     ((AbstractBaseActivity) getActivity()).setOnShareArticleClickListener(
         v -> elbiladUtils.shareArticleLink(articleLink));
   }
@@ -153,12 +170,17 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   }
 
   @Override public void showJournal(Journal journal) {
-    tvNumber.setText(getString(R.string.journal_number, journal.getNumber(),
-        journal.getDateString()));
+    tvNumber.setText(
+        getString(R.string.journal_number, journal.getNumber(), journal.getDateString()));
     ivJournal.setOnClickListener(v -> {
       if (permissionUtils.requestExternalStoragePermissions()) {
         presenter.downloadJournal(journal);
       }
     });
+  }
+
+  @Override public void showRemovedFromBookmarks() {
+    ((AbstractBaseActivity) getActivity()).showArticleNOTBookmarked();
+    isBookmarked = false;
   }
 }
