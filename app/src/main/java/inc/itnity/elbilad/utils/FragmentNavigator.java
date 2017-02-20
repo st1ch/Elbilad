@@ -86,11 +86,8 @@ import javax.inject.Singleton;
    * Pops all the queued fragments
    */
   private void popEveryFragment() {
-    // clear all back stack
-    int backStackCount = fragmentManager.getBackStackEntryCount();
-    for (int i = 0; i < backStackCount; i++) {
-      int backStackId = fragmentManager.getBackStackEntryAt(i).getId();
-      fragmentManager.popBackStackImmediate(backStackId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    while (fragmentManager.getBackStackEntryCount() != 0) {
+      fragmentManager.popBackStackImmediate();
     }
   }
 
@@ -98,7 +95,7 @@ import javax.inject.Singleton;
     int backStackCount = fragmentManager.getBackStackEntryCount();
     for (int i = backStackCount - 1; i > 0; i--) {
       int backStackId = fragmentManager.getBackStackEntryAt(i).getId();
-      fragmentManager.popBackStackImmediate(backStackId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+      fragmentManager.popBackStackImmediate(backStackId, 0);
     }
   }
 
@@ -106,7 +103,7 @@ import javax.inject.Singleton;
     int backStackCount = fragmentManager.getBackStackEntryCount();
     for (int i = backStackCount - 1; i > 1; i--) {
       int backStackId = fragmentManager.getBackStackEntryAt(i).getId();
-      fragmentManager.popBackStackImmediate(backStackId, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+      fragmentManager.popBackStackImmediate(backStackId, 0);
     }
   }
 
