@@ -10,14 +10,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.HomeScreenPagerAdapter;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.BaseHomePresenter;
 import inc.itnity.elbilad.presentation.views.BaseHomeView;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -46,7 +44,9 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
 
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
-    presenter.onCreate();
+    initContent();
+
+    //presenter.onCreate();
 
     return fragmentView;
   }
@@ -67,12 +67,14 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
     presenter.onDestroy();
   }
 
-  private void initContent(List<Category> categories) {
+  private void initContent() {
     tabLayout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     /** init tabs */
+    //homeScreenPagerAdapter =
+    //    new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager(), categories);
     homeScreenPagerAdapter =
-        new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager(), categories);
+        new HomeScreenPagerAdapter(getActivity(), getChildFragmentManager());
 
     viewPager.setAdapter(homeScreenPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
@@ -90,13 +92,13 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
 
   }
 
-  @Override public void openTab(int position) {
-    if (homeScreenPagerAdapter.getCount() > position) {
-      viewPager.setCurrentItem(position);
-    }
-  }
+  //@Override public void openTab(int position) {
+  //  if (homeScreenPagerAdapter.getCount() > position) {
+  //    viewPager.setCurrentItem(position);
+  //  }
+  //}
 
-  @Override public void showLoadedCategories(List<Category> categories) {
-    initContent(categories);
-  }
+  //@Override public void showLoadedCategories(List<Category> categories) {
+  //  initContent(categories);
+  //}
 }

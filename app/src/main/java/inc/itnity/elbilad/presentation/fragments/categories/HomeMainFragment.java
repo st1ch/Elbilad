@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.fragments.categories;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class HomeMainFragment extends AbstractBaseFragment implements HomeScreen
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
 
+  @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
+
   @BindView(R.id.iv_journal) ImageView ivJournal;
 
   @BindView(R.id.tv_number) TextView tvNumber;
@@ -52,6 +55,8 @@ public class HomeMainFragment extends AbstractBaseFragment implements HomeScreen
   }
 
   private void initContent() {
+    swipeRefreshLayout.setEnabled(false);
+
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.setNestedScrollingEnabled(false);
     rvNews.setAdapter(adapter);
@@ -81,5 +86,13 @@ public class HomeMainFragment extends AbstractBaseFragment implements HomeScreen
     tvNumber.setText(
         getString(R.string.journal_number, journal.getNumber(), journal.getDateString()));
     ivJournal.setOnClickListener(v -> presenter.downloadJournal(journal));
+  }
+
+  @Override public void showProgress() {
+    swipeRefreshLayout.setRefreshing(true);
+  }
+
+  @Override public void hideProgress() {
+    swipeRefreshLayout.setRefreshing(false);
   }
 }

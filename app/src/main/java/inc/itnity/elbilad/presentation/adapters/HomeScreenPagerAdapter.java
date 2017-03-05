@@ -5,39 +5,41 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.categorie.Category;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeLastNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeMainFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
 import java.util.ArrayList;
-import java.util.List;
-
-import static inc.itnity.elbilad.constants.Constants.STATIC_TABS_COUNT;
 
 public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
   private final int PAGE_HOME = 0;
   private final int PAGE_LAST_NEWS = 1;
   private final int PAGE_BOOKMARKS = 2;
-  private final int PAGE_VIDEOS = 3;
-  private final int PAGE_PHOTOS = 4;
-  private final int pagesCount;
+  //private final int PAGE_VIDEOS = 3;
+  //private final int PAGE_PHOTOS = 4;
+  //private final int pagesCount;
+  private final int pagesCount = 3;
 
   private ArrayList<String> titles = new ArrayList<>();
-  private List<Category> categories = new ArrayList<>();
+  //private List<Category> categories = new ArrayList<>();
 
-  public HomeScreenPagerAdapter(Context context, FragmentManager fm, List<Category> categories) {
+  //public HomeScreenPagerAdapter(Context context, FragmentManager fm, List<Category> categories) {
+  //  super(fm);
+  //  this.categories = categories;
+  //  pagesCount = STATIC_TABS_COUNT + categories.size();
+  //
+  //  titles.add(context.getString(R.string.home));
+  //  titles.add(context.getString(R.string.last_news));
+  //  titles.add(context.getString(R.string.bookmarks));
+  //  titles.add(context.getString(R.string.videos));
+  //  titles.add(context.getString(R.string.photos));
+  //  titles.trimToSize();
+  //}
+
+  public HomeScreenPagerAdapter(Context context, FragmentManager fm) {
     super(fm);
-    this.categories = categories;
-    pagesCount = STATIC_TABS_COUNT + categories.size();
-
     titles.add(context.getString(R.string.home));
     titles.add(context.getString(R.string.last_news));
     titles.add(context.getString(R.string.bookmarks));
-    titles.add(context.getString(R.string.videos));
-    titles.add(context.getString(R.string.photos));
     titles.trimToSize();
   }
 
@@ -53,23 +55,25 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
         return HomeLastNewsFragment.newInstance();
       case PAGE_BOOKMARKS:
         return HomeBookmarksFragment.newInstance();
-      case PAGE_VIDEOS:
-        return HomeVideosFragment.newInstance();
-      case PAGE_PHOTOS:
-        return HomePhotosFragment.newInstance();
+      //case PAGE_VIDEOS:
+      //  return HomeVideosFragment.newInstance();
+      //case PAGE_PHOTOS:
+      //  return HomePhotosFragment.newInstance();
+      //default:
+      //  return SimpleNewsFragment.newInstance(categories.get(position - STATIC_TABS_COUNT).getId());
       default:
-        return SimpleNewsFragment.newInstance(categories.get(position - STATIC_TABS_COUNT).getId());
+        return null;
     }
   }
 
   @Override public CharSequence getPageTitle(int position) {
-    if (position > STATIC_TABS_COUNT - 1) {
-      return categories.get(position - STATIC_TABS_COUNT).getTitle();
-    }
+    //if (position > STATIC_TABS_COUNT - 1) {
+    //  return categories.get(position - STATIC_TABS_COUNT).getTitle();
+    //}
     return titles.get(position);
   }
 
-  public void setCategories(List<Category> categories) {
-    this.categories = categories;
-  }
+  //public void setCategories(List<Category> categories) {
+  //  this.categories = categories;
+  //}
 }

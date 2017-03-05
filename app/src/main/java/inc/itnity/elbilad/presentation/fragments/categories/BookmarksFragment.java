@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.fragments.categories;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
+
+  @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
 
   @Inject BookmarksAdapter bookmarksAdapter;
 
@@ -69,6 +72,8 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
   }
 
   private void initContent() {
+    swipeRefreshLayout.setEnabled(false);
+
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.addItemDecoration(new VerticalSpaceItemDecoration());
     rvNews.setAdapter(bookmarksAdapter);
@@ -76,5 +81,13 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
 
   @Override public void showBookmarks(List<Bookmark> bookmarks) {
     bookmarksAdapter.setArticles(bookmarks);
+  }
+
+  @Override public void showProgress() {
+    swipeRefreshLayout.setRefreshing(true);
+  }
+
+  @Override public void hideProgress() {
+    swipeRefreshLayout.setRefreshing(false);
   }
 }
