@@ -28,6 +28,9 @@ android {
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    manifestPlaceholders = [onesignal_app_id: "e1fdd821-a55a-469c-9a15-bebfcbff70d5",
+                            // Project number pulled from dashboard, local value is ignored.
+                            onesignal_google_project_number: "REMOTE"]
   }
   buildTypes {
     release {
@@ -92,4 +95,12 @@ dependencies {
    * ReactiveCache*/
   compile 'com.github.VictorAlbertos:ReactiveCache:0.0.6'
   compile 'com.github.VictorAlbertos.Jolyglot:gson:0.0.3'
+
+  /**
+   * OneSignal*/
+  compile 'com.onesignal:OneSignal:3.4.3@aar'
+  // Required for OneSignal, even if you have added FCM.
+  compile 'com.google.android.gms:play-services-gcm:10.2.0'
+  // Required for geotagging
+  compile "com.google.android.gms:play-services-location:10.2.0"
 }

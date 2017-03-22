@@ -1,6 +1,8 @@
 package inc.itnity.elbilad;
 
 import android.app.Application;
+import android.util.Log;
+import com.onesignal.OneSignal;
 import inc.itnity.elbilad.di.components.ApplicationComponent;
 import inc.itnity.elbilad.di.components.DaggerApplicationComponent;
 import inc.itnity.elbilad.di.modules.ApplicationModule;
@@ -15,6 +17,13 @@ public class ElbiladApplication extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
+
+    OneSignal.startInit(this)
+        .setNotificationReceivedHandler(
+            notification -> Log.wtf("RECEIVED", "notificationReceived: " + notification.toString()))
+        .setNotificationOpenedHandler(
+            result -> Log.wtf("OPENED", "notificationOpened: " + result.toString()))
+        .init();
 
     applicationComponent = DaggerApplicationComponent.builder()
         .applicationModule(new ApplicationModule(getApplicationContext()))
