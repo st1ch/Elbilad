@@ -16,6 +16,7 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.ArticleTop5;
+import inc.itnity.elbilad.domain.models.article.ArticleVideo;
 import inc.itnity.elbilad.domain.models.article.CategoryHeader;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -213,6 +214,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
   }
 
   public void setArticles(HomeArticles articles) {
+    List<ArticleVideo> videoArticles = articles.getVideoArticles();
+
     this.articles.clear();
 
     this.articles.addAll(articles.getTop5Articles());
@@ -222,14 +225,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     this.videos.addAll(articles.getVideos());
 
     this.articles.addAll(articles.getImportantArticles());
-    this.articles.add(articles.getVideoArticles().get(0));
+    if(videoArticles != null && videoArticles.size() > 0){
+      this.articles.add(videoArticles.get(0));
+    }
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_international)));
     this.articles.addAll(articles.getInternationalArticles());
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_sport)));
     this.articles.addAll(articles.getSportArticles());
-    this.articles.add(articles.getVideoArticles().get(1));
+    if(videoArticles != null && videoArticles.size() > 1) {
+      this.articles.add(videoArticles.get(1));
+    }
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_music)));
     this.articles.addAll(articles.getMusicArticles());
@@ -239,7 +246,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_culture)));
     this.articles.addAll(articles.getCultureArticles());
-    this.articles.add(articles.getVideoArticles().get(2));
+    if(videoArticles != null && videoArticles.size() > 2) {
+      this.articles.add(videoArticles.get(2));
+    }
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_rasid)));
     this.articles.addAll(articles.getRasidArticles());
