@@ -101,7 +101,7 @@ public class VideoDetailsFragment extends AbstractBaseFragment implements VideoD
     });
 
     if (!TextUtils.isEmpty(video.getImage())) {
-      imageLoaderHelper.loadUrlImageLarge(video.getImage(), youtubeContentVideo);
+      imageLoaderHelper.loadVideoImageLarge(video.getImage(), youtubeContentVideo);
     }
 
     youtubeContentVideo.setOnClickListener(v -> youtubeHelper.startPlayer(video.getYoutubeId()));

@@ -66,11 +66,11 @@ public class VideoCategoryNewsAdapter
       ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
 
       if (!TextUtils.isEmpty(article.getImage())) {
-        imageLoaderHelper.loadUrlImageLarge(article.getImage(), holder.ivAvatar);
+        imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
       }
     } else {
       if (!TextUtils.isEmpty(article.getImage())) {
-        imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+        imageLoaderHelper.loadVideoImageThumb(article.getImage(), holder.ivAvatar);
       }
     }
 

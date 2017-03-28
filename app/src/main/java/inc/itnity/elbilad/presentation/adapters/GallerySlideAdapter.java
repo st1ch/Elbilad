@@ -44,7 +44,7 @@ public class GallerySlideAdapter extends RecyclerView.Adapter<GallerySlideAdapte
     Image image = getItem(position);
 
     if (!TextUtils.isEmpty(image.getImage())) {
-      imageLoaderHelper.loadUrlImageUne(image.getImage(), holder.ivImage);
+      imageLoaderHelper.loadGalleryImageUne(image.getImage(), holder.ivImage);
     }
 
     holder.tvTitle.setText(image.getTitle());

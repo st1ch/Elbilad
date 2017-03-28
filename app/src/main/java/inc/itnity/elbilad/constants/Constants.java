@@ -9,4 +9,8 @@ public interface Constants {
 
   int REQUEST_PERMISSIONS_ELBILAD = 1;
 
+  String PREFS_APP_DATA = "ElbiladAppData";
+
+  String PREFS_PUSH_ARTICLE_ID = "articleId";
+
 }

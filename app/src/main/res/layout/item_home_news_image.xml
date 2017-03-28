@@ -19,7 +19,6 @@
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/sample_image"
       />
   <TextView
       android:id="@+id/tv_title"

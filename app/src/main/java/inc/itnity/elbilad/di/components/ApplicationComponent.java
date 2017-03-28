@@ -3,6 +3,7 @@ package inc.itnity.elbilad.di.components;
 import android.content.Context;
 import com.google.gson.Gson;
 import dagger.Component;
+import inc.itnity.elbilad.ElbiladApplication;
 import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.data.rest.ApiManager;
@@ -11,6 +12,7 @@ import inc.itnity.elbilad.di.modules.ApplicationModule;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
 import inc.itnity.elbilad.utils.FragmentNavigator;
+import inc.itnity.elbilad.utils.PreferenceHelper;
 import io.reactivecache.ReactiveCache;
 import javax.inject.Singleton;
 
@@ -19,7 +21,11 @@ import javax.inject.Singleton;
  */
 @Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
+  void inject(ElbiladApplication elbiladApplication);
+
   FragmentNavigator fragmentNavigator();
+
+  PreferenceHelper preferenceHelper();
 
   Context context();
 

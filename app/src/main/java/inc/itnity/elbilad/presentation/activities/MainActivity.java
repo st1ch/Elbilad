@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -19,7 +21,18 @@ public class MainActivity extends AbstractBaseActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    fragmentNavigator.startHomeScreenFragment();
+    String pushArticle = preferenceHelper.getArticleId();
+    if(!TextUtils.isEmpty(pushArticle)){
+      fragmentNavigator.startArticleDetailsFragment(pushArticle);
+    } else {
+      fragmentNavigator.startHomeScreenFragment();
+    }
+
+  }
+
+  @Override protected void onDestroy() {
+    preferenceHelper.clearInfo();
+    super.onDestroy();
   }
 
   @Override public void onBackPressed() {

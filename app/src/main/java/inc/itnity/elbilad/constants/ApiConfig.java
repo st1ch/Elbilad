@@ -17,13 +17,18 @@ public interface ApiConfig {
   String ACCEPT_ELBILAD = "application/vnd.elbilad.v1+json";
 
   String IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/article/thumbs/";
+  String VIDEO_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/video/thumbs/";
+  String GALERY_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/galerie/thumbs/";
 
   String UNE = "une-"; // 555x316
+  String VIDEO_UNE = "une"; // 555x316
   String THUMB = "thumb-"; // 112x84
+  String VIDEO_THUMB = "thumb-"; // 112x84
   String THUMB_CAT = "thumbCat-"; // 150x110
   String LARGE_CAT = "largeCat-"; // 399x169
   String REP = "rep-"; // 166x102
   String LARGE = "large-"; // 600x355
+  String VIDEO_LARGE = "large"; // 600x355
   String UNE_SLIDE = "uneSlide-"; // 722x410
   String UNETH_SLIDE = "unethSlide-"; // 230x163
 

@@ -55,7 +55,7 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
 
     ImageView slide = (ImageView) itemView.findViewById(R.id.iv_photo_slide);
 
-    imageLoaderHelper.loadUrlImageLarge(photo.getImage(), slide);
+    imageLoaderHelper.loadGalleryImageLarge(photo.getImage(), slide);
 
     container.addView(itemView);
 

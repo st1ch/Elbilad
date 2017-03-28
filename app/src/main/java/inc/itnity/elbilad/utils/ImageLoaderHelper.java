@@ -63,8 +63,40 @@ public class ImageLoaderHelper {
         .into(targetImageView);
   }
 
+  public void loadVideoImageUne(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.VIDEO_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadGalleryImageUne(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.GALERY_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
   public void loadUrlImageThumb(String imageUrl, ImageView targetImageView) {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.THUMB + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadVideoImageThumb(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.VIDEO_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadGalleryImageThumb(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.GALERY_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
         .fit()
         .centerCrop()
         .placeholder(R.drawable.large_placeholder)
@@ -97,6 +129,22 @@ public class ImageLoaderHelper {
 
   public void loadUrlImageLarge(String imageUrl, ImageView targetImageView) {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadVideoImageLarge(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.VIDEO_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadGalleryImageLarge(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.GALERY_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
         .fit()
         .centerCrop()
         .placeholder(R.drawable.large_placeholder)

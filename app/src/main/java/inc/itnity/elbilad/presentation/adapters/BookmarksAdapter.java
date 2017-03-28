@@ -103,7 +103,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         ((TopNewsViewHolder) holder).tvCategory.setText(topVideo.getCategoryTitle());
 
         if (!TextUtils.isEmpty(topVideo.getImage())) {
-          imageLoaderHelper.loadUrlImageLarge(topVideo.getImage(), holder.ivAvatar);
+          imageLoaderHelper.loadVideoImageLarge(topVideo.getImage(), holder.ivAvatar);
         }
 
         holder.tvDate.setText(
@@ -136,7 +136,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         ((TopNewsViewHolder) holder).tvCategory.setText(topPhoto.getCategoryTitle());
 
         if (!TextUtils.isEmpty(topPhoto.getImage())) {
-          imageLoaderHelper.loadUrlImageLarge(topPhoto.getImage(), holder.ivAvatar);
+          imageLoaderHelper.loadGalleryImageLarge(topPhoto.getImage(), holder.ivAvatar);
         }
 
         holder.tvDate.setText(
@@ -149,7 +149,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         Video video = bookmark.getVideo();
 
         if (!TextUtils.isEmpty(video.getImage())) {
-          imageLoaderHelper.loadUrlImageThumb(video.getImage(), holder.ivAvatar);
+          imageLoaderHelper.loadVideoImageLarge(video.getImage(), holder.ivAvatar);
         }
 
         holder.tvDate.setText(elbiladUtils.getArticleTimeDate(video.getTime(), video.getDate()));
@@ -162,7 +162,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         Image photo = bookmark.getPhoto();
 
         if (!TextUtils.isEmpty(photo.getImage())) {
-          imageLoaderHelper.loadUrlImageThumb(photo.getImage(), holder.ivAvatar);
+          imageLoaderHelper.loadGalleryImageLarge(photo.getImage(), holder.ivAvatar);
         }
 
         holder.tvDate.setText(elbiladUtils.getArticleTimeDate(photo.getTime(), photo.getDate()));

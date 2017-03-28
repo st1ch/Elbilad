@@ -1,10 +1,12 @@
 package inc.itnity.elbilad.di.modules;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
+import inc.itnity.elbilad.constants.Constants;
 import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.data.repositories.ElbiladRepositoryImpl;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
@@ -13,6 +15,7 @@ import inc.itnity.elbilad.data.rest.ApiManager;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
+import inc.itnity.elbilad.utils.PreferenceHelper;
 import inc.itnity.elbilad.utils.rx_downloader.RxDownloader;
 import io.reactivecache.ReactiveCache;
 import io.victoralbertos.jolyglot.GsonSpeaker;
@@ -70,5 +73,15 @@ import rx.schedulers.Schedulers;
   @Provides @Singleton ElbiladRepository provideElbiladRepository(
       ElbiladRemoteDataSource elbiladRemoteDataSource, ReactiveCache reactiveCache) {
     return new ElbiladRepositoryImpl(elbiladRemoteDataSource, reactiveCache);
+  }
+
+  @Provides
+  @Singleton SharedPreferences provideSharedPreference(Context context) {
+    return context.getSharedPreferences(Constants.PREFS_APP_DATA, Context.MODE_PRIVATE);
+  }
+
+  @Provides
+  @Singleton PreferenceHelper providePreferenceHelper(SharedPreferences sharedPreferences){
+    return new PreferenceHelper(sharedPreferences);
   }
 }

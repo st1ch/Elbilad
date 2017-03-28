@@ -18,6 +18,7 @@ import inc.itnity.elbilad.di.components.MainActivityComponent;
 import inc.itnity.elbilad.di.modules.ActivityContextModule;
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.utils.FragmentNavigator;
+import inc.itnity.elbilad.utils.PreferenceHelper;
 import javax.inject.Inject;
 
 public abstract class AbstractBaseActivity extends AppCompatActivity
@@ -26,6 +27,8 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
   @Inject protected FragmentNavigator fragmentNavigator;
 
   @Inject RefreshTabRxBus refreshTabRxBus;
+
+  @Inject protected PreferenceHelper preferenceHelper;
 
   private ToolbarHomeViewHolder toolbarHomeViewHolder;
   private ToolbarDetailsViewHolder toolbarDetailsViewHolder;

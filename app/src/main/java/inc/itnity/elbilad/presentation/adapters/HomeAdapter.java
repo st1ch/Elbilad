@@ -107,7 +107,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((TopNewsItemViewHolder) holder).tvTitle.setText(topArticle.getTitle());
         ((TopNewsItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, topArticle.getDate(), topArticle.getTime()));
-        ((TopNewsItemViewHolder) holder).tvAuthor.setText(topArticle.getAuthor());
+        ((TopNewsItemViewHolder) holder).tvAuthor.setText(topArticle.getCategoryTitle());
         ((TopNewsItemViewHolder) holder).itemView.setOnClickListener(
             v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
         break;
@@ -125,10 +125,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
               ((RegularNewsItemViewHolder) holder).ivImage);
         }
 
-        ((RegularNewsItemViewHolder) holder).tvPreview.setText(regularArticle.getPreview());
+        ((RegularNewsItemViewHolder) holder).tvPreview.setText(regularArticle.getTitle());
         ((RegularNewsItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, regularArticle.getDate(), regularArticle.getTime()));
-        ((RegularNewsItemViewHolder) holder).tvAuthor.setText(regularArticle.getAuthor());
+        ((RegularNewsItemViewHolder) holder).tvAuthor.setText(regularArticle.getCategoryTitle());
         ((RegularNewsItemViewHolder) holder).itemView.setOnClickListener(
             v -> fragmentNavigator.startArticleDetailsFragment(regularArticle.getId()));
         break;
@@ -159,9 +159,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
               ((VideoArticleItemViewHolder) holder).ivImage);
         }
 
-        ((VideoArticleItemViewHolder) holder).tvPreview.setText(videoImageArticle.getPreview());
+        ((VideoArticleItemViewHolder) holder).tvPreview.setText(videoImageArticle.getTitle());
         ((VideoArticleItemViewHolder) holder).tvTitle.setText(videoImageArticle.getTitle());
-        ((VideoArticleItemViewHolder) holder).tvAuthor.setText(videoImageArticle.getAuthor());
+        ((VideoArticleItemViewHolder) holder).tvAuthor.setText(videoImageArticle.getCategoryTitle());
         ((VideoArticleItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, videoImageArticle.getDate(), videoImageArticle.getTime()));
 
