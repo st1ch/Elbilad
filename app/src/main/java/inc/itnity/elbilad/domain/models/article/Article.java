@@ -14,6 +14,11 @@ public class Article extends BaseArticle {
   @SerializedName("auteur") protected String author;
   @SerializedName("text") protected String text;
   @SerializedName("youtube_code") protected String youtubeCode;
+  @SerializedName("nb_vue") private String numberViews;
+
+  public String getNumberViews() {
+    return numberViews;
+  }
 
   public Article() {
     super.setType(TYPE.SIMPLE);
@@ -43,11 +48,8 @@ public class Article extends BaseArticle {
     return youtubeCode;
   }
 
-
-
   @Override public String toString() {
-    return super.toString()
-        + " Article{"
+    return "Article{"
         + "categoryId="
         + categoryId
         + ", imageText='"
@@ -64,6 +66,9 @@ public class Article extends BaseArticle {
         + '\''
         + ", youtubeCode='"
         + youtubeCode
+        + '\''
+        + ", numberViews='"
+        + numberViews
         + '\''
         + '}';
   }

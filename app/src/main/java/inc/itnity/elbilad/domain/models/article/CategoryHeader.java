@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.domain.models.article;
 
 import static inc.itnity.elbilad.domain.models.article.ArticleItem.TYPE.CATEGORY_HEADER;
+import static inc.itnity.elbilad.domain.models.article.ArticleItem.TYPE.CATEGORY_HEADER_ORANGE;
 
 /**
  * Created by st1ch on 12.02.17.
@@ -9,9 +10,11 @@ import static inc.itnity.elbilad.domain.models.article.ArticleItem.TYPE.CATEGORY
 public class CategoryHeader implements ArticleItem {
 
   private String title;
+  private boolean orange;
 
-  public CategoryHeader(String title) {
+  public CategoryHeader(String title, boolean orange) {
     this.title = title;
+    this.orange = orange;
   }
 
   public String getTitle() {
@@ -35,6 +38,9 @@ public class CategoryHeader implements ArticleItem {
   }
 
   @Override public int getType() {
+    if(orange){
+      return CATEGORY_HEADER_ORANGE;
+    }
     return CATEGORY_HEADER;
   }
 

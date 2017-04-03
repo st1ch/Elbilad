@@ -68,6 +68,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
       case ArticleItem.TYPE.MAHAKIM:
       case ArticleItem.TYPE.CULTURE:
         return new RegularNewsItemViewHolder(getView(parent, R.layout.item_home_news));
+      case ArticleItem.TYPE.MOST_READ:
+        return new MostReadItemViewHolder(getView(parent, R.layout.item_home_most_read));
       case ArticleItem.TYPE.SPORT:
       case ArticleItem.TYPE.RASID:
         return new RegularNewsImageItemViewHolder(getView(parent, R.layout.item_home_news_image));
@@ -80,6 +82,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
       case ArticleItem.TYPE.CATEGORY_HEADER:
         return new CategoryHeaderViewHolder(
             getView(parent, R.layout.item_home_news_category_header));
+      case ArticleItem.TYPE.CATEGORY_HEADER_ORANGE:
+        return new CategoryHeaderViewHolder(
+            getView(parent, R.layout.item_home_news_category_header_orange));
       default:
         return null;
     }
@@ -132,6 +137,25 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((RegularNewsItemViewHolder) holder).itemView.setOnClickListener(
             v -> fragmentNavigator.startArticleDetailsFragment(regularArticle.getId()));
         break;
+      case ArticleItem.TYPE.MOST_READ:
+        Article mostReadArticle = (Article) article;
+
+        String imageMostRead = mostReadArticle.getImage();
+        if (!TextUtils.isEmpty(imageMostRead)) {
+          imageLoaderHelper.loadUrlImageThumb(imageMostRead,
+              ((MostReadItemViewHolder) holder).ivImage);
+        }
+
+        ((MostReadItemViewHolder) holder).tvReadCount.setText(mostReadArticle.getNumberViews());
+        ((MostReadItemViewHolder) holder).tvPreview.setText(mostReadArticle.getTitle());
+        ((MostReadItemViewHolder) holder).tvDate.setText("2017-03-19 20:58");
+        //((MostReadItemViewHolder) holder).tvDate.setText(
+        //    getArticleDate(holder, mostReadArticle.getDate(), mostReadArticle.getTime()));
+        ((MostReadItemViewHolder) holder).tvAuthor.setText(mostReadArticle.getCategoryTitle());
+        ((MostReadItemViewHolder) holder).itemView.setOnClickListener(
+            v -> fragmentNavigator.startArticleDetailsFragment(mostReadArticle.getId()));
+
+        break;
       case ArticleItem.TYPE.SPORT:
       case ArticleItem.TYPE.RASID:
         Article regularImageArticle = (Article) article;
@@ -161,7 +185,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
         ((VideoArticleItemViewHolder) holder).tvPreview.setText(videoImageArticle.getTitle());
         ((VideoArticleItemViewHolder) holder).tvTitle.setText(videoImageArticle.getTitle());
-        ((VideoArticleItemViewHolder) holder).tvAuthor.setText(videoImageArticle.getCategoryTitle());
+        ((VideoArticleItemViewHolder) holder).tvAuthor.setText(
+            videoImageArticle.getCategoryTitle());
         ((VideoArticleItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, videoImageArticle.getDate(), videoImageArticle.getTime()));
 
@@ -193,6 +218,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         gallerySlideAdapter.setImages(gallery);
         break;
       case ArticleItem.TYPE.CATEGORY_HEADER:
+      case ArticleItem.TYPE.CATEGORY_HEADER_ORANGE:
         CategoryHeader header = (CategoryHeader) getItem(position);
         ((CategoryHeaderViewHolder) holder).tvTitle.setText(header.getTitle());
         break;
@@ -225,37 +251,41 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     this.videos.addAll(articles.getVideos());
 
     this.articles.addAll(articles.getImportantArticles());
-    if(videoArticles != null && videoArticles.size() > 0){
+    if (videoArticles != null && videoArticles.size() > 0) {
       this.articles.add(videoArticles.get(0));
     }
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_international)));
+    this.articles.add(
+        new CategoryHeader(context.getString(R.string.news_title_international), false));
     this.articles.addAll(articles.getInternationalArticles());
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_sport)));
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_sport), false));
     this.articles.addAll(articles.getSportArticles());
-    if(videoArticles != null && videoArticles.size() > 1) {
+    if (videoArticles != null && videoArticles.size() > 1) {
       this.articles.add(videoArticles.get(1));
     }
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_music)));
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_music), false));
     this.articles.addAll(articles.getMusicArticles());
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_mahakim)));
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_mahakim), false));
     this.articles.addAll(articles.getMahakimArticles());
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_culture)));
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_culture), false));
     this.articles.addAll(articles.getCultureArticles());
-    if(videoArticles != null && videoArticles.size() > 2) {
+    if (videoArticles != null && videoArticles.size() > 2) {
       this.articles.add(videoArticles.get(2));
     }
 
-    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_rasid)));
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_title_rasid), false));
     this.articles.addAll(articles.getRasidArticles());
 
     this.articles.add(new Image());
     this.gallery.clear();
     this.gallery.addAll(articles.getGallery());
+
+    this.articles.add(new CategoryHeader(context.getString(R.string.news_most_read), true));
+    this.articles.addAll(articles.getMostReadArticles());
 
     notifyDataSetChanged();
   }
@@ -286,6 +316,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     @BindView(R.id.tv_preview) TextView tvPreview;
 
     RegularNewsItemViewHolder(View itemView) {
+      super(itemView);
+    }
+  }
+
+  class MostReadItemViewHolder extends RegularNewsItemViewHolder {
+
+    @BindView(R.id.tv_read_count) TextView tvReadCount;
+
+    MostReadItemViewHolder(View itemView) {
       super(itemView);
     }
   }

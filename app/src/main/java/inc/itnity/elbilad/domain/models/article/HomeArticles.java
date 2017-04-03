@@ -17,6 +17,7 @@ public class HomeArticles {
   @SerializedName("culture") private List<ArticleCulture> cultureArticles;
   @SerializedName("rasid") private List<ArticleRasid> rasidArticles;
   @SerializedName("mahakim") private List<ArticleMahakim> mahakimArticles;
+  @SerializedName("mostRead") private List<ArticleMostRead> mostReadArticles;
   @SerializedName("video") private List<Video> videos;
   @SerializedName("galerie") private List<Image> gallery;
 
@@ -92,6 +93,10 @@ public class HomeArticles {
     this.mahakimArticles = mahakimArticles;
   }
 
+  public List<ArticleMostRead> getMostReadArticles() {
+    return mostReadArticles;
+  }
+
   public List<Video> getVideos() {
     return videos;
   }
@@ -128,6 +133,8 @@ public class HomeArticles {
         + rasidArticles
         + ", mahakimArticles="
         + mahakimArticles
+        + ", mostReadArticles="
+        + mostReadArticles
         + ", videos="
         + videos
         + ", gallery="
