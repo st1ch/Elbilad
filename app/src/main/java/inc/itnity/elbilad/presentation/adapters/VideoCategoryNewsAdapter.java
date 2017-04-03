@@ -12,8 +12,8 @@ import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.utils.ElbiladUtils;
-import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
+import inc.itnity.elbilad.utils.YouTubeHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -32,13 +32,16 @@ public class VideoCategoryNewsAdapter
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
-  private FragmentNavigator fragmentNavigator;
+  //private FragmentNavigator fragmentNavigator;
+  private YouTubeHelper youTubeHelper;
 
   @Inject VideoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
-      FragmentNavigator fragmentNavigator) {
+      //FragmentNavigator fragmentNavigator
+      YouTubeHelper youTubeHelper) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
-    this.fragmentNavigator = fragmentNavigator;
+    //this.fragmentNavigator = fragmentNavigator;
+    this.youTubeHelper = youTubeHelper;
   }
 
   @Override public int getItemViewType(int position) {
@@ -68,17 +71,21 @@ public class VideoCategoryNewsAdapter
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
       }
+
+      holder.itemView.setOnClickListener(v -> youTubeHelper.startPlayer(article.getYoutubeId()));
     } else {
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadVideoImageThumb(article.getImage(), holder.ivAvatar);
       }
+
+      holder.itemView.setOnClickListener(v -> moveToTop(position, article));
     }
 
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
     holder.tvPreview.setText(article.getPreview());
 
-    holder.itemView.setOnClickListener(
-        v -> fragmentNavigator.startVideoDetailsFragment(article.getId(), false));
+    //holder.itemView.setOnClickListener(
+    //    v -> fragmentNavigator.startVideoDetailsFragment(article.getId(), false));
   }
 
   @Override public int getItemCount() {
@@ -92,6 +99,12 @@ public class VideoCategoryNewsAdapter
   public void setArticles(List<Video> articles) {
     this.articles.clear();
     this.articles.addAll(articles);
+    notifyDataSetChanged();
+  }
+
+  private void moveToTop(int position, Video video) {
+    this.articles.remove(position);
+    this.articles.add(0, video);
     notifyDataSetChanged();
   }
 

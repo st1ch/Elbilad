@@ -12,7 +12,6 @@ import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.utils.ElbiladUtils;
-import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +31,14 @@ public class PhotoCategoryNewsAdapter
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
-  private FragmentNavigator fragmentNavigator;
+  //private FragmentNavigator fragmentNavigator;
 
-  @Inject PhotoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
-      FragmentNavigator fragmentNavigator) {
+  @Inject PhotoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils
+      //FragmentNavigator fragmentNavigator
+  ) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
-    this.fragmentNavigator = fragmentNavigator;
+    //this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override public int getItemViewType(int position) {
@@ -68,17 +68,22 @@ public class PhotoCategoryNewsAdapter
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
       }
+
+      //holder.itemView.setOnClickListener(
+      //    v -> fragmentNavigator.startPhotoDetailsragment());
     } else {
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadGalleryImageThumb(article.getImage(), holder.ivAvatar);
       }
+
+      holder.itemView.setOnClickListener(v -> moveToTop(position, article));
     }
 
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
     holder.tvPreview.setText(article.getPreview());
 
-    holder.itemView.setOnClickListener(
-        v -> fragmentNavigator.startPhotoDetailsragment());
+    //holder.itemView.setOnClickListener(
+    //    v -> fragmentNavigator.startPhotoDetailsragment());
   }
 
   @Override public int getItemCount() {
@@ -87,6 +92,12 @@ public class PhotoCategoryNewsAdapter
 
   private Image getItem(int position) {
     return articles.get(position);
+  }
+
+  private void moveToTop(int position, Image image) {
+    this.articles.remove(position);
+    this.articles.add(0, image);
+    notifyDataSetChanged();
   }
 
   public void setArticles(List<Image> articles) {
