@@ -3,6 +3,7 @@ package inc.itnity.elbilad;
 import android.app.Application;
 import android.util.Log;
 import com.onesignal.OneSignal;
+import inc.itnity.elbilad.data.sync.SyncAdapterManager;
 import inc.itnity.elbilad.di.components.ApplicationComponent;
 import inc.itnity.elbilad.di.components.DaggerApplicationComponent;
 import inc.itnity.elbilad.di.modules.ApplicationModule;
@@ -18,34 +19,50 @@ public class ElbiladApplication extends Application {
 
   @Inject PreferenceHelper preferenceHelper;
 
+  @Inject SyncAdapterManager syncAdapterManager;
+
   private static ApplicationComponent applicationComponent;
 
   @Override public void onCreate() {
     super.onCreate();
 
-    OneSignal.startInit(this).setNotificationReceivedHandler(notification -> {
-      try {
-        Log.wtf("RECEIVED",
-            "notificationReceived: " + notification.payload.additionalData.getString("article_id"));
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-    }).setNotificationOpenedHandler(result -> {
-      try {
-        String article_id = result.notification.payload.additionalData.getString("article_id");
-        Log.wtf("OPENED", "notificationOpened: " + article_id);
-
-        preferenceHelper.setArticleId(article_id);
-
-      } catch (JSONException e) {
-        e.printStackTrace();
-      }
-    }).init();
-
     applicationComponent = DaggerApplicationComponent.builder()
         .applicationModule(new ApplicationModule(getApplicationContext()))
         .build();
     applicationComponent.inject(this);
+
+    Log.wtf("app", "onCreate: " + preferenceHelper.isPushNotificationsEnabled() + " " + preferenceHelper.isOfflineModeEnabled());
+
+    if(preferenceHelper.isPushNotificationsEnabled()){
+      OneSignal.startInit(this).setNotificationReceivedHandler(notification -> {
+        try {
+          Log.wtf("RECEIVED",
+              "notificationReceived: " + notification.payload.additionalData.getString("article_id"));
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }).setNotificationOpenedHandler(result -> {
+        try {
+          String article_id = result.notification.payload.additionalData.getString("article_id");
+          Log.wtf("OPENED", "notificationOpened: " + article_id);
+
+          preferenceHelper.setArticleId(article_id);
+
+        } catch (JSONException e) {
+          e.printStackTrace();
+        }
+      }).init();
+    } else {
+      //OneSignal.startInit(this).init();
+      //OneSignal.startInit(false);
+    }
+
+
+    if(preferenceHelper.isOfflineModeEnabled()){
+      syncAdapterManager.beginPeriodicSync();
+    } else {
+      syncAdapterManager.removeSync();
+    }
   }
 
   public static ApplicationComponent getApplicationComponent() {

@@ -13,4 +13,8 @@ public interface Constants {
 
   String PREFS_PUSH_ARTICLE_ID = "articleId";
 
+  String PREFS_SYNC_INTERVAL_HOURS = "offline_update_list";
+  String PREFS_OFFLINE_MODE = "offline_mode";
+  String PREFS_PUSH_NOTIFICATIONS = "push_notifications";
+
 }

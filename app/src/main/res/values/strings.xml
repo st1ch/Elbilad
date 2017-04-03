@@ -27,4 +27,26 @@
   <string name="journal_title">النسخة الورقية</string>
   <string name="journal_number">№ %1$s %2$s</string>
   <string name="news_most_read">الأكثر قراءة</string>
+
+  <string name="authority">com.elbilad.authority</string>
+  <string name="accountType">elbilad.com</string>
+
+  <!-- Settings -->
+  <string name="settings_offline_mode">Offline mode</string>
+  <string name="settings_offline_mode_summary">Enable/disable updating posts in background to access them without network</string>
+  <string name="settings_updating_offline_mode_time">Updating time</string>
+  <string-array name="settings_update_time">
+    <item>1 hour</item>
+    <item>3 hours</item>
+    <item>6 hours</item>
+    <item>12 hours</item>
+  </string-array>
+  <string-array name="settings_update_time_values">
+    <item>1</item>
+    <item>3</item>
+    <item>6</item>
+    <item>12</item>
+  </string-array>
+  <string name="settings_push_notification">Push notifications</string>
+  <string name="settings_push_notification_summary">Enable/disable push notifications</string>
 </resources>

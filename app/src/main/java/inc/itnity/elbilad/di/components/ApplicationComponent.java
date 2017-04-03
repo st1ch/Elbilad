@@ -8,6 +8,9 @@ import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.data.rest.ApiManager;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
+import inc.itnity.elbilad.data.sync.SyncAdapter;
+import inc.itnity.elbilad.data.sync.SyncAdapterManager;
+import inc.itnity.elbilad.data.sync.SyncService;
 import inc.itnity.elbilad.di.modules.ApplicationModule;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
@@ -22,6 +25,9 @@ import javax.inject.Singleton;
 @Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
   void inject(ElbiladApplication elbiladApplication);
+
+  void inject(SyncService syncService);
+  void inject(SyncAdapter syncAdapter);
 
   FragmentNavigator fragmentNavigator();
 
@@ -44,4 +50,6 @@ import javax.inject.Singleton;
   ElbiladRemoteDataSource elbiladRemoteDataSource();
 
   ElbiladRepository elbiladRepository();
+
+  SyncAdapterManager syncAdapterManager();
 }

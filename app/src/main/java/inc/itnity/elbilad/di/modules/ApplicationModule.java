@@ -2,17 +2,19 @@ package inc.itnity.elbilad.di.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
-import inc.itnity.elbilad.constants.Constants;
 import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.data.repositories.ElbiladRepositoryImpl;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSourceImpl;
 import inc.itnity.elbilad.data.rest.ApiManager;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
+import inc.itnity.elbilad.data.sync.SyncAdapter;
+import inc.itnity.elbilad.data.sync.SyncAdapterManager;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
 import inc.itnity.elbilad.utils.PreferenceHelper;
@@ -75,13 +77,22 @@ import rx.schedulers.Schedulers;
     return new ElbiladRepositoryImpl(elbiladRemoteDataSource, reactiveCache);
   }
 
-  @Provides
-  @Singleton SharedPreferences provideSharedPreference(Context context) {
-    return context.getSharedPreferences(Constants.PREFS_APP_DATA, Context.MODE_PRIVATE);
+  @Provides @Singleton SyncAdapter provideSyncAdapter(ElbiladRepository elbiladRepository) {
+    return new SyncAdapter(mContext, true, elbiladRepository);
   }
 
-  @Provides
-  @Singleton PreferenceHelper providePreferenceHelper(SharedPreferences sharedPreferences){
+  @Provides @Singleton SyncAdapterManager provideSyncAdapterManager(
+      PreferenceHelper preferenceHelper) {
+    return new SyncAdapterManager(mContext, preferenceHelper);
+  }
+
+  @Provides @Singleton SharedPreferences provideSharedPreference() {
+    //return mContext.getSharedPreferences(Constants.PREFS_APP_DATA, Context.MODE_PRIVATE);
+    return PreferenceManager.getDefaultSharedPreferences(mContext);
+  }
+
+  @Provides @Singleton PreferenceHelper providePreferenceHelper(
+      SharedPreferences sharedPreferences) {
     return new PreferenceHelper(sharedPreferences);
   }
 }
