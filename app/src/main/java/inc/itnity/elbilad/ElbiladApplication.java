@@ -31,13 +31,17 @@ public class ElbiladApplication extends Application {
         .build();
     applicationComponent.inject(this);
 
-    Log.wtf("app", "onCreate: " + preferenceHelper.isPushNotificationsEnabled() + " " + preferenceHelper.isOfflineModeEnabled());
+    Log.i("app", "onCreate: "
+        + preferenceHelper.isPushNotificationsEnabled()
+        + " "
+        + preferenceHelper.isOfflineModeEnabled());
 
-    if(preferenceHelper.isPushNotificationsEnabled()){
-      OneSignal.startInit(this).setNotificationReceivedHandler(notification -> {
+    if (preferenceHelper.isPushNotificationsEnabled()) {
+      OneSignal.startInit(getApplicationContext()).setNotificationReceivedHandler(notification -> {
         try {
           Log.wtf("RECEIVED",
-              "notificationReceived: " + notification.payload.additionalData.getString("article_id"));
+              "notificationReceived: " + notification.payload.additionalData.getString(
+                  "article_id"));
         } catch (JSONException e) {
           e.printStackTrace();
         }
@@ -47,18 +51,18 @@ public class ElbiladApplication extends Application {
           Log.wtf("OPENED", "notificationOpened: " + article_id);
 
           preferenceHelper.setArticleId(article_id);
-
         } catch (JSONException e) {
           e.printStackTrace();
         }
       }).init();
-    } else {
-      //OneSignal.startInit(this).init();
-      //OneSignal.startInit(false);
+      OneSignal.setSubscription(true);
     }
+    //else {
+    //  OneSignal.startInit(getApplicationContext()).init();
+    //  OneSignal.setSubscription(false);
+    //}
 
-
-    if(preferenceHelper.isOfflineModeEnabled()){
+    if (preferenceHelper.isOfflineModeEnabled()) {
       syncAdapterManager.beginPeriodicSync();
     } else {
       syncAdapterManager.removeSync();

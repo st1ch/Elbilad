@@ -2,11 +2,11 @@ package inc.itnity.elbilad.di.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.preference.PreferenceManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
+import inc.itnity.elbilad.constants.Constants;
 import inc.itnity.elbilad.data.repositories.ElbiladRepository;
 import inc.itnity.elbilad.data.repositories.ElbiladRepositoryImpl;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
@@ -87,8 +87,7 @@ import rx.schedulers.Schedulers;
   }
 
   @Provides @Singleton SharedPreferences provideSharedPreference() {
-    //return mContext.getSharedPreferences(Constants.PREFS_APP_DATA, Context.MODE_PRIVATE);
-    return PreferenceManager.getDefaultSharedPreferences(mContext);
+    return mContext.getSharedPreferences(Constants.PREFS_APP_DATA, Context.MODE_PRIVATE);
   }
 
   @Provides @Singleton PreferenceHelper providePreferenceHelper(

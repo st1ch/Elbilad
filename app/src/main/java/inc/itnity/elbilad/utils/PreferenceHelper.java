@@ -23,8 +23,12 @@ public class PreferenceHelper {
     sharedPreferences.edit().putString(PREFS_PUSH_ARTICLE_ID, articleId).apply();
   }
 
+  public void clearArticleId() {
+    sharedPreferences.edit().remove(PREFS_PUSH_ARTICLE_ID).apply();
+  }
+
   public int getSyncIntervalHours() {
-    return Integer.valueOf(sharedPreferences.getString(PREFS_SYNC_INTERVAL_HOURS, "6"));
+    return sharedPreferences.getInt(PREFS_SYNC_INTERVAL_HOURS, 6);
   }
 
   public void setSyncIntervalHours(int hoursInterval) {

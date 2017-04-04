@@ -7,7 +7,7 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.ArticleDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.HomeScreenBaseFragment;
 import inc.itnity.elbilad.presentation.fragments.PhotoDetailsFragment;
-import inc.itnity.elbilad.presentation.fragments.SettingsFragment;
+import inc.itnity.elbilad.presentation.fragments.PreferencesFragment;
 import inc.itnity.elbilad.presentation.fragments.VideoDetailsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.BookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.CategoryNewsFragment;
@@ -183,7 +183,7 @@ import javax.inject.Singleton;
   }
 
   public void startPreferencesFragment() {
-    Fragment fragment = SettingsFragment.newInstance();
+    Fragment fragment = PreferencesFragment.newInstance();
     open(fragment);
   }
 }

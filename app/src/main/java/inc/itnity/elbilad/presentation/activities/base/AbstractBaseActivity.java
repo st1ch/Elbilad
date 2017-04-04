@@ -114,6 +114,18 @@ public abstract class AbstractBaseActivity extends AppCompatActivity
     }
   }
 
+  public void hideRefreshHomeToolbar() {
+    if (toolbarHomeViewHolder.rootView != null && toolbarDetailsViewHolder.rootView != null) {
+      toolbarHomeViewHolder.ivRefresh.setVisibility(View.GONE);
+    }
+  }
+
+  public void showRefreshHomeToolbar() {
+    if (toolbarHomeViewHolder.rootView != null && toolbarDetailsViewHolder.rootView != null) {
+      toolbarHomeViewHolder.ivRefresh.setVisibility(View.VISIBLE);
+    }
+  }
+
   //public void showToolbar(){
   //  toolbarDetailsViewHolder.rootView.setVisibility(View.GONE);
   //  toolbarHomeViewHolder.rootView.setVisibility(View.GONE);

@@ -39,10 +39,11 @@ public class MainActivity extends AbstractBaseActivity {
         }
       });
     }
+
   }
 
   @Override protected void onDestroy() {
-    preferenceHelper.clearInfo();
+    preferenceHelper.clearArticleId();
     super.onDestroy();
   }
 
