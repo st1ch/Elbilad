@@ -18,6 +18,7 @@ import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastNewsUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLastVideosUseCase;
+import inc.itnity.elbilad.domain.usecases.GetMostReadNewsUseCase;
 import inc.itnity.elbilad.domain.usecases.GetPhotosUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetVideoUseCase;
@@ -36,6 +37,8 @@ import inc.itnity.elbilad.presentation.presenters.LastNewsPresenter;
 import inc.itnity.elbilad.presentation.presenters.LastNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenter;
 import inc.itnity.elbilad.presentation.presenters.MainMenuPresenterImpl;
+import inc.itnity.elbilad.presentation.presenters.MostReadNewsPresenter;
+import inc.itnity.elbilad.presentation.presenters.MostReadNewsPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenter;
 import inc.itnity.elbilad.presentation.presenters.PhotoCategoryPresenterImpl;
 import inc.itnity.elbilad.presentation.presenters.PhotoDetailsPresenter;
@@ -106,6 +109,11 @@ import inc.itnity.elbilad.utils.DialogHelper;
   @Provides LastNewsPresenter provideLastNewsPresenter(GetLastNewsUseCase getLastNewsUseCase,
       RefreshTabRxBus refreshTabRxBus) {
     return new LastNewsPresenterImpl(getLastNewsUseCase, refreshTabRxBus);
+  }
+
+  @Provides MostReadNewsPresenter provideMostReadNewsPresenter(GetMostReadNewsUseCase getLastNewsUseCase,
+      RefreshTabRxBus refreshTabRxBus) {
+    return new MostReadNewsPresenterImpl(getLastNewsUseCase, refreshTabRxBus);
   }
 
   @Provides VideoDetailsPresenter provideVideoDetailsPresenter(GetVideoUseCase getVideosUseCase,

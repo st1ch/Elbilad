@@ -2,8 +2,12 @@ package inc.itnity.elbilad.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.webkit.URLUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeIntents;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 import inc.itnity.elbilad.constants.ApiConfig;
@@ -17,6 +21,8 @@ import javax.inject.Inject;
 public class YouTubeHelper {
 
   private Context activity;
+
+  private final String WATCH = "https://www.youtube.com/watch?v=";
 
   @Inject YouTubeHelper(AppCompatActivity context) {
     this.activity = context;
@@ -45,8 +51,15 @@ public class YouTubeHelper {
   }
 
   public void startPlayer(String videoId) {
-    Intent startVideoActivity = new Intent(activity, YouTubeVideoActivity.class);
-    startVideoActivity.putExtra(YouTubeVideoActivity.ARG_VIDEO_NAME, videoId);
-    activity.startActivity(startVideoActivity);
+    if(YouTubeIntents.isYouTubeInstalled(activity)){
+      Intent startVideoActivity = new Intent(activity, YouTubeVideoActivity.class);
+      startVideoActivity.putExtra(YouTubeVideoActivity.ARG_VIDEO_NAME, videoId);
+      activity.startActivity(startVideoActivity);
+    } else {
+      String url = WATCH + videoId;
+      if (!TextUtils.isEmpty(url) && URLUtil.isValidUrl(url)) {
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+      }
+    }
   }
 }

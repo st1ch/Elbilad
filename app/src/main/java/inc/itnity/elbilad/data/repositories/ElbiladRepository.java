@@ -2,6 +2,7 @@ package inc.itnity.elbilad.data.repositories;
 
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -23,6 +24,8 @@ public interface ElbiladRepository {
   Observable<HomeArticles> getHomeArticles(boolean refresh);
 
   Observable<List<Article>> getArticles(boolean refresh);
+
+  Observable<List<ArticleMostRead>> getMostReadArticles(boolean refresh);
 
   Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId);
 

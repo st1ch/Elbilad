@@ -8,16 +8,18 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeLastNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeMainFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.MostReadNewsFragment;
 import java.util.ArrayList;
 
 public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
   private final int PAGE_HOME = 0;
   private final int PAGE_LAST_NEWS = 1;
-  private final int PAGE_BOOKMARKS = 2;
+  private final int PAGE_MOST_READ_NEWS = 2;
+  private final int PAGE_BOOKMARKS = 3;
   //private final int PAGE_VIDEOS = 3;
   //private final int PAGE_PHOTOS = 4;
   //private final int pagesCount;
-  private final int pagesCount = 3;
+  private final int pagesCount = 4;
 
   private ArrayList<String> titles = new ArrayList<>();
   //private List<Category> categories = new ArrayList<>();
@@ -39,6 +41,7 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
     super(fm);
     titles.add(context.getString(R.string.home));
     titles.add(context.getString(R.string.last_news));
+    titles.add(context.getString(R.string.news_most_read));
     titles.add(context.getString(R.string.bookmarks));
     titles.trimToSize();
   }
@@ -53,6 +56,8 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
         return HomeMainFragment.newInstance();
       case PAGE_LAST_NEWS:
         return HomeLastNewsFragment.newInstance();
+      case PAGE_MOST_READ_NEWS:
+        return MostReadNewsFragment.newInstance();
       case PAGE_BOOKMARKS:
         return HomeBookmarksFragment.newInstance();
       //case PAGE_VIDEOS:

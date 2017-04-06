@@ -128,7 +128,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
     tvText.setText(Html.fromHtml(article.getText()));
     tvTitle.setText(article.getTitle());
     tvTitleText.setText(article.getPreview());
-    tvCategory.setText(article.getAuthor());
+    tvCategory.setText(article.getCategoryTitle());
     tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
 
     if (!TextUtils.isEmpty(article.getImage())) {

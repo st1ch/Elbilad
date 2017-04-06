@@ -20,6 +20,7 @@ import inc.itnity.elbilad.presentation.fragments.categories.HomeMainFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomePhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeVideosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.LastNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.MostReadNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.PhotosFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.SimpleNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
@@ -73,4 +74,6 @@ import inc.itnity.elbilad.presentation.fragments.categories.VideosFragment;
   void inject(PhotoDetailsFragment photoDetailsFragment);
 
   void inject(PreferencesFragment preferenceFragment);
+
+  void inject(MostReadNewsFragment mostReadNewsFragment);
 }

@@ -50,7 +50,8 @@ public class GallerySlideAdapter extends RecyclerView.Adapter<GallerySlideAdapte
     holder.tvTitle.setText(image.getTitle());
     holder.tvDate.setText(getArticleDate(holder, image.getDate(), image.getTime()));
 
-    holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
+    //holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
+    holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotosFragment());
   }
 
   private String getArticleDate(ImageViewHolder holder, String date, String time) {
