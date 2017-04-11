@@ -42,7 +42,7 @@
       tools:layout_editor_absoluteY="65dp"
       />
   <TextView
-      android:id="@+id/tv_preview"
+      android:id="@+id/tv_title"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginBottom="8dp"

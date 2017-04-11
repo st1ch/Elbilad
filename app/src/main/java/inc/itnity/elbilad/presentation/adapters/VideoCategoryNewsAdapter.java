@@ -66,7 +66,7 @@ public class VideoCategoryNewsAdapter
     Video article = getItem(position);
 
     if (viewType == TYPE_TOP) {
-      ((TopNewsViewHolder) holder).tvCategory.setText(article.getCategoryTitle());
+      ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
 
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
@@ -81,8 +81,9 @@ public class VideoCategoryNewsAdapter
       holder.itemView.setOnClickListener(v -> moveToTop(position, article));
     }
 
+    holder.tvCategory.setText(article.getCategoryTitle());
+    holder.tvTitle.setText(article.getTitle());
     holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-    holder.tvPreview.setText(article.getPreview());
 
     //holder.itemView.setOnClickListener(
     //    v -> fragmentNavigator.startVideoDetailsFragment(article.getId(), false));
@@ -111,8 +112,9 @@ public class VideoCategoryNewsAdapter
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.iv_image) ImageView ivAvatar;
-    @BindView(R.id.tv_preview) TextView tvPreview;
     @BindView(R.id.tv_date) TextView tvDate;
+    @BindView(R.id.tv_category) TextView tvCategory;
+    @BindView(R.id.tv_title) TextView tvTitle;
 
     SimpleNewsViewHolder(View itemView) {
       super(itemView);
@@ -122,7 +124,7 @@ public class VideoCategoryNewsAdapter
 
   class TopNewsViewHolder extends SimpleNewsViewHolder {
 
-    @BindView(R.id.tv_category) TextView tvCategory;
+    @BindView(R.id.tv_preview) TextView tvPreview;
 
     TopNewsViewHolder(View itemView) {
       super(itemView);
