@@ -1,11 +1,12 @@
 package inc.itnity.elbilad.presentation.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import inc.itnity.elbilad.ElbiladApplication;
@@ -21,7 +22,9 @@ import javax.inject.Inject;
 
 public class SplashScreenActivity extends AppCompatActivity implements SplashScreenView {
 
-  @BindView(R.id.progressBar) ProgressBar pbLoading;
+  //@BindView(R.id.progressBar) ProgressBar pbLoading;
+  @BindView(R.id.ivProgress) ImageView ivProgress;
+  private AnimationDrawable spinner;
 
   @Inject ElbiladUtils elbiladUtils;
 
@@ -40,6 +43,8 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
         .build();
 
     splashScreenComponent.inject(this);
+
+    spinner = (AnimationDrawable) ivProgress.getBackground();
 
     presenter.bind(this);
     presenter.onCreate();
@@ -71,12 +76,14 @@ public class SplashScreenActivity extends AppCompatActivity implements SplashScr
 
   @Override public void showProgress() {
     //dialogHelper.showProgressDialog();
-    pbLoading.setVisibility(View.VISIBLE);
+    ivProgress.setVisibility(View.VISIBLE);
+    spinner.start();
   }
 
   @Override public void hideProgress() {
     //dialogHelper.dismissDialog();
-    pbLoading.setVisibility(View.INVISIBLE);
+    spinner.stop();
+    ivProgress.setVisibility(View.INVISIBLE);
   }
 
   @Override public void showSnackbarMessage(String text) {
