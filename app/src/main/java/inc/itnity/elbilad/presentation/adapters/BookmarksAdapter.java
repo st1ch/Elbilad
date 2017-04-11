@@ -27,11 +27,11 @@ import javax.inject.Inject;
 
 public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.SimpleNewsViewHolder> {
 
-  private static final int TYPE_TOP_SIMPLE = 110;
+  //private static final int TYPE_TOP_SIMPLE = 110;
   private static final int TYPE_SIMPLE = 120;
-  private static final int TYPE_TOP_VIDEO = 111;
+  //private static final int TYPE_TOP_VIDEO = 111;
   private static final int TYPE_VIDEO = 121;
-  private static final int TYPE_TOP_PHOTO = 112;
+  //private static final int TYPE_TOP_PHOTO = 112;
   private static final int TYPE_PHOTO = 122;
 
   private List<Bookmark> bookmarks = new ArrayList<>();
@@ -49,15 +49,15 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
 
   @Override public int getItemViewType(int position) {
     Bookmark.TYPE type = getItem(position).getType();
-    if (position == 0) {
-      if (type.equals(Bookmark.TYPE.VIDEO)) {
-        return TYPE_TOP_VIDEO;
-      } else if (type.equals(Bookmark.TYPE.PHOTO)) {
-        return TYPE_TOP_PHOTO;
-      } else {
-        return TYPE_TOP_SIMPLE;
-      }
-    }
+    //if (position == 0) {
+    //  if (type.equals(Bookmark.TYPE.VIDEO)) {
+    //    return TYPE_TOP_VIDEO;
+    //  } else if (type.equals(Bookmark.TYPE.PHOTO)) {
+    //    return TYPE_TOP_PHOTO;
+    //  } else {
+    //    return TYPE_TOP_SIMPLE;
+    //  }
+    //}
 
     if (type.equals(Bookmark.TYPE.VIDEO)) {
       return TYPE_VIDEO;
@@ -70,15 +70,15 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
 
   @Override public SimpleNewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     switch (viewType) {
-      case TYPE_TOP_SIMPLE:
-        return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_category_news_top, parent, false));
-      case TYPE_TOP_VIDEO:
-        return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_category_video_top, parent, false));
-      case TYPE_TOP_PHOTO:
-        return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.item_category_photo_top, parent, false));
+      //case TYPE_TOP_SIMPLE:
+      //  return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
+      //      .inflate(R.layout.item_category_news_top, parent, false));
+      //case TYPE_TOP_VIDEO:
+      //  return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
+      //      .inflate(R.layout.item_category_video_top, parent, false));
+      //case TYPE_TOP_PHOTO:
+      //  return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
+      //      .inflate(R.layout.item_category_photo_top, parent, false));
       case TYPE_VIDEO:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_video, parent, false));
@@ -97,54 +97,54 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
     Bookmark bookmark = getItem(position);
 
     switch (viewType) {
-      case TYPE_TOP_VIDEO:
-        Video topVideo = bookmark.getVideo();
-
-        ((TopNewsViewHolder) holder).tvCategory.setText(topVideo.getCategoryTitle());
-
-        if (!TextUtils.isEmpty(topVideo.getImage())) {
-          imageLoaderHelper.loadVideoImageLarge(topVideo.getImage(), holder.ivAvatar);
-        }
-
-        holder.tvDate.setText(
-            elbiladUtils.getArticleTimeDate(topVideo.getTime(), topVideo.getDate()));
-        holder.tvPreview.setText(topVideo.getPreview());
-
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startVideoDetailsFragment(topVideo.getId(),
-                topVideo.isArticle()));
-        break;
-      case TYPE_TOP_SIMPLE:
-        Article topArticle = bookmark.getArticle();
-
-        ((TopNewsViewHolder) holder).tvCategory.setText(topArticle.getCategoryTitle());
-
-        if (!TextUtils.isEmpty(topArticle.getImage())) {
-          imageLoaderHelper.loadUrlImageLarge(topArticle.getImage(), holder.ivAvatar);
-        }
-
-        holder.tvDate.setText(
-            elbiladUtils.getArticleTimeDate(topArticle.getTime(), topArticle.getDate()));
-        holder.tvPreview.setText(topArticle.getPreview());
-
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
-        break;
-      case TYPE_TOP_PHOTO:
-        Image topPhoto = bookmark.getPhoto();
-
-        ((TopNewsViewHolder) holder).tvCategory.setText(topPhoto.getCategoryTitle());
-
-        if (!TextUtils.isEmpty(topPhoto.getImage())) {
-          imageLoaderHelper.loadGalleryImageLarge(topPhoto.getImage(), holder.ivAvatar);
-        }
-
-        holder.tvDate.setText(
-            elbiladUtils.getArticleTimeDate(topPhoto.getTime(), topPhoto.getDate()));
-        holder.tvPreview.setText(topPhoto.getPreview());
-
-        holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
-        break;
+      //case TYPE_TOP_VIDEO:
+      //  Video topVideo = bookmark.getVideo();
+      //
+      //  ((TopNewsViewHolder) holder).tvCategory.setText(topVideo.getCategoryTitle());
+      //
+      //  if (!TextUtils.isEmpty(topVideo.getImage())) {
+      //    imageLoaderHelper.loadVideoImageLarge(topVideo.getImage(), holder.ivAvatar);
+      //  }
+      //
+      //  holder.tvDate.setText(
+      //      elbiladUtils.getArticleTimeDate(topVideo.getTime(), topVideo.getDate()));
+      //  holder.tvPreview.setText(topVideo.getPreview());
+      //
+      //  holder.itemView.setOnClickListener(
+      //      v -> fragmentNavigator.startVideoDetailsFragment(topVideo.getId(),
+      //          topVideo.isArticle()));
+      //  break;
+      //case TYPE_TOP_SIMPLE:
+      //  Article topArticle = bookmark.getArticle();
+      //
+      //  ((TopNewsViewHolder) holder).tvCategory.setText(topArticle.getCategoryTitle());
+      //
+      //  if (!TextUtils.isEmpty(topArticle.getImage())) {
+      //    imageLoaderHelper.loadUrlImageLarge(topArticle.getImage(), holder.ivAvatar);
+      //  }
+      //
+      //  holder.tvDate.setText(
+      //      elbiladUtils.getArticleTimeDate(topArticle.getTime(), topArticle.getDate()));
+      //  holder.tvPreview.setText(topArticle.getPreview());
+      //
+      //  holder.itemView.setOnClickListener(
+      //      v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
+      //  break;
+      //case TYPE_TOP_PHOTO:
+      //  Image topPhoto = bookmark.getPhoto();
+      //
+      //  ((TopNewsViewHolder) holder).tvCategory.setText(topPhoto.getCategoryTitle());
+      //
+      //  if (!TextUtils.isEmpty(topPhoto.getImage())) {
+      //    imageLoaderHelper.loadGalleryImageLarge(topPhoto.getImage(), holder.ivAvatar);
+      //  }
+      //
+      //  holder.tvDate.setText(
+      //      elbiladUtils.getArticleTimeDate(topPhoto.getTime(), topPhoto.getDate()));
+      //  holder.tvPreview.setText(topPhoto.getPreview());
+      //
+      //  holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
+      //  break;
       case TYPE_VIDEO:
         Video video = bookmark.getVideo();
 

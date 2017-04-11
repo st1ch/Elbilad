@@ -13,7 +13,7 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
-import inc.itnity.elbilad.presentation.adapters.CategoryNewsAdapter;
+import inc.itnity.elbilad.presentation.adapters.LastNewsAdapter;
 import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.LastNewsPresenter;
@@ -37,7 +37,7 @@ public class LastNewsFragment extends AbstractBaseFragment implements LastNewsVi
 
   @Inject LastNewsPresenter presenter;
 
-  @Inject CategoryNewsAdapter categoryNewsAdapter;
+  @Inject LastNewsAdapter categoryNewsAdapter;
 
   @Override public int getContentView() {
     return R.layout.fragment_last_news;
