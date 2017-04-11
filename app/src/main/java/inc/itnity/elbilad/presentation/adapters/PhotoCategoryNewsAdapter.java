@@ -1,8 +1,12 @@
 package inc.itnity.elbilad.presentation.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,7 +26,8 @@ import javax.inject.Inject;
  */
 
 public class PhotoCategoryNewsAdapter
-    extends RecyclerView.Adapter<PhotoCategoryNewsAdapter.SimpleNewsViewHolder> {
+    extends RecyclerView.Adapter<PhotoCategoryNewsAdapter.SimpleNewsViewHolder>
+    implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
   private static final int TYPE_TOP = 0;
   private static final int TYPE_SIMPLE = 1;
@@ -32,12 +37,15 @@ public class PhotoCategoryNewsAdapter
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
   //private FragmentNavigator fragmentNavigator;
+  private GestureDetector gestureDetector;
 
-  @Inject PhotoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils
+  @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
+      ElbiladUtils elbiladUtils
       //FragmentNavigator fragmentNavigator
   ) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
+    gestureDetector = new GestureDetector(context, this);
     //this.fragmentNavigator = fragmentNavigator;
   }
 
@@ -68,6 +76,12 @@ public class PhotoCategoryNewsAdapter
       if (!TextUtils.isEmpty(article.getImage())) {
         imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
       }
+
+      ((TopNewsViewHolder) holder).itemView.setOnTouchListener(new View.OnTouchListener() {
+        @Override public boolean onTouch(View v, MotionEvent event) {
+          return gestureDetector.onTouchEvent(event);
+        }
+      });
 
       //holder.itemView.setOnClickListener(
       //    v -> fragmentNavigator.startPhotoDetailsragment());
@@ -105,6 +119,45 @@ public class PhotoCategoryNewsAdapter
     this.articles.clear();
     this.articles.addAll(articles);
     notifyDataSetChanged();
+  }
+
+  @Override public boolean onSingleTapConfirmed(MotionEvent e) {
+    return false;
+  }
+
+  @Override public boolean onDoubleTap(MotionEvent e) {
+    Log.i("adapter", "onDoubleTap: ");
+    return true;
+  }
+
+  @Override public boolean onDoubleTapEvent(MotionEvent e) {
+    return false;
+  }
+
+  @Override public boolean onDown(MotionEvent e) {
+    return true;
+  }
+
+  @Override public void onShowPress(MotionEvent e) {
+
+  }
+
+  @Override public boolean onSingleTapUp(MotionEvent e) {
+    return false;
+  }
+
+  @Override
+  public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+    return false;
+  }
+
+  @Override public void onLongPress(MotionEvent e) {
+
+  }
+
+  @Override
+  public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+    return false;
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
