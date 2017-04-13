@@ -151,6 +151,15 @@ public class ImageLoaderHelper {
         .into(targetImageView);
   }
 
+  public void loadGallerySlideImageLarge(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.GALERY_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
+        .fit()
+        .rotate(90f)
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
   public void loadUrlImageUneSlide(String imageUrl, ImageView targetImageView) {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.UNE_SLIDE + imageUrl)
         .fit()

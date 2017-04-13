@@ -16,6 +16,7 @@ import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.utils.ElbiladUtils;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,17 +37,15 @@ public class PhotoCategoryNewsAdapter
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
-  //private FragmentNavigator fragmentNavigator;
+  private FragmentNavigator fragmentNavigator;
   private GestureDetector gestureDetector;
 
   @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
-      ElbiladUtils elbiladUtils
-      //FragmentNavigator fragmentNavigator
-  ) {
+      ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
     gestureDetector = new GestureDetector(context, this);
-    //this.fragmentNavigator = fragmentNavigator;
+    this.fragmentNavigator = fragmentNavigator;
   }
 
   @Override public int getItemViewType(int position) {
@@ -77,10 +76,12 @@ public class PhotoCategoryNewsAdapter
         imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
       }
 
-      ((TopNewsViewHolder) holder).itemView.setOnTouchListener(new View.OnTouchListener() {
-        @Override public boolean onTouch(View v, MotionEvent event) {
-          return gestureDetector.onTouchEvent(event);
-        }
+      ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
+          (v, event) -> gestureDetector.onTouchEvent(event));
+
+      ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
+      });
+      ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
       });
 
       //holder.itemView.setOnClickListener(
@@ -127,6 +128,7 @@ public class PhotoCategoryNewsAdapter
 
   @Override public boolean onDoubleTap(MotionEvent e) {
     Log.i("adapter", "onDoubleTap: ");
+    fragmentNavigator.startPhotoDetailsragment();
     return true;
   }
 
@@ -175,6 +177,8 @@ public class PhotoCategoryNewsAdapter
 
   class TopNewsViewHolder extends SimpleNewsViewHolder {
 
+    @BindView(R.id.iv_arrow_left) ImageView ivArrowLeft;
+    @BindView(R.id.iv_arrow_right) ImageView ivArrowRight;
     @BindView(R.id.tv_preview) TextView tvPreview;
 
     TopNewsViewHolder(View itemView) {

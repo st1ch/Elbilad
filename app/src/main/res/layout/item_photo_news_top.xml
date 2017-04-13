@@ -29,7 +29,6 @@
       app:layout_constraintBottom_toBottomOf="@+id/iv_image"
       app:layout_constraintRight_toRightOf="@+id/iv_image"
       app:layout_constraintTop_toTopOf="@+id/iv_image"
-      android:visibility="invisible"
       android:layout_marginRight="@dimen/space_8dp"
       />
 
@@ -43,7 +42,6 @@
       app:layout_constraintBottom_toBottomOf="@+id/iv_image"
       app:layout_constraintLeft_toLeftOf="@+id/iv_image"
       app:layout_constraintTop_toTopOf="@+id/iv_image"
-      android:visibility="invisible"
       android:layout_marginLeft="@dimen/space_8dp"
       />
 

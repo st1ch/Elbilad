@@ -1,11 +1,11 @@
 package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -45,7 +45,7 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
   }
 
   @Override public boolean isViewFromObject(View view, Object object) {
-    return view == ((ConstraintLayout) object);
+    return view == ((FrameLayout) object);
   }
 
   @Override public Object instantiateItem(ViewGroup container, int position) {
@@ -55,7 +55,7 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
 
     ImageView slide = (ImageView) itemView.findViewById(R.id.iv_photo_slide);
 
-    imageLoaderHelper.loadGalleryImageLarge(photo.getImage(), slide);
+    imageLoaderHelper.loadGallerySlideImageLarge(photo.getImage(), slide);
 
     container.addView(itemView);
 

@@ -2,11 +2,9 @@ package inc.itnity.elbilad.presentation.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import inc.itnity.elbilad.R;
@@ -14,10 +12,13 @@ import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.PhotoSlidePagerAdapter;
+import inc.itnity.elbilad.presentation.custom.vertical_view_pager.VerticalViewPager;
+import inc.itnity.elbilad.presentation.custom.vertical_view_pager.transforms.DefaultTransformer;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
 import inc.itnity.elbilad.presentation.presenters.PhotoDetailsPresenter;
 import inc.itnity.elbilad.presentation.views.PhotoDetailsView;
 import inc.itnity.elbilad.utils.ElbiladUtils;
+import inc.itnity.elbilad.utils.FragmentNavigator;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -27,15 +28,17 @@ import javax.inject.Inject;
 
 public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoDetailsView {
 
-  @BindView(R.id.vp_photo_slide) ViewPager vpPhotoSlide;
+  @BindView(R.id.vp_photo_slide) VerticalViewPager vpPhotoSlide;
 
-  @BindView(R.id.tv_description) TextView tvDescription;
+  //@BindView(R.id.tv_description) TextView tvDescription;
 
   @Inject ElbiladUtils elbiladUtils;
 
   @Inject PhotoDetailsPresenter presenter;
 
   @Inject PhotoSlidePagerAdapter photoSlidePagerAdapter;
+
+  @Inject FragmentNavigator fragmentNavigator;
 
   public static PhotoDetailsFragment newInstance() {
     return new PhotoDetailsFragment();
@@ -72,36 +75,37 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
 
   private void initContent() {
     vpPhotoSlide.setAdapter(photoSlidePagerAdapter);
-    vpPhotoSlide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-      @Override
-      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-      }
-
-      @Override public void onPageSelected(int position) {
-        tvDescription.setText(photoSlidePagerAdapter.getPhoto(position).getPreview());
-      }
-
-      @Override public void onPageScrollStateChanged(int state) {
-
-      }
-    });
+    vpPhotoSlide.setPageTransformer(false, new DefaultTransformer());
+    //vpPhotoSlide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+    //  @Override
+    //  public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    //
+    //  }
+    //
+    //  @Override public void onPageSelected(int position) {
+    //    //tvDescription.setText(photoSlidePagerAdapter.getPhoto(position).getPreview());
+    //  }
+    //
+    //  @Override public void onPageScrollStateChanged(int state) {
+    //
+    //  }
+    //});
   }
 
   @Override public void showSlideshow(List<Image> photos) {
     vpPhotoSlide.setOffscreenPageLimit(photos.size());
     photoSlidePagerAdapter.setPhotos(photos);
-    tvDescription.setText(photoSlidePagerAdapter.getPhoto(0).getPreview());
+    //tvDescription.setText(photoSlidePagerAdapter.getPhoto(0).getPreview());
   }
 
   @Override public void showAddedToBookmarks() {
     super.showSnackbarMessage(getString(R.string.added_to_bookmarks));
   }
 
-  @OnClick(R.id.iv_share) void onShareClick() {
-    elbiladUtils.shareArticleLink(
-        photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()).getLink());
-  }
+  //@OnClick(R.id.iv_share) void onShareClick() {
+  //  elbiladUtils.shareArticleLink(
+  //      photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()).getLink());
+  //}
 
   //@OnClick(R.id.iv_bookmark) void onBookmarkClick() {
   //  //presenter.addToBookmarks(photoSlidePagerAdapter.getPhoto(vpPhotoSlide.getCurrentItem()));
@@ -113,6 +117,10 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
 
   @OnClick(R.id.iv_arrow_right) void onArrowRightClick() {
     vpPhotoSlide.setCurrentItem(getNextSlidePosition(), true);
+  }
+
+  @OnClick(R.id.iv_cross) void onCrossClick() {
+    fragmentNavigator.navigateBack(getActivity());
   }
 
   private int getNextSlidePosition() {
