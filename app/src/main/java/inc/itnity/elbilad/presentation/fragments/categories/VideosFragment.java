@@ -69,6 +69,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
   }
 
   private void initContent() {
+    videoCategoryNewsAdapter.setChildFragmentManager(getChildFragmentManager());
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.addItemDecoration(new SimpleDividerItemLineDecoration(getContext()));
     rvNews.setAdapter(videoCategoryNewsAdapter);

@@ -50,6 +50,10 @@ public class YouTubeHelper {
     });
   }
 
+  public boolean isYoutubeInstalled(){
+    return YouTubeIntents.isYouTubeInstalled(activity);
+  }
+
   public void startPlayer(String videoId) {
     if(YouTubeIntents.isYouTubeInstalled(activity)){
       Intent startVideoActivity = new Intent(activity, YouTubeVideoActivity.class);

@@ -17,19 +17,29 @@
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      tools:src="@drawable/sample_image"
+      android:visibility="invisible"
       />
 
-  <ImageView
-      android:id="@+id/iv_play"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:layout_marginBottom="@dimen/space_8dp"
-      android:src="@drawable/ic_play_arrow_48dp"
-      app:layout_constraintBottom_toBottomOf="@+id/iv_image"
-      app:layout_constraintLeft_toLeftOf="@+id/iv_image"
+  <FrameLayout
+      android:id="@+id/youtube_view"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintDimensionRatio="16:9"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       />
+
+  <!--<ImageView-->
+      <!--android:id="@+id/iv_play"-->
+      <!--android:layout_width="wrap_content"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:layout_gravity="bottom"-->
+      <!--android:layout_marginBottom="@dimen/space_8dp"-->
+      <!--android:src="@drawable/ic_play_arrow_48dp"-->
+      <!--app:layout_constraintBottom_toBottomOf="@+id/youtube_view"-->
+      <!--app:layout_constraintLeft_toLeftOf="@+id/youtube_view"-->
+      <!--/>-->
 
   <TextView
       android:id="@+id/tv_title"
@@ -83,7 +93,7 @@
       android:textSize="12sp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toLeftOf="@+id/tv_category"
-      app:layout_constraintTop_toBottomOf="@+id/iv_image"
+      app:layout_constraintTop_toBottomOf="@+id/youtube_view"
       />
 
   <TextView
@@ -97,6 +107,6 @@
       android:textColor="@color/action_bar_color"
       android:textSize="14sp"
       app:layout_constraintRight_toLeftOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/iv_image"
+      app:layout_constraintTop_toBottomOf="@+id/youtube_view"
       />
 </android.support.constraint.ConstraintLayout>
