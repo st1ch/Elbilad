@@ -37,5 +37,7 @@ public interface ArticleItem {
     int GALLERY = 12;
     int CATEGORY_HEADER = 13;
     int CATEGORY_HEADER_ORANGE = 14;
+    int BANNER_100 = 15;
+    int BANNER_50 = 16;
   }
 }

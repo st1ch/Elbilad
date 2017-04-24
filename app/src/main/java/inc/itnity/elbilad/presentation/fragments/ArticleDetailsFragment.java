@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.Journal;
@@ -61,6 +63,10 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   @BindView(R.id.rv_video) RecyclerView rvVideo;
   @BindView(R.id.rv_last_news) RecyclerView rvLastNews;
+
+  @BindView(R.id.adView_top) AdView adViewTop;
+  @BindView(R.id.adView_middle) AdView adViewMiddle;
+  @BindView(R.id.adView_bottom) AdView adViewBottom;
 
   @Inject ImageLoaderHelper imageLoaderHelper;
 
@@ -116,6 +122,11 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   @Override public void showArticle(Article article) {
     ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getTitle());
+
+    AdRequest adRequest = new AdRequest.Builder().build();
+    adViewTop.loadAd(adRequest);
+    adViewMiddle.loadAd(adRequest);
+    adViewBottom.loadAd(adRequest);
 
     isBookmarked = article.isBookmarked();
 

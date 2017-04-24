@@ -1,6 +1,6 @@
 package inc.itnity.elbilad.presentation.views;
 
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
+import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.presentation.views.base.ConnectionView;
 import java.util.List;
 
@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface MostReadNewsView extends ConnectionView {
 
-  void showArticles(List<ArticleMostRead> articles);
+  void showArticles(List<Article> articles);
 
 }

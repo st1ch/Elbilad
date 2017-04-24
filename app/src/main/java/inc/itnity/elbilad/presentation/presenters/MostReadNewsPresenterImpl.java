@@ -1,7 +1,7 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
+import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
 import inc.itnity.elbilad.domain.usecases.GetMostReadNewsUseCase;
@@ -57,9 +57,9 @@ public class MostReadNewsPresenterImpl extends ProgressConnectionPresenter<MostR
     super.onDestroy();
   }
 
-  private BaseProgressSubscriber<List<ArticleMostRead>> articlesSubscriber() {
-    return new BaseProgressSubscriber<List<ArticleMostRead>>(this) {
-      @Override public void onNext(List<ArticleMostRead> articles) {
+  private BaseProgressSubscriber<List<Article>> articlesSubscriber() {
+    return new BaseProgressSubscriber<List<Article>>(this) {
+      @Override public void onNext(List<Article> articles) {
         super.onNext(articles);
         try {
           checkViewBound();

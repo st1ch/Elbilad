@@ -15,6 +15,10 @@ public class Image extends BaseArticle {
     super.setType(TYPE.GALLERY);
   }
 
+  public Image(int type){
+    super.setType(type);
+  }
+
   @Override public String getPreview() {
     return preview;
   }

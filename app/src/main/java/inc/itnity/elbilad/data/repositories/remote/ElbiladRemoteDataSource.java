@@ -2,7 +2,6 @@ package inc.itnity.elbilad.data.repositories.remote;
 
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -22,7 +21,7 @@ public interface ElbiladRemoteDataSource {
 
   Observable<List<Article>> getArticles();
 
-  Observable<List<ArticleMostRead>> getMostReadArticles();
+  Observable<List<Article>> getMostReadArticles();
 
   Observable<List<Article>> getCategoryArticles(int categoryId);
 

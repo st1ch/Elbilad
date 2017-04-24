@@ -4,7 +4,7 @@ import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -39,8 +39,11 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
     return elbiladAPI.getArticles();
   }
 
-  @Override public Observable<List<ArticleMostRead>> getMostReadArticles() {
-    return elbiladAPI.getMostReadArticles();
+  @Override public Observable<List<Article>> getMostReadArticles() {
+    return elbiladAPI.getMostReadArticles().flatMap(Observable::from).map(article -> {
+      article.setType(ArticleItem.TYPE.MOST_READ);
+      return article;
+    }).toList();
   }
 
   @Override public Observable<List<Article>> getCategoryArticles(int categoryId) {

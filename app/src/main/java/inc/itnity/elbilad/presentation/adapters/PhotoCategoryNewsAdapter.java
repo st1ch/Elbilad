@@ -1,6 +1,7 @@
 package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,7 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.FragmentNavigator;
@@ -32,6 +36,8 @@ public class PhotoCategoryNewsAdapter
 
   private static final int TYPE_TOP = 0;
   private static final int TYPE_SIMPLE = 1;
+  private static final int TYPE_BANNER_100 = 2;
+  private static final int TYPE_BANNER_50 = 3;
 
   private List<Image> articles = new ArrayList<>();
 
@@ -52,6 +58,11 @@ public class PhotoCategoryNewsAdapter
     if (position == 0) {
       return TYPE_TOP;
     }
+    if (getItem(position).getType() == ArticleItem.TYPE.BANNER_100) {
+      return TYPE_BANNER_100;
+    } else if (getItem(position).getType() == ArticleItem.TYPE.BANNER_50) {
+      return TYPE_BANNER_50;
+    }
     return TYPE_SIMPLE;
   }
 
@@ -60,6 +71,17 @@ public class PhotoCategoryNewsAdapter
       return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
           .inflate(R.layout.item_photo_news_top, parent, false));
     }
+
+    if (viewType == TYPE_BANNER_100) {
+      return new BannerViewHolder(LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.item_banner_4588, parent, false));
+    }
+
+    if (viewType == TYPE_BANNER_50) {
+      return new BannerViewHolder(LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.item_banner_6582, parent, false));
+    }
+
     return new SimpleNewsViewHolder(
         LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo_news, parent, false));
   }
@@ -67,39 +89,41 @@ public class PhotoCategoryNewsAdapter
   @Override public void onBindViewHolder(SimpleNewsViewHolder holder, int position) {
     int viewType = getItemViewType(position);
 
-    Image article = getItem(position);
+    if (viewType != TYPE_BANNER_100 && viewType != TYPE_BANNER_50) {
+      Image article = getItem(position);
 
-    if (viewType == TYPE_TOP) {
-      ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
+      if (viewType == TYPE_TOP) {
+        ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
 
-      if (!TextUtils.isEmpty(article.getImage())) {
-        imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
+        if (!TextUtils.isEmpty(article.getImage())) {
+          imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
+        }
+
+        ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
+            (v, event) -> gestureDetector.onTouchEvent(event));
+
+        ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
+        });
+        ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
+        });
+
+        //holder.itemView.setOnClickListener(
+        //    v -> fragmentNavigator.startPhotoDetailsragment());
+      } else {
+        if (!TextUtils.isEmpty(article.getImage())) {
+          imageLoaderHelper.loadGalleryImageThumb(article.getImage(), holder.ivAvatar);
+        }
+
+        holder.itemView.setOnClickListener(v -> moveToTop(position, article));
       }
 
-      ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
-          (v, event) -> gestureDetector.onTouchEvent(event));
-
-      ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
-      });
-      ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
-      });
+      holder.tvTitle.setText(article.getTitle());
+      holder.tvCategory.setText(article.getCategoryTitle());
+      holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
 
       //holder.itemView.setOnClickListener(
       //    v -> fragmentNavigator.startPhotoDetailsragment());
-    } else {
-      if (!TextUtils.isEmpty(article.getImage())) {
-        imageLoaderHelper.loadGalleryImageThumb(article.getImage(), holder.ivAvatar);
-      }
-
-      holder.itemView.setOnClickListener(v -> moveToTop(position, article));
     }
-
-    holder.tvTitle.setText(article.getTitle());
-    holder.tvCategory.setText(article.getCategoryTitle());
-    holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-
-    //holder.itemView.setOnClickListener(
-    //    v -> fragmentNavigator.startPhotoDetailsragment());
   }
 
   @Override public int getItemCount() {
@@ -118,7 +142,31 @@ public class PhotoCategoryNewsAdapter
 
   public void setArticles(List<Image> articles) {
     this.articles.clear();
-    this.articles.addAll(articles);
+
+    if (articles.size() > 8) {
+      for (int i = 0; i < 3; i++) {
+        this.articles.add(articles.get(i));
+      }
+      this.articles.add(new Image(ArticleItem.TYPE.BANNER_100));
+      for (int i = 3; i < 8; i++) {
+        this.articles.add(articles.get(i));
+      }
+      this.articles.add(new Image(ArticleItem.TYPE.BANNER_50));
+      for (int i = 8; i < articles.size(); i++) {
+        this.articles.add(articles.get(i));
+      }
+    } else if (articles.size() > 3) {
+      for (int i = 0; i < 3; i++) {
+        this.articles.add(articles.get(i));
+      }
+      this.articles.add(new Image(ArticleItem.TYPE.BANNER_100));
+      for (int i = 3; i < articles.size(); i++) {
+        this.articles.add(articles.get(i));
+      }
+    } else {
+      this.articles.addAll(articles);
+    }
+
     notifyDataSetChanged();
   }
 
@@ -164,10 +212,10 @@ public class PhotoCategoryNewsAdapter
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.iv_image) ImageView ivAvatar;
-    @BindView(R.id.tv_date) TextView tvDate;
-    @BindView(R.id.tv_category) TextView tvCategory;
-    @BindView(R.id.tv_title) TextView tvTitle;
+    @Nullable @BindView(R.id.iv_image) ImageView ivAvatar;
+    @Nullable @BindView(R.id.tv_date) TextView tvDate;
+    @Nullable @BindView(R.id.tv_category) TextView tvCategory;
+    @Nullable @BindView(R.id.tv_title) TextView tvTitle;
 
     SimpleNewsViewHolder(View itemView) {
       super(itemView);
@@ -183,6 +231,17 @@ public class PhotoCategoryNewsAdapter
 
     TopNewsViewHolder(View itemView) {
       super(itemView);
+    }
+  }
+
+  class BannerViewHolder extends SimpleNewsViewHolder {
+
+    @BindView(R.id.adView) AdView adView;
+
+    BannerViewHolder(View itemView) {
+      super(itemView);
+      AdRequest adRequest = new AdRequest.Builder().build();
+      adView.loadAd(adRequest);
     }
   }
 }

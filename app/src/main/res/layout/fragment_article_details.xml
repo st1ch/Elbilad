@@ -2,6 +2,7 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     >
 
   <LinearLayout
@@ -13,17 +14,38 @@
 
     <include layout="@layout/item_detail_news_top" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_8dp"
+        android:layout_marginBottom="@dimen/space_8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/main_screen_top_banner_id">
+    </com.google.android.gms.ads.AdView>
+
     <TextView
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
         android:gravity="right"
         android:paddingLeft="@dimen/space_16dp"
         android:paddingRight="@dimen/space_16dp"
         android:textColor="@color/text_dark_grey_hint"
         android:textSize="22sp"
         />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_8dp"
+        android:layout_marginBottom="@dimen/space_8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/main_screen_top_banner_id">
+    </com.google.android.gms.ads.AdView>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_video"
@@ -39,6 +61,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/space_8dp"
+        android:layout_marginBottom="@dimen/space_8dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/main_screen_top_banner_id">
+    </com.google.android.gms.ads.AdView>
 
     <include layout="@layout/journal" />
 

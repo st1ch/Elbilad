@@ -49,4 +49,36 @@
   </string-array>
   <string name="settings_push_notification">Push notifications</string>
   <string name="settings_push_notification_summary">Enable/disable push notifications</string>
+  
+  
+  <!-- GOOGLE ADS IDs-->
+  <string name="ads_app_id">ca-app-pub-2879265761807915~7543630180</string>
+
+  <string name="main_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="main_screen_middle_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+  <string name="main_screen_middle_2_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="main_screen_middle_3_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+  <string name="main_screen_bottom_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+
+  <string name="category_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="category_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="flash_news_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="flash_news_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="bookmarks_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="bookmarks_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="photo_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="photo_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="video_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="video_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="most_read_screen_top_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="most_read_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+
+  <string name="details_screen_top_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+  <string name="details_screen_middle_banner_id">ca-app-pub-2879265761807915/5648094588</string>
+  <string name="details_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
 </resources>

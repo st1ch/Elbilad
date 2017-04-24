@@ -35,6 +35,10 @@ public class Video extends BaseArticle {
     isArticle = true;
   }
 
+  public Video(int type){
+    super.setType(type);
+  }
+
   @Override public String getPreview() {
     return preview;
   }

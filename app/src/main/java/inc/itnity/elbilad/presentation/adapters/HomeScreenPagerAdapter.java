@@ -8,7 +8,7 @@ import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeBookmarksFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeLastNewsFragment;
 import inc.itnity.elbilad.presentation.fragments.categories.HomeMainFragment;
-import inc.itnity.elbilad.presentation.fragments.categories.MostReadNewsFragment;
+import inc.itnity.elbilad.presentation.fragments.categories.HomeMostReadNewsFragment;
 import java.util.ArrayList;
 
 public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
@@ -57,7 +57,7 @@ public class HomeScreenPagerAdapter extends FragmentStatePagerAdapter {
       case PAGE_LAST_NEWS:
         return HomeLastNewsFragment.newInstance();
       case PAGE_MOST_READ_NEWS:
-        return MostReadNewsFragment.newInstance();
+        return HomeMostReadNewsFragment.newInstance();
       case PAGE_BOOKMARKS:
         return HomeBookmarksFragment.newInstance();
       //case PAGE_VIDEOS:

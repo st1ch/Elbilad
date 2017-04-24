@@ -12,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleImportant;
 import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.ArticleTop5;
 import inc.itnity.elbilad.domain.models.article.ArticleVideo;
@@ -85,6 +88,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
       case ArticleItem.TYPE.CATEGORY_HEADER_ORANGE:
         return new CategoryHeaderViewHolder(
             getView(parent, R.layout.item_home_news_category_header_orange));
+      case ArticleItem.TYPE.BANNER_100:
+        return new BannerViewHolder(getView(parent, R.layout.item_banner_4588));
+      case ArticleItem.TYPE.BANNER_50:
+        return new BannerViewHolder(getView(parent, R.layout.item_banner_6582));
       default:
         return null;
     }
@@ -244,13 +251,39 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     this.articles.clear();
 
-    this.articles.addAll(articles.getTop5Articles());
+    List<ArticleTop5> top5Articles = articles.getTop5Articles();
+    if (top5Articles != null) {
+      if (top5Articles.size() > 3) {
+        for (int i = 0; i < 3; i++) {
+          this.articles.add(top5Articles.get(i));
+        }
+        this.articles.add(new Article(ArticleItem.TYPE.BANNER_100));
+        for (int i = 3; i < top5Articles.size(); i++) {
+          this.articles.add(top5Articles.get(i));
+        }
+      } else {
+        this.articles.addAll(top5Articles);
+      }
+    }
 
     this.articles.add(new Video());
     this.videos.clear();
     this.videos.addAll(articles.getVideos());
 
-    this.articles.addAll(articles.getImportantArticles());
+    List<ArticleImportant> importantArticles = articles.getImportantArticles();
+    if (importantArticles != null) {
+      if (importantArticles.size() > 5) {
+        for (int i = 0; i < 5; i++) {
+          this.articles.add(importantArticles.get(i));
+        }
+        this.articles.add(new Article(ArticleItem.TYPE.BANNER_50));
+        for (int i = 5; i < importantArticles.size(); i++) {
+          this.articles.add(importantArticles.get(i));
+        }
+      } else {
+        this.articles.addAll(importantArticles);
+      }
+    }
     if (videoArticles != null && videoArticles.size() > 0) {
       this.articles.add(videoArticles.get(0));
     }
@@ -258,6 +291,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     this.articles.add(
         new CategoryHeader(context.getString(R.string.news_title_international), false));
     this.articles.addAll(articles.getInternationalArticles());
+    this.articles.add(new Article(ArticleItem.TYPE.BANNER_100));
 
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_sport), false));
     this.articles.addAll(articles.getSportArticles());
@@ -271,6 +305,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_mahakim), false));
     this.articles.addAll(articles.getMahakimArticles());
 
+    this.articles.add(new Article(ArticleItem.TYPE.BANNER_50));
     this.articles.add(new CategoryHeader(context.getString(R.string.news_title_culture), false));
     this.articles.addAll(articles.getCultureArticles());
     if (videoArticles != null && videoArticles.size() > 2) {
@@ -284,6 +319,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
     this.gallery.clear();
     this.gallery.addAll(articles.getGallery());
 
+    this.articles.add(new Article(ArticleItem.TYPE.BANNER_100));
     this.articles.add(new CategoryHeader(context.getString(R.string.news_most_read), true));
     this.articles.addAll(articles.getMostReadArticles());
 
@@ -373,6 +409,17 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
 
     CategoryHeaderViewHolder(View itemView) {
       super(itemView);
+    }
+  }
+
+  class BannerViewHolder extends HomeItemViewHolder {
+
+    @BindView(R.id.adView) AdView adView;
+
+    BannerViewHolder(View itemView) {
+      super(itemView);
+      AdRequest adRequest = new AdRequest.Builder().build();
+      adView.loadAd(adRequest);
     }
   }
 }

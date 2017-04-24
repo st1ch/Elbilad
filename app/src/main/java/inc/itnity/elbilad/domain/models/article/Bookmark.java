@@ -27,6 +27,10 @@ public class Bookmark {
     this.type = TYPE.ARTICLE;
   }
 
+  public Bookmark(TYPE type) {
+    this.type = type;
+  }
+
   public TYPE getType() {
     return type;
   }
@@ -44,7 +48,7 @@ public class Bookmark {
   }
 
   public enum TYPE {
-    VIDEO, PHOTO, ARTICLE
+    VIDEO, PHOTO, ARTICLE, BANNER_100, BANNER_50
   }
 
   @Override public boolean equals(Object o) {

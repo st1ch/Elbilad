@@ -2,7 +2,6 @@ package inc.itnity.elbilad.data.rest.api;
 
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -25,7 +24,8 @@ public interface ElbiladAPI {
   String HOME_ARTICLES = "/home-requests";
   String MOST_READ = "/trending";
   String LAST_6_NEWS = "/bloc?type=last";
-  String LAST_NEWS = "/flash";
+  //String LAST_NEWS = "/flash";
+  String LAST_NEWS = "/article?categorie_id=28";
   String VIDEOS = "/video";
   String GALLERY = "/galerie";
   String PDF = "/pdf";
@@ -44,7 +44,7 @@ public interface ElbiladAPI {
 
   @GET(ARTICLE) Observable<List<Article>> getCategoryArticles(@Query(CATEGORIE_ID) int categoryId);
 
-  @GET(ARTICLE + MOST_READ) Observable<List<ArticleMostRead>> getMostReadArticles();
+  @GET(ARTICLE + MOST_READ) Observable<List<Article>> getMostReadArticles();
 
   @GET(ARTICLE + PATH_ARTICLE_ID) Observable<List<Article>> getArticle(
       @Path(ARTICLE_ID) String articleId);

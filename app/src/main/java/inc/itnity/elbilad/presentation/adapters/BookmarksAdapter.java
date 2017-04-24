@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.adapters;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
@@ -33,6 +36,8 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
   private static final int TYPE_VIDEO = 121;
   //private static final int TYPE_TOP_PHOTO = 112;
   private static final int TYPE_PHOTO = 122;
+  private static final int TYPE_BANNER_100 = 123;
+  private static final int TYPE_BANNER_50 = 124;
 
   private List<Bookmark> bookmarks = new ArrayList<>();
 
@@ -63,6 +68,10 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
       return TYPE_VIDEO;
     } else if (type.equals(Bookmark.TYPE.PHOTO)) {
       return TYPE_PHOTO;
+    } else if (type.equals(Bookmark.TYPE.BANNER_100)) {
+      return TYPE_BANNER_100;
+    } else if (type.equals(Bookmark.TYPE.BANNER_50)) {
+      return TYPE_BANNER_50;
     } else {
       return TYPE_SIMPLE;
     }
@@ -85,6 +94,12 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
       case TYPE_PHOTO:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_photo, parent, false));
+      case TYPE_BANNER_100:
+        return new BannerViewHolder(LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.item_banner_4588, parent, false));
+      case TYPE_BANNER_50:
+        return new BannerViewHolder(LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.item_banner_6582, parent, false));
       default:
         return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
             .inflate(R.layout.item_category_news, parent, false));
@@ -204,15 +219,38 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
     //  }
     //}
     this.bookmarks.clear();
-    this.bookmarks.addAll(bookmarks);
+
+    if (bookmarks.size() > 8) {
+      for (int i = 0; i < 3; i++) {
+        this.bookmarks.add(bookmarks.get(i));
+      }
+      this.bookmarks.add(new Bookmark(Bookmark.TYPE.BANNER_100));
+      for (int i = 3; i < 8; i++) {
+        this.bookmarks.add(bookmarks.get(i));
+      }
+      this.bookmarks.add(new Bookmark(Bookmark.TYPE.BANNER_50));
+      for (int i = 8; i < bookmarks.size(); i++) {
+        this.bookmarks.add(bookmarks.get(i));
+      }
+    } else if (bookmarks.size() > 3) {
+      for (int i = 0; i < 3; i++) {
+        this.bookmarks.add(bookmarks.get(i));
+      }
+      this.bookmarks.add(new Bookmark(Bookmark.TYPE.BANNER_100));
+      for (int i = 3; i < bookmarks.size(); i++) {
+        this.bookmarks.add(bookmarks.get(i));
+      }
+    } else {
+      this.bookmarks.addAll(bookmarks);
+    }
     notifyDataSetChanged();
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.iv_image) ImageView ivAvatar;
-    @BindView(R.id.tv_preview) TextView tvPreview;
-    @BindView(R.id.tv_date) TextView tvDate;
+    @Nullable @BindView(R.id.iv_image) ImageView ivAvatar;
+    @Nullable @BindView(R.id.tv_preview) TextView tvPreview;
+    @Nullable @BindView(R.id.tv_date) TextView tvDate;
 
     SimpleNewsViewHolder(View itemView) {
       super(itemView);
@@ -226,6 +264,17 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
 
     TopNewsViewHolder(View itemView) {
       super(itemView);
+    }
+  }
+
+  class BannerViewHolder extends SimpleNewsViewHolder {
+
+    @BindView(R.id.adView) AdView adView;
+
+    BannerViewHolder(View itemView) {
+      super(itemView);
+      AdRequest adRequest = new AdRequest.Builder().build();
+      adView.loadAd(adRequest);
     }
   }
 }

@@ -3,7 +3,6 @@ package inc.itnity.elbilad.data.repositories;
 import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
-import inc.itnity.elbilad.domain.models.article.ArticleMostRead;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
@@ -27,7 +26,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
   private final Provider<List<Category>> categoryListCache;
   private final Provider<List<Article>> articleListCache;
   private final Provider<List<Article>> lastNews6Cache;
-  private final Provider<List<ArticleMostRead>> mostReadCache;
+  private final Provider<List<Article>> mostReadCache;
   private final Provider<List<Article>> lastNewsCache;
   private final Provider<HomeArticles> homeArticlesCache;
   private final ProviderGroup<List<Article>> categoryArticleListCache;
@@ -50,7 +49,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
         reactiveCache.<Article>providerGroup().lifeCache(1, TimeUnit.DAYS).withKey("articleCache");
     this.lastNews6Cache = reactiveCache.<List<Article>>provider().withKey("lastNews6Cache");
     this.lastNewsCache = reactiveCache.<List<Article>>provider().withKey("lastNewsCache");
-    this.mostReadCache = reactiveCache.<List<ArticleMostRead>>provider().withKey("mostReadCache");
+    this.mostReadCache = reactiveCache.<List<Article>>provider().withKey("mostReadCache");
     this.bookmarkedArticlesCache = reactiveCache.<List<Bookmark>>provider().withKey("bookmarks");
     this.videosCache = reactiveCache.<List<Video>>provider().withKey("videosCache");
     this.photosCache = reactiveCache.<List<Image>>provider().withKey("photosCache");
@@ -90,7 +89,7 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
     return remoteDataSource.getArticles().compose(articleListCache.readWithLoader());
   }
 
-  @Override public Observable<List<ArticleMostRead>> getMostReadArticles(boolean refresh) {
+  @Override public Observable<List<Article>> getMostReadArticles(boolean refresh) {
     if (refresh) {
       return remoteDataSource.getMostReadArticles().compose(mostReadCache.replace());
     }

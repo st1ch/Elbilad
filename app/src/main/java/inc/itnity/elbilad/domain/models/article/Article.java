@@ -24,6 +24,10 @@ public class Article extends BaseArticle {
     super.setType(TYPE.SIMPLE);
   }
 
+  public Article(int type) {
+    super.setType(type);
+  }
+
   @Override public String getPreview() {
     return preview;
   }

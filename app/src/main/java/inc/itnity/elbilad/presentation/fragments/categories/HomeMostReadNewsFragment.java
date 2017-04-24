@@ -12,7 +12,6 @@ import butterknife.BindView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
-import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.MostReadNewsAdapter;
 import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
 import inc.itnity.elbilad.presentation.fragments.base.AbstractBaseFragment;
@@ -25,10 +24,10 @@ import javax.inject.Inject;
  * Created by st1ch on 18.01.17.
  */
 
-public class MostReadNewsFragment extends AbstractBaseFragment implements MostReadNewsView {
+public class HomeMostReadNewsFragment extends AbstractBaseFragment implements MostReadNewsView {
 
-  public static MostReadNewsFragment newInstance() {
-    return new MostReadNewsFragment();
+  public static HomeMostReadNewsFragment newInstance() {
+    return new HomeMostReadNewsFragment();
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
@@ -58,10 +57,6 @@ public class MostReadNewsFragment extends AbstractBaseFragment implements MostRe
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    ((AbstractBaseActivity) getActivity()).showHomeToolbar();
-    ((AbstractBaseActivity) getActivity()).hideTitleLogo();
-    ((AbstractBaseActivity) getActivity()).setTitleToolBar(getString(R.string.news_most_read));
-
     View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();

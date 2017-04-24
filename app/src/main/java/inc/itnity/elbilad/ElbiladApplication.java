@@ -2,6 +2,7 @@ package inc.itnity.elbilad;
 
 import android.app.Application;
 import android.util.Log;
+import com.google.android.gms.ads.MobileAds;
 import com.onesignal.OneSignal;
 import inc.itnity.elbilad.data.sync.SyncAdapterManager;
 import inc.itnity.elbilad.di.components.ApplicationComponent;
@@ -30,6 +31,8 @@ public class ElbiladApplication extends Application {
         .applicationModule(new ApplicationModule(getApplicationContext()))
         .build();
     applicationComponent.inject(this);
+
+    MobileAds.initialize(getApplicationContext(), getResources().getString(R.string.ads_app_id));
 
     Log.i("app", "onCreate: "
         + preferenceHelper.isPushNotificationsEnabled()
