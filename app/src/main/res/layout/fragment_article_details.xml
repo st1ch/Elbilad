@@ -25,7 +25,8 @@
         ads:adUnitId="@string/main_screen_top_banner_id">
     </com.google.android.gms.ads.AdView>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+        style="@style/Elbilad.TextView.ArticleText"
         android:id="@+id/tv_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

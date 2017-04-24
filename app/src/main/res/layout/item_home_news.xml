@@ -40,7 +40,8 @@
       tools:layout_editor_absoluteX="0dp"
       tools:layout_editor_absoluteY="65dp"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_preview"
       android:layout_width="0dp"
       android:layout_height="0dp"
@@ -60,7 +61,8 @@
       app:layout_constraintRight_toLeftOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.CategoryTitle"
       android:id="@+id/tv_category"
       android:layout_width="wrap_content"
       android:layout_height="0dp"
@@ -74,7 +76,8 @@
       app:layout_constraintRight_toLeftOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="@+id/guideline2"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.Date"
       android:id="@+id/tv_date"
       android:layout_width="0dp"
       android:layout_height="0dp"

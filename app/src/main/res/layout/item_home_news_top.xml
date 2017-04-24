@@ -47,7 +47,8 @@
       app:layout_constraintGuide_end="16dp"
       />
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -62,7 +63,8 @@
       app:layout_constraintLeft_toLeftOf="@+id/guidelineVerticalStart16dp"
       app:layout_constraintRight_toRightOf="@+id/guidelineVerticalEnd16dp"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.CategoryTitle"
       android:id="@+id/tv_category"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -74,7 +76,8 @@
       app:layout_constraintBottom_toTopOf="@+id/tv_title"
       app:layout_constraintRight_toRightOf="@+id/tv_title"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.Date"
       android:id="@+id/tv_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

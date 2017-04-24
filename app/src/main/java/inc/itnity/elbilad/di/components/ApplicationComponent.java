@@ -14,6 +14,7 @@ import inc.itnity.elbilad.data.sync.SyncService;
 import inc.itnity.elbilad.di.modules.ApplicationModule;
 import inc.itnity.elbilad.domain.schedulers.ObserveOn;
 import inc.itnity.elbilad.domain.schedulers.SubscribeOn;
+import inc.itnity.elbilad.presentation.custom.ElbiladTextView;
 import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.PreferenceHelper;
 import io.reactivecache.ReactiveCache;
@@ -28,6 +29,8 @@ import javax.inject.Singleton;
 
   void inject(SyncService syncService);
   void inject(SyncAdapter syncAdapter);
+
+  void inject(ElbiladTextView elbiladTextView);
 
   FragmentNavigator fragmentNavigator();
 

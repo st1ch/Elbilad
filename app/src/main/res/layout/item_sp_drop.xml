@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_data"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

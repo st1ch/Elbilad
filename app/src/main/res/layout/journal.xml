@@ -32,7 +32,8 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_title"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -47,7 +48,8 @@
       app:layout_constraintVertical_chainStyle="packed"
       />
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.Date"
       android:id="@+id/tv_number"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

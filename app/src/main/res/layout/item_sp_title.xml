@@ -6,7 +6,8 @@
     android:orientation="vertical"
     >
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_header"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -15,7 +16,8 @@
       tools:text="Update time"
       />
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

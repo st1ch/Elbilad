@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="text_typeface" format="enum">
+        <enum name="Droid_Sans_Arabic" value="0" />
+        <enum name="Hacen_Samra" value="1" />
+        <enum name="Hacen_Samra_Lt" value="2" />
+        <enum name="Hacen_Tunisia" value="3" />
+        <enum name="Open_Sans_Bold" value="4" />
+        <enum name="Open_Sans_Semibold" value="5" />
+        <enum name="Roboto_Regular" value="6" />
+    </attr>
+
+    <declare-styleable name="ElbiladTextView">
+        <attr name="text_typeface" />
+    </declare-styleable>
+</resources>

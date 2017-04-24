@@ -44,7 +44,7 @@
           />
     </RelativeLayout>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_home"
         android:text="@string/home"
         style="@style/MenuItemTextView"
@@ -52,7 +52,7 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_last_news"
         android:text="@string/last_news"
         style="@style/MenuItemTextView"
@@ -60,7 +60,7 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_hz"
         android:text="الأكثر قراءة"
         android:background="@color/tab_bg"
@@ -70,7 +70,7 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_bookmarks"
         android:text="@string/bookmarks"
         style="@style/MenuItemTextView"
@@ -78,7 +78,7 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_videos"
         android:text="@string/videos"
         style="@style/MenuItemTextView"
@@ -86,13 +86,13 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_photos"
         android:text="@string/photos"
         style="@style/MenuItemTextView"
         />
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         style="@style/MenuCategoryTextView"
         android:drawableRight="@drawable/ic_folder"
         android:text="المواضيع"
@@ -105,13 +105,13 @@
         android:overScrollMode="never"
         />
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         style="@style/MenuCategoryTextView"
         android:drawableRight="@drawable/ic_gear"
         android:text="@string/settings"
         />
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_about"
         android:text="@string/about"
         style="@style/MenuItemTextView"
@@ -119,7 +119,7 @@
     <View
         style="@style/ListSeparator"/>
 
-    <TextView
+    <inc.itnity.elbilad.presentation.custom.ElbiladTextView
         android:id="@+id/tv_menu_preferences"
         android:text="@string/preferences"
         style="@style/MenuItemTextView"

@@ -10,7 +10,8 @@
     android:layout_marginBottom="@dimen/space_16dp"
     >
 
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"

@@ -35,6 +35,7 @@
   <style name="NavigationTabTextAppearance" parent="TextAppearance.Design.Tab">
     <item name="android:textColor">@color/colorAccent</item>
     <item name="android:textSize">@dimen/title_info_size</item>
+    <item name="text_typeface">Hacen_Tunisia</item>
   </style>
 
   <style name="MenuItemTextView">
@@ -44,6 +45,7 @@
     <item name="android:gravity">center_vertical</item>
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">@dimen/main_menu_item_height</item>
+    <item name="text_typeface">Hacen_Tunisia</item>
   </style>
 
   <style name="MenuCategoryTextView" parent="MenuItemTextView">
@@ -70,6 +72,22 @@
     <item name="colorControlActivated">@color/colorPrimary</item>
     <item name="colorSwitchThumbNormal">@android:color/white</item>
     <item name="android:colorForeground">@color/item_separator</item>
+  </style>
+
+  <style name="Elbilad.TextView.Date" parent="android:Widget.Holo.TextView">
+    <item name="text_typeface">Hacen_Tunisia</item>
+  </style>
+
+  <style name="Elbilad.TextView.CategoryTitle" parent="android:Widget.Holo.TextView">
+    <item name="text_typeface">Hacen_Samra</item>
+  </style>
+
+  <style name="Elbilad.TextView.ArticleTitle" parent="android:Widget.Holo.TextView">
+    <item name="text_typeface">Hacen_Tunisia</item>
+  </style>
+
+  <style name="Elbilad.TextView.ArticleText" parent="android:Widget.Holo.TextView">
+    <item name="text_typeface">Hacen_Tunisia</item>
   </style>
 
 </resources>

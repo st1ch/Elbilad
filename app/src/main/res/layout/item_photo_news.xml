@@ -30,7 +30,6 @@
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.0"
-      tools:src="@drawable/sample_news_image"
       />
   <android.support.constraint.Guideline
       android:id="@+id/guideline2"
@@ -41,7 +40,8 @@
       tools:layout_editor_absoluteX="0dp"
       tools:layout_editor_absoluteY="65dp"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.ArticleTitle"
       android:id="@+id/tv_title"
       android:layout_width="0dp"
       android:layout_height="0dp"
@@ -61,7 +61,8 @@
       app:layout_constraintRight_toLeftOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.CategoryTitle"
       android:id="@+id/tv_category"
       android:layout_width="wrap_content"
       android:layout_height="0dp"
@@ -75,7 +76,8 @@
       app:layout_constraintRight_toLeftOf="@+id/guideline"
       app:layout_constraintTop_toTopOf="@+id/guideline2"
       />
-  <TextView
+  <inc.itnity.elbilad.presentation.custom.ElbiladTextView
+      style="@style/Elbilad.TextView.Date"
       android:id="@+id/tv_date"
       android:layout_width="0dp"
       android:layout_height="0dp"
