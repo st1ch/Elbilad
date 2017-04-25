@@ -105,13 +105,13 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
         .compose(categoryArticleListCache.readWithLoader(categoryId));
   }
 
-  @Override public Observable<Article> getArticle(boolean refresh, String articleId) {
+  @Override public Observable<Article> getArticle(boolean isFlash, boolean refresh, String articleId) {
     if (refresh) {
-      return remoteDataSource.getArticle(articleId)
+      return remoteDataSource.getArticle(isFlash, articleId)
           .compose(articleCache.replace(articleId))
           .compose(checkArticleBookmarked(articleId));
     }
-    return remoteDataSource.getArticle(articleId)
+    return remoteDataSource.getArticle(isFlash, articleId)
         .compose(articleCache.readWithLoader(articleId))
         .compose(checkArticleBookmarked(articleId));
   }

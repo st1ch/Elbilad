@@ -121,7 +121,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
             getArticleDate(holder, topArticle.getDate(), topArticle.getTime()));
         ((TopNewsItemViewHolder) holder).tvAuthor.setText(topArticle.getCategoryTitle());
         ((TopNewsItemViewHolder) holder).itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(topArticle.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(false, topArticle.getId()));
         break;
       case ArticleItem.TYPE.TOP_5:
       case ArticleItem.TYPE.IMPORTANT:
@@ -142,7 +142,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
             getArticleDate(holder, regularArticle.getDate(), regularArticle.getTime()));
         ((RegularNewsItemViewHolder) holder).tvAuthor.setText(regularArticle.getCategoryTitle());
         ((RegularNewsItemViewHolder) holder).itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(regularArticle.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(false, regularArticle.getId()));
         break;
       case ArticleItem.TYPE.MOST_READ:
         Article mostReadArticle = (Article) article;
@@ -160,7 +160,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         //    getArticleDate(holder, mostReadArticle.getDate(), mostReadArticle.getTime()));
         ((MostReadItemViewHolder) holder).tvAuthor.setText(mostReadArticle.getCategoryTitle());
         ((MostReadItemViewHolder) holder).itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(mostReadArticle.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(false, mostReadArticle.getId()));
 
         break;
       case ArticleItem.TYPE.SPORT:
@@ -179,7 +179,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeItemViewHo
         ((RegularNewsImageItemViewHolder) holder).tvDate.setText(
             getArticleDate(holder, regularImageArticle.getDate(), regularImageArticle.getTime()));
         ((RegularNewsImageItemViewHolder) holder).itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(regularImageArticle.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(false, regularImageArticle.getId()));
         break;
       case ArticleItem.TYPE.VIDEO_ARTICLE:
         Article videoImageArticle = (Article) article;

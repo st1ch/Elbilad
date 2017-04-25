@@ -87,6 +87,14 @@ public class ImageLoaderHelper {
         .into(targetImageView);
   }
 
+  public void loadFlashImageThumb(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.FLASH_IMAGE_BASE_URL + ApiConfig.THUMB + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
   public void loadVideoImageThumb(String imageUrl, ImageView targetImageView) {
     picasso.load(ApiConfig.VIDEO_IMAGE_BASE_URL + ApiConfig.VIDEO_UNE + imageUrl)
         .fit()
@@ -129,6 +137,14 @@ public class ImageLoaderHelper {
 
   public void loadUrlImageLarge(String imageUrl, ImageView targetImageView) {
     picasso.load(ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + imageUrl)
+        .fit()
+        .centerCrop()
+        .placeholder(R.drawable.large_placeholder)
+        .into(targetImageView);
+  }
+
+  public void loadFlashImageLarge(String imageUrl, ImageView targetImageView) {
+    picasso.load(ApiConfig.FLASH_IMAGE_BASE_URL + ApiConfig.LARGE + imageUrl)
         .fit()
         .centerCrop()
         .placeholder(R.drawable.large_placeholder)

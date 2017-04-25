@@ -24,7 +24,7 @@ public class MainActivity extends AbstractBaseActivity {
 
     String pushArticle = preferenceHelper.getArticleId();
     if (!TextUtils.isEmpty(pushArticle)) {
-      fragmentNavigator.startArticleDetailsFragment(pushArticle);
+      fragmentNavigator.startArticleDetailsFragment(false, pushArticle);
     } else {
       fragmentNavigator.startHomeScreenFragment();
     }

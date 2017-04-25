@@ -47,13 +47,14 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
     this.removeArticleBookmarkUseCase = removeArticleBookmarkUseCase;
   }
 
-  @Override public void onCreate(String articleId) {
+  @Override public void onCreate(boolean isFlash, String articleId) {
     try {
       checkViewBound();
       checkConnection();
 
       getArticleUseCase.setRefresh(true);
       getArticleUseCase.setArticleId(articleId);
+      getArticleUseCase.setFlash(isFlash);
       getArticleUseCase.execute(articleSubscriber());
 
       getLastVideosUseCase.setRefresh(true);
@@ -70,6 +71,7 @@ public class ArticleDetailsPresenterImpl extends ProgressConnectionPresenter<Art
       e.printStackTrace();
       getArticleUseCase.setRefresh(false);
       getArticleUseCase.setArticleId(articleId);
+      getArticleUseCase.setFlash(isFlash);
       getArticleUseCase.execute(articleSubscriber());
 
       getLastVideosUseCase.setRefresh(false);

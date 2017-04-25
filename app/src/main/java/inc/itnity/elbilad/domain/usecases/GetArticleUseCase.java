@@ -17,6 +17,7 @@ public class GetArticleUseCase extends UseCase<Article> {
 
   private boolean refresh;
   private String articleId;
+  private boolean isFlash;
 
   @Inject
   GetArticleUseCase(SubscribeOn subscribeOn, ObserveOn observeOn,
@@ -33,7 +34,11 @@ public class GetArticleUseCase extends UseCase<Article> {
     this.articleId = articleId;
   }
 
+  public void setFlash(boolean flash) {
+    isFlash = flash;
+  }
+
   @Override protected Observable<Article> getUseCaseObservable() {
-    return elbiladRepository.getArticle(refresh, articleId);
+    return elbiladRepository.getArticle(isFlash, refresh, articleId);
   }
 }

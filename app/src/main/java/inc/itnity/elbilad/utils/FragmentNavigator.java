@@ -137,8 +137,8 @@ import javax.inject.Singleton;
    * Methods for NOT root fragments
    */
 
-  public void startArticleDetailsFragment(String id) {
-    Fragment fragment = ArticleDetailsFragment.newInstance(id);
+  public void startArticleDetailsFragment(boolean isFlash, String id) {
+    Fragment fragment = ArticleDetailsFragment.newInstance(isFlash, id);
     open(fragment);
   }
 

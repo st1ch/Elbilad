@@ -17,6 +17,7 @@ public interface ApiConfig {
   String ACCEPT_ELBILAD = "application/vnd.elbilad.v1+json";
 
   String IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/article/thumbs/";
+  String FLASH_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/flash/thumbs/";
   String VIDEO_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/video/thumbs/";
   String GALERY_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/galerie/thumbs/";
 

@@ -25,7 +25,7 @@ public interface ElbiladRemoteDataSource {
 
   Observable<List<Article>> getCategoryArticles(int categoryId);
 
-  Observable<Article> getArticle(String articleId);
+  Observable<Article> getArticle(boolean isFlash, String articleId);
 
   Observable<List<Article>> getLastNews();
 

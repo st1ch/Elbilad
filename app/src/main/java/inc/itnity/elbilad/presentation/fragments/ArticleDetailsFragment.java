@@ -16,13 +16,12 @@ import butterknife.OnClick;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
-import inc.itnity.elbilad.presentation.adapters.SimpleNewsAdapter;
+import inc.itnity.elbilad.presentation.adapters.LastNewsAdapter;
 import inc.itnity.elbilad.presentation.adapters.VideoSlideAdapter;
 import inc.itnity.elbilad.presentation.custom.HorizontalSpaceItemDecoration;
 import inc.itnity.elbilad.presentation.custom.VerticalSpaceItemDecoration;
@@ -42,9 +41,11 @@ import javax.inject.Inject;
 public class ArticleDetailsFragment extends AbstractBaseFragment implements ArticleDetailsView {
 
   private static final String ARG_ARTICLE_ID = "article_id_arg";
+  private static final String ARG_IS_FLASH = "is_flash_arg";
 
-  public static ArticleDetailsFragment newInstance(String articleId) {
+  public static ArticleDetailsFragment newInstance(boolean isFlash, String articleId) {
     Bundle args = new Bundle();
+    args.putBoolean(ARG_IS_FLASH, isFlash);
     args.putString(ARG_ARTICLE_ID, articleId);
     ArticleDetailsFragment fragment = new ArticleDetailsFragment();
     fragment.setArguments(args);
@@ -78,7 +79,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
 
   @Inject VideoSlideAdapter videoSlideAdapter;
 
-  @Inject SimpleNewsAdapter simpleNewsAdapter;
+  @Inject LastNewsAdapter simpleNewsAdapter;
 
   private String articleLink;
 
@@ -105,7 +106,8 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
       @Nullable Bundle savedInstanceState) {
     View rootView = super.onCreateView(inflater, container, savedInstanceState);
 
-    presenter.onCreate(getArguments().getString(ARG_ARTICLE_ID));
+    presenter.onCreate(getArguments().getBoolean(ARG_IS_FLASH, false),
+        getArguments().getString(ARG_ARTICLE_ID));
 
     return rootView;
   }
@@ -121,7 +123,11 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   }
 
   @Override public void showArticle(Article article) {
-    ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getCategoryTitle());
+    if(getArguments().getBoolean(ARG_IS_FLASH, false)){
+      ((AbstractBaseActivity) getActivity()).showDetailToolbar(getString(R.string.last_news));
+    } else {
+      ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getCategoryTitle());
+    }
 
     AdRequest adRequest = new AdRequest.Builder().build();
     adViewTop.loadAd(adRequest);
@@ -143,8 +149,11 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
     tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
 
     if (!TextUtils.isEmpty(article.getImage())) {
-      imageLoaderHelper.loadUrlImage(
-          ApiConfig.IMAGE_BASE_URL + ApiConfig.LARGE + article.getImage(), ivImage);
+      if (getArguments().getBoolean(ARG_IS_FLASH, false)) {
+        imageLoaderHelper.loadFlashImageLarge(article.getImage(), ivImage);
+      } else {
+        imageLoaderHelper.loadUrlImageLarge(article.getImage(), ivImage);
+      }
     }
 
     articleLink = article.getLink();

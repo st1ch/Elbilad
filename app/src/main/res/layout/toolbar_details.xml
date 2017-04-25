@@ -12,15 +12,15 @@
 
   <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:gravity="center_vertical"
+      android:layout_height="wrap_content"
+      android:gravity="center"
       >
     <ImageView
         android:id="@+id/iv_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="6dp"
         android:src="@drawable/ic_arrow_back"
         />
@@ -31,9 +31,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share_mini"
         android:layout_toRightOf="@+id/iv_back"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_16dp"
-        android:layout_marginTop="6dp"
         />
 
     <ImageView
@@ -42,9 +41,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_bookmark"
         android:layout_toRightOf="@+id/iv_share_toolbar"
-        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/space_16dp"
-        android:layout_marginTop="6dp"
         />
 
     <inc.itnity.elbilad.presentation.custom.ElbiladTextView
@@ -52,6 +50,8 @@
         android:id="@+id/tv_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="-8dp"
         android:layout_toLeftOf="@+id/iv_menu_details"
         android:layout_toRightOf="@+id/iv_bookmark_toolbar"
         android:layout_marginLeft="@dimen/space_16dp"
@@ -59,7 +59,7 @@
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         />
 
@@ -70,7 +70,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="10dp"
+        android:layout_centerVertical="true"
         android:src="@drawable/ic_menu"
         />
   </RelativeLayout>

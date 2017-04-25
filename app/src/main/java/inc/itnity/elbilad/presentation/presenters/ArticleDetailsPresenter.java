@@ -10,7 +10,7 @@ import inc.itnity.elbilad.presentation.views.ArticleDetailsView;
  */
 
 public interface ArticleDetailsPresenter extends IPresenter<ArticleDetailsView> {
-  void onCreate(String articleId);
+  void onCreate(boolean isFlash, String articleId);
 
   void addToBookmarks(Article article);
 

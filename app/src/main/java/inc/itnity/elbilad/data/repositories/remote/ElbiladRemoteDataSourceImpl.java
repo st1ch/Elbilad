@@ -50,7 +50,10 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
     return elbiladAPI.getCategoryArticles(categoryId);
   }
 
-  @Override public Observable<Article> getArticle(String articleId) {
+  @Override public Observable<Article> getArticle(boolean isFlash, String articleId) {
+    if(isFlash){
+      return elbiladAPI.getFlashArticle(articleId).map(article -> article.get(0));
+    }
     return elbiladAPI.getArticle(articleId).map(article -> article.get(0));
   }
 

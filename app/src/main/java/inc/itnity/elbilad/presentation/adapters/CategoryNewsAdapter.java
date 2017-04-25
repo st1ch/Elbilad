@@ -101,7 +101,7 @@ public class CategoryNewsAdapter
       holder.tvPreview.setText(article.getTitle());
 
       holder.itemView.setOnClickListener(
-          v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+          v -> fragmentNavigator.startArticleDetailsFragment(false, article.getId()));
     }
   }
 

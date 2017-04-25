@@ -113,6 +113,8 @@ public class PhotoCategoryNewsAdapter
 
         ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
             (v, event) -> gestureDetector.onTouchEvent(event));
+        ((TopNewsViewHolder) holder).vpPhotoSlide.setOnTouchListener(
+            (v, event) -> gestureDetector.onTouchEvent(event));
 
         ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
           ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(

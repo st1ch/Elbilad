@@ -28,7 +28,7 @@ public interface ElbiladRepository {
 
   Observable<List<Article>> getCategoryArticles(boolean refresh, int categoryId);
 
-  Observable<Article> getArticle(boolean refresh, String articleId);
+  Observable<Article> getArticle(boolean isFlash, boolean refresh, String articleId);
 
   Observable<List<Video>> getVideoList(boolean refresh);
 

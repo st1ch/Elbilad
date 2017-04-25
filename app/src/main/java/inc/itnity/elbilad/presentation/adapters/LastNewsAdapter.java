@@ -92,7 +92,7 @@ public class LastNewsAdapter extends RecyclerView.Adapter<LastNewsAdapter.Simple
       //  }
       //} else {
       if (!TextUtils.isEmpty(article.getImage())) {
-        imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+        imageLoaderHelper.loadFlashImageThumb(article.getImage(), holder.ivAvatar);
       }
       //}
 
@@ -100,7 +100,7 @@ public class LastNewsAdapter extends RecyclerView.Adapter<LastNewsAdapter.Simple
       holder.tvPreview.setText(article.getTitle());
 
       holder.itemView.setOnClickListener(
-          v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+          v -> fragmentNavigator.startArticleDetailsFragment(true, article.getId()));
     }
   }
 

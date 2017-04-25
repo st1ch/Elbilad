@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/news_bg"
     >
 
   <inc.itnity.elbilad.presentation.custom.ElbiladTextView
@@ -10,7 +11,7 @@
       android:layout_height="wrap_content"
       android:text="@string/placeholder_favourites"
       android:gravity="center"
-      android:textSize="24sp"
+      android:textSize="28sp"
       android:textColor="@android:color/black"
       android:layout_marginTop="@dimen/space_16dp"
       app:text_typeface="Hacen_Tunisia"

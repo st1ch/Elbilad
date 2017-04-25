@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
@@ -29,6 +31,11 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   @BindView(R.id.tab_layout) TabLayout tabLayout;
 
   @Inject BaseHomePresenter presenter;
+
+  private TabBadgeViewHolder homeTabViewHolder;
+  private TabBadgeViewHolder lastNewsTabViewHolder;
+  private TabBadgeViewHolder mostReadTabViewHolder;
+  private TabBadgeViewHolder bookmarksTabViewHolder;
 
   private HomeScreenPagerAdapter homeScreenPagerAdapter;
 
@@ -79,7 +86,30 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
     viewPager.setAdapter(homeScreenPagerAdapter);
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-    viewPager.setOffscreenPageLimit(3);
+    viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+
+    /** init tab typeface*/
+    View homeTabView = LayoutInflater.from(getContext()).inflate(R.layout.tab_layout, null);
+    View lastNewsTabView = LayoutInflater.from(getContext()).inflate(R.layout.tab_layout, null);
+    View mostReadTabView = LayoutInflater.from(getContext()).inflate(R.layout.tab_layout, null);
+    View bookmarksTabView = LayoutInflater.from(getContext()).inflate(R.layout.tab_layout, null);
+    tabLayout.getTabAt(0).setCustomView(homeTabView);
+    tabLayout.getTabAt(1).setCustomView(lastNewsTabView);
+    tabLayout.getTabAt(2).setCustomView(mostReadTabView);
+    tabLayout.getTabAt(3).setCustomView(bookmarksTabView);
+
+    homeTabViewHolder = new TabBadgeViewHolder(homeTabView);
+    homeTabViewHolder.title.setText(getString(R.string.home));
+
+    lastNewsTabViewHolder = new TabBadgeViewHolder(lastNewsTabView);
+    lastNewsTabViewHolder.title.setText(getString(R.string.last_news));
+
+    mostReadTabViewHolder = new TabBadgeViewHolder(mostReadTabView);
+    mostReadTabViewHolder.title.setText(getString(R.string.news_most_read));
+
+    bookmarksTabViewHolder = new TabBadgeViewHolder(bookmarksTabView);
+    bookmarksTabViewHolder.title.setText(getString(R.string.bookmarks));
+
 
     /** fixing scrollable tab layout full width problem */
     ViewGroup slidingTabStrip = (ViewGroup) tabLayout.getChildAt(0);
@@ -101,4 +131,12 @@ public class HomeScreenBaseFragment extends AbstractBaseFragment implements Base
   //@Override public void showLoadedCategories(List<Category> categories) {
   //  initContent(categories);
   //}
+
+  protected class TabBadgeViewHolder {
+    @BindView(R.id.tv_tab_badge_title) TextView title;
+
+    TabBadgeViewHolder(View view) {
+      ButterKnife.bind(this, view);
+    }
+  }
 }

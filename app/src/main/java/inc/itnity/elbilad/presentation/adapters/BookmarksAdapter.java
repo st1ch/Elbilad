@@ -197,7 +197,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(article.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(article.getId()));
+            v -> fragmentNavigator.startArticleDetailsFragment(false, article.getId()));
         break;
     }
   }
