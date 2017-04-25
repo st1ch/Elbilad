@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface BookmarksView extends ProgressView {
   void showBookmarks(List<Bookmark> bookmarks);
+  void showEmptyView();
 }

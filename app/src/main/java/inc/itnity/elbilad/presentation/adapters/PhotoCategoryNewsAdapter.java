@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,18 +41,23 @@ public class PhotoCategoryNewsAdapter
   private static final int TYPE_BANNER_50 = 3;
 
   private List<Image> articles = new ArrayList<>();
+  private List<Image> slideList = new ArrayList<>();
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
   private FragmentNavigator fragmentNavigator;
   private GestureDetector gestureDetector;
 
+  private HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter;
+
   @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
-      ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator) {
+      ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator,
+      HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
     gestureDetector = new GestureDetector(context, this);
     this.fragmentNavigator = fragmentNavigator;
+    this.horizontalPhotoSlidePagerAdapter = horizontalPhotoSlidePagerAdapter;
   }
 
   @Override public int getItemViewType(int position) {
@@ -95,16 +101,26 @@ public class PhotoCategoryNewsAdapter
       if (viewType == TYPE_TOP) {
         ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
 
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
-        }
+        //if (!TextUtils.isEmpty(article.getImage())) {
+        //  imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
+        //}
+
+        ((TopNewsViewHolder) holder).vpPhotoSlide.setAdapter(horizontalPhotoSlidePagerAdapter);
+        //((TopNewsViewHolder) holder).vpPhotoSlide.setPageTransformer(false,
+        //    new DefaultTransformer());
+        ((TopNewsViewHolder) holder).vpPhotoSlide.setOffscreenPageLimit(slideList.size());
+        horizontalPhotoSlidePagerAdapter.setPhotos(slideList);
 
         ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
             (v, event) -> gestureDetector.onTouchEvent(event));
 
         ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
+          ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
+              getPreviousSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
         });
         ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
+          ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
+              getNextSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
         });
 
         //holder.itemView.setOnClickListener(
@@ -137,7 +153,22 @@ public class PhotoCategoryNewsAdapter
   private void moveToTop(int position, Image image) {
     this.articles.remove(position);
     this.articles.add(0, image);
+    this.slideList.remove(position);
+    this.slideList.add(0, image);
     notifyDataSetChanged();
+  }
+
+  private int getNextSlidePosition(ViewPager viewPager) {
+    int totalCount = horizontalPhotoSlidePagerAdapter.getCount();
+    int currentItemPosition = viewPager.getCurrentItem();
+    int nextItemPosition = currentItemPosition + 1;
+    return (totalCount == currentItemPosition + 1) ? currentItemPosition : nextItemPosition;
+  }
+
+  private int getPreviousSlidePosition(ViewPager viewPager) {
+    int currentItemPosition = viewPager.getCurrentItem();
+    int previousItemPosition = currentItemPosition - 1;
+    return (currentItemPosition == 0) ? currentItemPosition : previousItemPosition;
   }
 
   public void setArticles(List<Image> articles) {
@@ -166,6 +197,9 @@ public class PhotoCategoryNewsAdapter
     } else {
       this.articles.addAll(articles);
     }
+
+    this.slideList.clear();
+    this.slideList.addAll(articles);
 
     notifyDataSetChanged();
   }
@@ -225,6 +259,7 @@ public class PhotoCategoryNewsAdapter
 
   class TopNewsViewHolder extends SimpleNewsViewHolder {
 
+    @BindView(R.id.vp_photo_slide) ViewPager vpPhotoSlide;
     @BindView(R.id.iv_arrow_left) ImageView ivArrowLeft;
     @BindView(R.id.iv_arrow_right) ImageView ivArrowRight;
     @BindView(R.id.tv_preview) TextView tvPreview;

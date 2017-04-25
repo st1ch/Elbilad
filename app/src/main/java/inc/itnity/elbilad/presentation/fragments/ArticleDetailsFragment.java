@@ -121,7 +121,7 @@ public class ArticleDetailsFragment extends AbstractBaseFragment implements Arti
   }
 
   @Override public void showArticle(Article article) {
-    ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getTitle());
+    ((AbstractBaseActivity) getActivity()).showDetailToolbar(article.getCategoryTitle());
 
     AdRequest adRequest = new AdRequest.Builder().build();
     adViewTop.loadAd(adRequest);

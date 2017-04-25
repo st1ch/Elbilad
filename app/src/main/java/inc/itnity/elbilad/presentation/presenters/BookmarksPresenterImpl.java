@@ -1,6 +1,5 @@
 package inc.itnity.elbilad.presentation.presenters;
 
-import android.util.Log;
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
@@ -54,7 +53,11 @@ public class BookmarksPresenterImpl extends ProgressPresenter<BookmarksView>
         try {
           checkViewBound();
 
-          getView().showBookmarks(articleItems);
+          if(articleItems != null && !articleItems.isEmpty()){
+            getView().showBookmarks(articleItems);
+          } else {
+            getView().showEmptyView();
+          }
         } catch (ViewNotBoundException e) {
           e.printStackTrace();
         }

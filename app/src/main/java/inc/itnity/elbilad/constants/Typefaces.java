@@ -16,13 +16,13 @@ public interface Typefaces {
   //int Helvetica_Neue_Lt = 4;
 
   interface Names {
-    String Droid_Sans_Arabic = "Droid_Sans_Arabic";
-    String Hacen_Samra = "Hacen_Samra";
-    String Hacen_Samra_Lt = "Hacen_Samra_Lt";
-    String Hacen_Tunisia = "Hacen_Tunisia";
-    String Open_Sans_Semibold = "Open_Sans_Semibold";
-    String Open_Sans_Bold = "Open_Sans_Bold";
-    String Roboto_Regular = "Roboto_Regular";
+    String Droid_Sans_Arabic = "droidsansaarabic";
+    String Hacen_Samra = "Hacen Samra";
+    String Hacen_Samra_Lt = "Hacen Samra Lt";
+    String Hacen_Tunisia = "Hacen Tunisia Lt";
+    String Open_Sans_Semibold = "OpenSans-Semibold";
+    String Open_Sans_Bold = "OpenSans-Bold";
+    String Roboto_Regular = "Roboto-Regular";
     //String Helvetica_Neue_Lt = "Helvetica_Neue_Lt";
   }
 }

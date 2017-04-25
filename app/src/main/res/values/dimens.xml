@@ -17,10 +17,10 @@
   <!-- News -->
   <dimen name="news_top_height">632dp</dimen>
   <dimen name="news_category_top_height">696dp</dimen>
-  <dimen name="news_item_height">100dp</dimen>
+  <dimen name="news_item_height">110dp</dimen>
   <dimen name="video_horizontal_image_height">100dp</dimen>
   <dimen name="video_horizontal_width">200dp</dimen>
   <dimen name="video_horizontal_height">266dp</dimen>
   <dimen name="video_horizontal_date_size">12sp</dimen>
-  <dimen name="video_horizontal_text_size">22sp</dimen>
+  <dimen name="video_horizontal_text_size">18sp</dimen>
 </resources>

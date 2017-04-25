@@ -81,4 +81,5 @@
   <string name="details_screen_top_banner_id">ca-app-pub-2879265761807915/2415426582</string>
   <string name="details_screen_middle_banner_id">ca-app-pub-2879265761807915/5648094588</string>
   <string name="details_screen_bottom_banner_id">ca-app-pub-2879265761807915/2415426582</string>
+  <string name="placeholder_favourites">توجد بيانات لعرض</string>
 </resources>

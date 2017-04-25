@@ -33,6 +33,8 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
 
+  @BindView(R.id.placeholder) View placeholder;
+
   @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
 
   @Inject BookmarksAdapter bookmarksAdapter;
@@ -80,7 +82,14 @@ public class BookmarksFragment extends AbstractBaseFragment implements Bookmarks
   }
 
   @Override public void showBookmarks(List<Bookmark> bookmarks) {
+    placeholder.setVisibility(View.GONE);
+    rvNews.setVisibility(View.VISIBLE);
     bookmarksAdapter.setArticles(bookmarks);
+  }
+
+  @Override public void showEmptyView() {
+    placeholder.setVisibility(View.VISIBLE);
+    rvNews.setVisibility(View.GONE);
   }
 
   @Override public void showProgress() {

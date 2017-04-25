@@ -102,6 +102,7 @@ public class VideoCategoryNewsAdapter
 
         if (youTubeHelper.isYoutubeInstalled()) {
           holder.ivAvatar.setVisibility(View.INVISIBLE);
+          ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.VISIBLE);
           YouTubePlayerSupportFragment youTubePlayerFragment =
               YouTubePlayerSupportFragment.newInstance();
 
@@ -130,6 +131,9 @@ public class VideoCategoryNewsAdapter
                 }
               });
         } else {
+          ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.INVISIBLE);
+          holder.ivAvatar.setVisibility(View.VISIBLE);
+
           if (!TextUtils.isEmpty(article.getImage())) {
             imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
           }
@@ -218,6 +222,7 @@ public class VideoCategoryNewsAdapter
   class TopNewsViewHolder extends SimpleNewsViewHolder {
 
     @BindView(R.id.tv_preview) TextView tvPreview;
+    @BindView(R.id.youtube_view) View youtubeView;
 
     TopNewsViewHolder(View itemView) {
       super(itemView);

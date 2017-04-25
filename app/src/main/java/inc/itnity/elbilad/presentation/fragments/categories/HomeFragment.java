@@ -30,6 +30,8 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
 
+  @BindView(R.id.journal) View journalView;
+
   @BindView(R.id.iv_journal) ImageView ivJournal;
 
   @BindView(R.id.tv_number) TextView tvNumber;
@@ -53,6 +55,8 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
     View fragmentView = super.onCreateView(inflater, container, savedInstanceState);
 
     initContent();
+
+    journalView.setVisibility(View.INVISIBLE);
 
     presenter.onCreate();
     return fragmentView;
@@ -85,6 +89,8 @@ public class HomeFragment extends AbstractBaseFragment implements HomeScreenView
   }
 
   @Override public void showJournal(Journal journal) {
+    journalView.setVisibility(View.VISIBLE);
+
     tvNumber.setText(
         getString(R.string.journal_number, journal.getNumber(), journal.getDateString()));
     ivJournal.setOnClickListener(v -> {

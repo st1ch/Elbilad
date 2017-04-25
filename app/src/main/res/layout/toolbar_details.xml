@@ -52,7 +52,6 @@
         android:id="@+id/tv_title_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
         android:layout_toLeftOf="@+id/iv_menu_details"
         android:layout_toRightOf="@+id/iv_bookmark_toolbar"
         android:layout_marginLeft="@dimen/space_16dp"
@@ -60,7 +59,7 @@
         android:lines="1"
         android:ellipsize="end"
         android:textColor="@android:color/white"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         />
 
