@@ -118,11 +118,12 @@ public class PhotoCategoryNewsAdapter
 
         ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
           ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
-              getPreviousSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
+              getNextSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
         });
         ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
+
           ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
-              getNextSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
+              getPreviousSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
         });
 
         //holder.itemView.setOnClickListener(
