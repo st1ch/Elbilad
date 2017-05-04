@@ -46,6 +46,8 @@ public class VideoCategoryNewsAdapter
   private FragmentManager childFragmentManager;
   //private FragmentNavigator fragmentNavigator;
   private YouTubeHelper youTubeHelper;
+  private RecyclerView recyclerView;
+  private boolean needAutoStart = false;
 
   @Inject VideoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
       //FragmentNavigator fragmentNavigator
@@ -119,7 +121,11 @@ public class VideoCategoryNewsAdapter
                     youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
                     youTubePlayer.setFullscreenControlFlags(
                         YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
-                    youTubePlayer.cueVideo(urlVideo);
+                    if(needAutoStart){
+                      youTubePlayer.loadVideo(urlVideo);
+                    } else {
+                      youTubePlayer.cueVideo(urlVideo);
+                    }
                     youTubePlayer.setOnFullscreenListener(b -> {
                       youTubeHelper.startPlayer(urlVideo);
                     });
@@ -200,10 +206,17 @@ public class VideoCategoryNewsAdapter
     this.articles.remove(position);
     this.articles.add(0, video);
     notifyDataSetChanged();
+    if(recyclerView != null){
+      recyclerView.scrollToPosition(0);
+    }
   }
 
   public void setChildFragmentManager(FragmentManager childFragmentManager) {
     this.childFragmentManager = childFragmentManager;
+  }
+
+  public void setRecyclerView(RecyclerView recyclerView) {
+    this.recyclerView = recyclerView;
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {

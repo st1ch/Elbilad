@@ -7,6 +7,7 @@
     android:layout_marginBottom="@dimen/space_8dp"
     android:layout_marginLeft="@dimen/space_16dp"
     android:layout_marginRight="@dimen/space_16dp"
+    android:descendantFocusability="blocksDescendants"
     >
 
   <com.google.android.gms.ads.AdView
