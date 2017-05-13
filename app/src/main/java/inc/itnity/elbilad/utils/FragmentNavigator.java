@@ -162,8 +162,8 @@ import javax.inject.Singleton;
     openAsChildRoot(fragment);
   }
 
-  public void startVideosFragment() {
-    Fragment fragment = VideosFragment.newInstance();
+  public void startVideosFragment(String id) {
+    Fragment fragment = VideosFragment.newInstance(id);
     openAsChildRoot(fragment);
   }
 
@@ -172,8 +172,8 @@ import javax.inject.Singleton;
     open(fragment);
   }
 
-  public void startPhotosFragment() {
-    Fragment fragment = PhotosFragment.newInstance();
+  public void startPhotosFragment(String id) {
+    Fragment fragment = PhotosFragment.newInstance(id);
     openAsChildRoot(fragment);
   }
 

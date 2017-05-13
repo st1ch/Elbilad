@@ -26,8 +26,14 @@ import javax.inject.Inject;
 
 public class VideosFragment extends AbstractBaseFragment implements VideoCategoryView {
 
-  public static VideosFragment newInstance() {
-    return new VideosFragment();
+  private static final String ARG_VIDEO_ID = "video_id_arg";
+
+  public static VideosFragment newInstance(String videoId) {
+    Bundle args = new Bundle();
+    args.putString(ARG_VIDEO_ID, videoId);
+    VideosFragment fragment = new VideosFragment();
+    fragment.setArguments(args);
+    return fragment;
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
@@ -71,6 +77,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
   private void initContent() {
     videoCategoryNewsAdapter.setChildFragmentManager(getChildFragmentManager());
     videoCategoryNewsAdapter.setRecyclerView(rvNews);
+    videoCategoryNewsAdapter.setCurrentItemId(getArguments().getString(ARG_VIDEO_ID));
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.addItemDecoration(new SimpleDividerItemLineDecoration(getContext()));
     rvNews.setAdapter(videoCategoryNewsAdapter);
@@ -78,5 +85,6 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
 
   @Override public void showVideos(List<Video> videos) {
     videoCategoryNewsAdapter.setArticles(videos);
+    videoCategoryNewsAdapter.selectCurrentItem();
   }
 }

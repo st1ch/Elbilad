@@ -48,6 +48,8 @@ public class VideoCategoryNewsAdapter
   private YouTubeHelper youTubeHelper;
   private RecyclerView recyclerView;
   private boolean needAutoStart = false;
+  private String currentItemId;
+  private int currentItemPosition;
 
   @Inject VideoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
       //FragmentNavigator fragmentNavigator
@@ -121,7 +123,7 @@ public class VideoCategoryNewsAdapter
                     youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
                     youTubePlayer.setFullscreenControlFlags(
                         YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
-                    if(needAutoStart){
+                    if (needAutoStart) {
                       youTubePlayer.loadVideo(urlVideo);
                     } else {
                       youTubePlayer.cueVideo(urlVideo);
@@ -203,16 +205,45 @@ public class VideoCategoryNewsAdapter
   }
 
   private void moveToTop(int position, Video video) {
+    currentItemPosition = position;
     this.articles.remove(position);
     this.articles.add(0, video);
     notifyDataSetChanged();
-    if(recyclerView != null){
+    if (recyclerView != null) {
       recyclerView.scrollToPosition(0);
     }
   }
 
+  public void selectCurrentItem() {
+    if (!TextUtils.isEmpty(currentItemId) && hasVideo(currentItemId)) {
+      Video item = getItem(currentItemPosition);
+      this.articles.remove(currentItemPosition);
+      this.articles.add(0, item);
+      notifyDataSetChanged();
+      if (recyclerView != null) {
+        recyclerView.scrollToPosition(0);
+      }
+    }
+  }
+
+  private boolean hasVideo(String itemId) {
+    for (int i = 0; i < articles.size(); i++) {
+      Video video = articles.get(i);
+      String videoId = video.getId();
+      if (!TextUtils.isEmpty(videoId) && videoId.equals(itemId)) {
+        currentItemPosition = i;
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void setChildFragmentManager(FragmentManager childFragmentManager) {
     this.childFragmentManager = childFragmentManager;
+  }
+
+  public void setCurrentItemId(String currentItemId) {
+    this.currentItemId = currentItemId;
   }
 
   public void setRecyclerView(RecyclerView recyclerView) {

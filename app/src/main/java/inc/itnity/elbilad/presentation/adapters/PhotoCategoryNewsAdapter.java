@@ -50,6 +50,9 @@ public class PhotoCategoryNewsAdapter
 
   private HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter;
 
+  private String currentItemId;
+  private int currentItemPosition;
+
   @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
       ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator,
       HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter) {
@@ -161,6 +164,29 @@ public class PhotoCategoryNewsAdapter
     notifyDataSetChanged();
   }
 
+  public void selectCurrentItem() {
+    if (!TextUtils.isEmpty(currentItemId) && hasPhoto(currentItemId)) {
+      Image item = getItem(currentItemPosition);
+      this.articles.remove(currentItemPosition);
+      this.articles.add(0, item);
+      this.slideList.remove(currentItemPosition);
+      this.slideList.add(0, item);
+      notifyDataSetChanged();
+    }
+  }
+
+  private boolean hasPhoto(String itemId) {
+    for (int i = 0; i < articles.size(); i++) {
+      Image image = articles.get(i);
+      String imageId = image.getId();
+      if (!TextUtils.isEmpty(imageId) && imageId.equals(itemId)) {
+        currentItemPosition = i;
+        return true;
+      }
+    }
+    return false;
+  }
+
   private int getNextSlidePosition(ViewPager viewPager) {
     int totalCount = horizontalPhotoSlidePagerAdapter.getCount();
     int currentItemPosition = viewPager.getCurrentItem();
@@ -245,6 +271,10 @@ public class PhotoCategoryNewsAdapter
   @Override
   public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
     return false;
+  }
+
+  public void setCurrentItemId(String currentItemId) {
+    this.currentItemId = currentItemId;
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {

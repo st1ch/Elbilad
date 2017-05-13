@@ -26,8 +26,14 @@ import javax.inject.Inject;
 
 public class PhotosFragment extends AbstractBaseFragment implements PhotoCategoryView {
 
-  public static PhotosFragment newInstance() {
-    return new PhotosFragment();
+  private static final String ARG_PHOTO_ID = "photo_id_arg";
+
+  public static PhotosFragment newInstance(String photoId) {
+    Bundle args = new Bundle();
+    args.putString(ARG_PHOTO_ID, photoId);
+    PhotosFragment fragment = new PhotosFragment();
+    fragment.setArguments(args);
+    return fragment;
   }
 
   @BindView(R.id.rv_news) RecyclerView rvNews;
@@ -69,6 +75,7 @@ public class PhotosFragment extends AbstractBaseFragment implements PhotoCategor
   }
 
   private void initContent() {
+    photoCategoryNewsAdapter.setCurrentItemId(getArguments().getString(ARG_PHOTO_ID));
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
     rvNews.setAdapter(photoCategoryNewsAdapter);
@@ -76,5 +83,6 @@ public class PhotosFragment extends AbstractBaseFragment implements PhotoCategor
 
   @Override public void showPhotos(List<Image> images) {
     photoCategoryNewsAdapter.setArticles(images);
+    photoCategoryNewsAdapter.selectCurrentItem();
   }
 }

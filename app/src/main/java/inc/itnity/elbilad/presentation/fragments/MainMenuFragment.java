@@ -102,10 +102,10 @@ public class MainMenuFragment extends AbstractBaseFragment implements MainMenuVi
         fragmentNavigator.startBookmarksFragment();
         break;
       case R.id.tv_menu_videos:
-        fragmentNavigator.startVideosFragment();
+        fragmentNavigator.startVideosFragment(null);
         break;
       case R.id.tv_menu_photos:
-        fragmentNavigator.startPhotosFragment();
+        fragmentNavigator.startPhotosFragment(null);
         break;
       case R.id.tv_menu_about:
         break;

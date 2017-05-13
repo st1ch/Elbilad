@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.domain.models.article;
 
+import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -31,14 +32,22 @@ public abstract class BaseArticle implements ArticleItem {
   }
 
   public String getDate() {
-    return date.split("T")[0];
+    if (!TextUtils.isEmpty(date)) {
+      return date.split("T")[0];
+    } else {
+      return "";
+    }
   }
 
   public String getTime() {
-    return date.split("T")[1];
+    if (!TextUtils.isEmpty(date)) {
+      return date.split("T")[1];
+    } else {
+      return "";
+    }
   }
 
-  public String getFullDate(){
+  public String getFullDate() {
     return date;
   }
 
