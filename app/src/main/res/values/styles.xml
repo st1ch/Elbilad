@@ -84,6 +84,7 @@
 
   <style name="Elbilad.TextView.ArticleTitle" parent="android:Widget.Holo.TextView">
     <item name="text_typeface">Hacen_Tunisia</item>
+    <item name="android:lineSpacingMultiplier">0.7</item>
   </style>
 
   <style name="Elbilad.TextView.ArticleText" parent="android:Widget.Holo.TextView">
