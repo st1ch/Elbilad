@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.OnClick;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Photo;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
 import inc.itnity.elbilad.presentation.adapters.PhotoSlidePagerAdapter;
@@ -28,6 +28,16 @@ import javax.inject.Inject;
 
 public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoDetailsView {
 
+  private static final String ARG_GALLERY_ID = "gallery_id_arg";
+
+  public static PhotoDetailsFragment newInstance(int galleryId) {
+    Bundle args = new Bundle();
+    args.putInt(ARG_GALLERY_ID, galleryId);
+    PhotoDetailsFragment fragment = new PhotoDetailsFragment();
+    fragment.setArguments(args);
+    return fragment;
+  }
+
   @BindView(R.id.vp_photo_slide) VerticalViewPager vpPhotoSlide;
 
   //@BindView(R.id.tv_description) TextView tvDescription;
@@ -39,10 +49,6 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
   @Inject PhotoSlidePagerAdapter photoSlidePagerAdapter;
 
   @Inject FragmentNavigator fragmentNavigator;
-
-  public static PhotoDetailsFragment newInstance() {
-    return new PhotoDetailsFragment();
-  }
 
   @Override public int getContentView() {
     return R.layout.fragment_photo_details;
@@ -68,7 +74,7 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
 
     initContent();
 
-    presenter.onCreate();
+    presenter.onCreate(getArguments().getInt(ARG_GALLERY_ID));
 
     return rootView;
   }
@@ -92,7 +98,7 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
     //});
   }
 
-  @Override public void showSlideshow(List<Image> photos) {
+  @Override public void showSlideshow(List<Photo> photos) {
     vpPhotoSlide.setOffscreenPageLimit(photos.size());
     photoSlidePagerAdapter.setPhotos(photos);
     //tvDescription.setText(photoSlidePagerAdapter.getPhoto(0).getPreview());

@@ -5,6 +5,7 @@ import inc.itnity.elbilad.data.rest.api.ElbiladAPI;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.ArticleItem;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -51,7 +52,7 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
   }
 
   @Override public Observable<Article> getArticle(boolean isFlash, String articleId) {
-    if(isFlash){
+    if (isFlash) {
       return elbiladAPI.getFlashArticle(articleId).map(article -> article.get(0));
     }
     return elbiladAPI.getArticle(articleId).map(article -> article.get(0));
@@ -71,6 +72,10 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
 
   @Override public Observable<List<Image>> getGallery() {
     return elbiladAPI.getGallery();
+  }
+
+  @Override public Observable<Gallery> getGallery(int id) {
+    return elbiladAPI.getGallery(id);
   }
 
   @Override public Observable<Journal> getJournalData() {

@@ -1,6 +1,5 @@
 package inc.itnity.elbilad.presentation.presenters;
 
-import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.presenters.base.IPresenter;
 import inc.itnity.elbilad.presentation.views.PhotoDetailsView;
 
@@ -9,7 +8,7 @@ import inc.itnity.elbilad.presentation.views.PhotoDetailsView;
  */
 
 public interface PhotoDetailsPresenter extends IPresenter<PhotoDetailsView> {
-  void onCreate();
+  void onCreate(int galleryId);
 
-  void addToBookmarks(Image image);
+  //void addToBookmarks(Image image);
 }

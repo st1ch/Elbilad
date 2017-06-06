@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -52,6 +51,7 @@ public class PhotoCategoryNewsAdapter
 
   private String currentItemId;
   private int currentItemPosition;
+  private int touchItemId;
 
   @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
       ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator,
@@ -114,10 +114,14 @@ public class PhotoCategoryNewsAdapter
         ((TopNewsViewHolder) holder).vpPhotoSlide.setOffscreenPageLimit(slideList.size());
         horizontalPhotoSlidePagerAdapter.setPhotos(slideList);
 
-        ((TopNewsViewHolder) holder).itemView.setOnTouchListener(
-            (v, event) -> gestureDetector.onTouchEvent(event));
-        ((TopNewsViewHolder) holder).vpPhotoSlide.setOnTouchListener(
-            (v, event) -> gestureDetector.onTouchEvent(event));
+        ((TopNewsViewHolder) holder).itemView.setOnTouchListener((v, event) -> {
+          touchItemId = Integer.valueOf(article.getId());
+          return gestureDetector.onTouchEvent(event);
+        });
+        ((TopNewsViewHolder) holder).vpPhotoSlide.setOnTouchListener((v, event) -> {
+          touchItemId = Integer.valueOf(article.getId());
+          return gestureDetector.onTouchEvent(event);
+        });
 
         ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
           ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
@@ -238,8 +242,7 @@ public class PhotoCategoryNewsAdapter
   }
 
   @Override public boolean onDoubleTap(MotionEvent e) {
-    Log.i("adapter", "onDoubleTap: ");
-    fragmentNavigator.startPhotoDetailsragment();
+    fragmentNavigator.startPhotoDetailsragment(touchItemId);
     return true;
   }
 

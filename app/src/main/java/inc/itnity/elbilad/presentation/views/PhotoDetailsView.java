@@ -1,6 +1,6 @@
 package inc.itnity.elbilad.presentation.views;
 
-import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Photo;
 import inc.itnity.elbilad.presentation.views.base.ConnectionView;
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public interface PhotoDetailsView extends ConnectionView {
-  void showSlideshow(List<Image> photos);
+  void showSlideshow(List<Photo> photos);
 
   void showAddedToBookmarks();
 }

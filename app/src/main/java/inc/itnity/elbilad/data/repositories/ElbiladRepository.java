@@ -3,6 +3,7 @@ package inc.itnity.elbilad.data.repositories;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -43,6 +44,8 @@ public interface ElbiladRepository {
   Observable<Video> getVideoArticle(String videoId);
 
   Observable<List<Image>> getGallery(boolean refresh);
+
+  Observable<Gallery> getGallery(int id);
 
   Observable<Bookmark> addToBookmark(Bookmark bookmark);
 

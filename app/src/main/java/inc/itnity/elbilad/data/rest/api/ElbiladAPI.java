@@ -2,6 +2,7 @@ package inc.itnity.elbilad.data.rest.api;
 
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -32,7 +33,9 @@ public interface ElbiladAPI {
 
   String CATEGORIE_ID = "categorie_id";
   String ARTICLE_ID = "article_id";
+  String GALLERY_ID = "gallery_id";
   String PATH_ARTICLE_ID = "/{" + ARTICLE_ID + "}";
+  String PATH_GALLERY_ID = "/{" + GALLERY_ID + "}";
 
   String LIMIT = "limit";
 
@@ -59,6 +62,9 @@ public interface ElbiladAPI {
   @GET(VIDEOS) Observable<List<Video>> getVideos();
 
   @GET(GALLERY) Observable<List<Image>> getGallery();
+
+  @GET(GALLERY + PATH_GALLERY_ID) Observable<Gallery> getGallery(
+      @Path(GALLERY_ID) int galleryId);
 
   @GET(PDF) Observable<Journal> getJournalData();
 }

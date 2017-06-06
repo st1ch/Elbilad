@@ -177,8 +177,8 @@ import javax.inject.Singleton;
     openAsChildRoot(fragment);
   }
 
-  public void startPhotoDetailsragment() {
-    Fragment fragment = PhotoDetailsFragment.newInstance();
+  public void startPhotoDetailsragment(int galleryId) {
+    Fragment fragment = PhotoDetailsFragment.newInstance(galleryId);
     open(fragment);
   }
 

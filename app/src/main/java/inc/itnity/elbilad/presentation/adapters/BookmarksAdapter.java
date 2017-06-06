@@ -183,7 +183,8 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvDate.setText(elbiladUtils.getArticleTimeDate(photo.getTime(), photo.getDate()));
         holder.tvPreview.setText(photo.getPreview());
 
-        holder.itemView.setOnClickListener(v -> fragmentNavigator.startPhotoDetailsragment());
+        holder.itemView.setOnClickListener(
+            v -> fragmentNavigator.startPhotoDetailsragment(Integer.valueOf(photo.getId())));
         break;
       case TYPE_SIMPLE:
         Article article = bookmark.getArticle();

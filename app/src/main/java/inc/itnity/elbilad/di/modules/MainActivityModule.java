@@ -6,13 +6,13 @@ import dagger.Provides;
 import inc.itnity.elbilad.di.MainActivityScope;
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
 import inc.itnity.elbilad.domain.usecases.AddArticleBookmarkUseCase;
-import inc.itnity.elbilad.domain.usecases.AddPhotoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.AddVideoBookmarkUseCase;
 import inc.itnity.elbilad.domain.usecases.DownloadJournalUseCase;
 import inc.itnity.elbilad.domain.usecases.GetArticleUseCase;
 import inc.itnity.elbilad.domain.usecases.GetBookmarksUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoriesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetCategoryArticlesUseCase;
+import inc.itnity.elbilad.domain.usecases.GetGalleryUseCase;
 import inc.itnity.elbilad.domain.usecases.GetHomeArticlesUseCase;
 import inc.itnity.elbilad.domain.usecases.GetJournalDataUseCase;
 import inc.itnity.elbilad.domain.usecases.GetLast6NewsArticlesUseCase;
@@ -111,8 +111,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
     return new LastNewsPresenterImpl(getLastNewsUseCase, refreshTabRxBus);
   }
 
-  @Provides MostReadNewsPresenter provideMostReadNewsPresenter(GetMostReadNewsUseCase getLastNewsUseCase,
-      RefreshTabRxBus refreshTabRxBus) {
+  @Provides MostReadNewsPresenter provideMostReadNewsPresenter(
+      GetMostReadNewsUseCase getLastNewsUseCase, RefreshTabRxBus refreshTabRxBus) {
     return new MostReadNewsPresenterImpl(getLastNewsUseCase, refreshTabRxBus);
   }
 
@@ -124,8 +124,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
         addArticleBookmarkUseCase, removeVideoBookmarkUseCase);
   }
 
-  @Provides PhotoDetailsPresenter providePhotoDetailsPresenter(GetPhotosUseCase getPhotosUseCase,
-      AddPhotoBookmarkUseCase addPhotoBookmarkUseCase) {
-    return new PhotoDetailsPresenterImpl(getPhotosUseCase, addPhotoBookmarkUseCase);
+  @Provides PhotoDetailsPresenter providePhotoDetailsPresenter(
+      GetGalleryUseCase getGalleryUseCase) {
+    return new PhotoDetailsPresenterImpl(getGalleryUseCase);
   }
 }

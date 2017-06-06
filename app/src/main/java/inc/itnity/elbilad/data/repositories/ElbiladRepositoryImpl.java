@@ -4,6 +4,7 @@ import inc.itnity.elbilad.data.repositories.remote.ElbiladRemoteDataSource;
 import inc.itnity.elbilad.domain.models.Journal;
 import inc.itnity.elbilad.domain.models.article.Article;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.HomeArticles;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -164,6 +165,10 @@ public class ElbiladRepositoryImpl implements ElbiladRepository {
       return remoteDataSource.getGallery().compose(photosCache.replace());
     }
     return remoteDataSource.getGallery().compose(photosCache.readWithLoader());
+  }
+
+  @Override public Observable<Gallery> getGallery(int id) {
+    return remoteDataSource.getGallery(id);
   }
 
   @Override public Observable<Bookmark> addToBookmark(Bookmark bookmark) {

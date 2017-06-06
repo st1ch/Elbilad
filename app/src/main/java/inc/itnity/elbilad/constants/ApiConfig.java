@@ -20,6 +20,7 @@ public interface ApiConfig {
   String FLASH_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/flash/thumbs/";
   String VIDEO_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/video/thumbs/";
   String GALERY_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/galerie/thumbs/";
+  String GALERY_PHOTO_IMAGE_BASE_URL = "https://cdn.elbilad.net/media/images/galerie_photo/thumbs/max";
 
   String UNE = "une-"; // 555x316
   String VIDEO_UNE = "une"; // 555x316
