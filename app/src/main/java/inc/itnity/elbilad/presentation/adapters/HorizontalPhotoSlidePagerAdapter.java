@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.domain.models.article.Image;
+import inc.itnity.elbilad.domain.models.article.Photo;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,20 +23,20 @@ public class HorizontalPhotoSlidePagerAdapter extends PagerAdapter {
   private LayoutInflater mLayoutInflater;
   private ImageLoaderHelper imageLoaderHelper;
 
-  private List<Image> photos = new ArrayList<>();
+  private List<Photo> photos = new ArrayList<>();
 
   @Inject HorizontalPhotoSlidePagerAdapter(Context context, ImageLoaderHelper imageLoaderHelper) {
     this.imageLoaderHelper = imageLoaderHelper;
     mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
   }
 
-  public void setPhotos(List<Image> photos) {
+  public void setPhotos(List<Photo> photos) {
     this.photos.clear();
     this.photos.addAll(photos);
     notifyDataSetChanged();
   }
 
-  public Image getPhoto(int position) {
+  private Photo getPhoto(int position) {
     return photos.get(position);
   }
 
@@ -51,11 +51,11 @@ public class HorizontalPhotoSlidePagerAdapter extends PagerAdapter {
   @Override public Object instantiateItem(ViewGroup container, int position) {
     View itemView = mLayoutInflater.inflate(R.layout.item_photo_details, container, false);
 
-    Image photo = getPhoto(position);
+    Photo photo = getPhoto(position);
 
     ImageView slide = (ImageView) itemView.findViewById(R.id.iv_photo_slide);
 
-    imageLoaderHelper.loadGalleryImageLarge(photo.getImage(), slide);
+    imageLoaderHelper.loadGalleryHorizontalSlideImageLarge(photo.getImage(), slide);
 
     container.addView(itemView);
 

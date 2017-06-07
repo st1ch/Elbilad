@@ -36,7 +36,7 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
     notifyDataSetChanged();
   }
 
-  public Photo getPhoto(int position) {
+  private Photo getPhoto(int position) {
     return photos.get(position);
   }
 

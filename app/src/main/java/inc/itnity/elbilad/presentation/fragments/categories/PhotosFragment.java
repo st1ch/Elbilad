@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.activities.base.AbstractBaseActivity;
@@ -79,10 +80,16 @@ public class PhotosFragment extends AbstractBaseFragment implements PhotoCategor
     rvNews.setLayoutManager(new LinearLayoutManager(getActivity()));
     rvNews.addItemDecoration(new SimpleDividerItemLineDecoration(getActivity()));
     rvNews.setAdapter(photoCategoryNewsAdapter);
+    photoCategoryNewsAdapter.setGallerySelectedListener(
+        galleryId -> presenter.onGallerySelected(galleryId));
   }
 
   @Override public void showPhotos(List<Image> images) {
     photoCategoryNewsAdapter.setArticles(images);
     photoCategoryNewsAdapter.selectCurrentItem();
+  }
+
+  @Override public void showGallery(Gallery gallery) {
+    photoCategoryNewsAdapter.showGallery(gallery);
   }
 }

@@ -1,9 +1,11 @@
 package inc.itnity.elbilad.presentation.presenters;
 
 import inc.itnity.elbilad.domain.buses.RefreshTabRxBus;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.subscribers.BaseProgressSubscriber;
 import inc.itnity.elbilad.domain.subscribers.BaseUseCaseSubscriber;
+import inc.itnity.elbilad.domain.usecases.GetGalleryUseCase;
 import inc.itnity.elbilad.domain.usecases.GetPhotosUseCase;
 import inc.itnity.elbilad.presentation.presenters.base.ProgressConnectionPresenter;
 import inc.itnity.elbilad.presentation.views.PhotoCategoryView;
@@ -17,13 +19,15 @@ public class PhotoCategoryPresenterImpl extends ProgressConnectionPresenter<Phot
     implements PhotoCategoryPresenter {
 
   private GetPhotosUseCase getPhotosUseCase;
+  private GetGalleryUseCase getGalleryUseCase;
 
   private RefreshTabRxBus refreshTabRxBus;
   private BaseUseCaseSubscriber<Boolean> refreshTabSubscriber;
 
   public PhotoCategoryPresenterImpl(GetPhotosUseCase getPhotosUseCase,
-      RefreshTabRxBus refreshTabRxBus) {
+      GetGalleryUseCase getGalleryUseCase, RefreshTabRxBus refreshTabRxBus) {
     this.getPhotosUseCase = getPhotosUseCase;
+    this.getGalleryUseCase = getGalleryUseCase;
     this.refreshTabRxBus = refreshTabRxBus;
   }
 
@@ -48,8 +52,21 @@ public class PhotoCategoryPresenterImpl extends ProgressConnectionPresenter<Phot
     }
   }
 
+  @Override public void onGallerySelected(int galleryId) {
+    try {
+      checkViewBound();
+      checkConnection();
+
+      getGalleryUseCase.setId(galleryId);
+      getGalleryUseCase.execute(gallerySubscriber());
+    } catch (ViewNotBoundException | ConnectionException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void onDestroy() {
     getPhotosUseCase.unsubscribe();
+    getGalleryUseCase.unsubscribe();
     if(refreshTabSubscriber != null && !refreshTabSubscriber.isUnsubscribed()){
       refreshTabSubscriber.unsubscribe();
       refreshTabSubscriber = null;
@@ -66,6 +83,22 @@ public class PhotoCategoryPresenterImpl extends ProgressConnectionPresenter<Phot
           checkViewBound();
 
           getView().showPhotos(images);
+        } catch (ViewNotBoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+  }
+
+  private BaseProgressSubscriber<Gallery> gallerySubscriber() {
+    return new BaseProgressSubscriber<Gallery>(this) {
+      @Override public void onNext(Gallery gallery) {
+        super.onNext(gallery);
+
+        try {
+          checkViewBound();
+
+          getView().showGallery(gallery);
         } catch (ViewNotBoundException e) {
           e.printStackTrace();
         }

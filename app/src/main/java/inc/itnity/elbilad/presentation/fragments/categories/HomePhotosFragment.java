@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import inc.itnity.elbilad.R;
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.activities.MainActivity;
 import inc.itnity.elbilad.presentation.adapters.PhotoCategoryNewsAdapter;
@@ -71,5 +72,9 @@ public class HomePhotosFragment extends AbstractBaseFragment implements PhotoCat
 
   @Override public void showPhotos(List<Image> images) {
     photoCategoryNewsAdapter.setArticles(images);
+  }
+
+  @Override public void showGallery(Gallery gallery) {
+
   }
 }

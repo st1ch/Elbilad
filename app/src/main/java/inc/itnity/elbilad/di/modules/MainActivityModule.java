@@ -97,8 +97,8 @@ import inc.itnity.elbilad.utils.DialogHelper;
   }
 
   @Provides PhotoCategoryPresenter providePhotoCategoryPresenter(GetPhotosUseCase getPhotosUseCase,
-      RefreshTabRxBus refreshTabRxBus) {
-    return new PhotoCategoryPresenterImpl(getPhotosUseCase, refreshTabRxBus);
+      GetGalleryUseCase getGalleryUseCase, RefreshTabRxBus refreshTabRxBus) {
+    return new PhotoCategoryPresenterImpl(getPhotosUseCase, getGalleryUseCase, refreshTabRxBus);
   }
 
   @Provides BookmarksPresenter provideBookmarksPresenter(GetBookmarksUseCase getBookmarksUseCase,

@@ -9,4 +9,5 @@ import inc.itnity.elbilad.presentation.views.PhotoCategoryView;
 
 public interface PhotoCategoryPresenter extends IPresenter<PhotoCategoryView> {
   void onCreate();
+  void onGallerySelected(int galleryId);
 }

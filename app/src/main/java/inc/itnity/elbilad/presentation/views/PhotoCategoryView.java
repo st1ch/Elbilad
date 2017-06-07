@@ -1,5 +1,6 @@
 package inc.itnity.elbilad.presentation.views;
 
+import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.presentation.views.base.ConnectionView;
 import java.util.List;
@@ -10,4 +11,6 @@ import java.util.List;
 
 public interface PhotoCategoryView extends ConnectionView {
   void showPhotos(List<Image> images);
+
+  void showGallery(Gallery gallery);
 }
