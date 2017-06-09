@@ -111,7 +111,7 @@ public class VideoCategoryNewsAdapter
               YouTubePlayerSupportFragment.newInstance();
 
           childFragmentManager.beginTransaction()
-              .add(R.id.youtube_view, youTubePlayerFragment)
+              .replace(R.id.youtube_view, youTubePlayerFragment)
               .commit();
 
           youTubePlayerFragment.initialize(ApiConfig.YOUTUBE_KEY,
