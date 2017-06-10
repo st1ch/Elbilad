@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,9 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
 
   private List<Photo> photos = new ArrayList<>();
 
+  private int currentItemPosition;
+  private ViewPager viewPager;
+
   @Inject PhotoSlidePagerAdapter(Context context, ImageLoaderHelper imageLoaderHelper) {
     this.imageLoaderHelper = imageLoaderHelper;
     mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -34,6 +38,24 @@ public class PhotoSlidePagerAdapter extends PagerAdapter {
     this.photos.clear();
     this.photos.addAll(photos);
     notifyDataSetChanged();
+
+    selectCurrentItem();
+  }
+
+  private void selectCurrentItem() {
+    if (getCount() > currentItemPosition) {
+      if (viewPager != null) {
+        viewPager.setCurrentItem(currentItemPosition);
+      }
+    }
+  }
+
+  public void setViewPager(ViewPager viewPager) {
+    this.viewPager = viewPager;
+  }
+
+  public void setCurrentItemPosition(int currentItemPosition) {
+    this.currentItemPosition = currentItemPosition;
   }
 
   private Photo getPhoto(int position) {

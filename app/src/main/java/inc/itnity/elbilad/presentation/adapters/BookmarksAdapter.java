@@ -185,7 +185,7 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
         holder.tvPreview.setText(photo.getPreview());
 
         holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startPhotoDetailsragment(Integer.valueOf(photo.getId())));
+            v -> fragmentNavigator.startPhotoDetailsragment(Integer.valueOf(photo.getId()), 0));
         break;
       case TYPE_SIMPLE:
         Article article = bookmark.getArticle();

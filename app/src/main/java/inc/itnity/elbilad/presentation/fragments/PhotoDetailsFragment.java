@@ -29,10 +29,12 @@ import javax.inject.Inject;
 public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoDetailsView {
 
   private static final String ARG_GALLERY_ID = "gallery_id_arg";
+  private static final String ARG_CURRENT_ITEM_POSITION = "current_item_position_arg";
 
-  public static PhotoDetailsFragment newInstance(int galleryId) {
+  public static PhotoDetailsFragment newInstance(int galleryId, int currentItemPosition) {
     Bundle args = new Bundle();
     args.putInt(ARG_GALLERY_ID, galleryId);
+    args.putInt(ARG_CURRENT_ITEM_POSITION, currentItemPosition);
     PhotoDetailsFragment fragment = new PhotoDetailsFragment();
     fragment.setArguments(args);
     return fragment;
@@ -80,6 +82,8 @@ public class PhotoDetailsFragment extends AbstractBaseFragment implements PhotoD
   }
 
   private void initContent() {
+    photoSlidePagerAdapter.setCurrentItemPosition(getArguments().getInt(ARG_CURRENT_ITEM_POSITION));
+    photoSlidePagerAdapter.setViewPager(vpPhotoSlide);
     vpPhotoSlide.setAdapter(photoSlidePagerAdapter);
     vpPhotoSlide.setPageTransformer(false, new DefaultTransformer());
     //vpPhotoSlide.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

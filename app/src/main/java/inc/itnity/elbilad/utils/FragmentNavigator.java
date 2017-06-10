@@ -193,8 +193,8 @@ import javax.inject.Singleton;
     openAsChildRoot(fragment);
   }
 
-  public void startPhotoDetailsragment(int galleryId) {
-    Fragment fragment = PhotoDetailsFragment.newInstance(galleryId);
+  public void startPhotoDetailsragment(int galleryId, int currentItemPosition) {
+    Fragment fragment = PhotoDetailsFragment.newInstance(galleryId, currentItemPosition);
     openAdd(fragment);
   }
 
