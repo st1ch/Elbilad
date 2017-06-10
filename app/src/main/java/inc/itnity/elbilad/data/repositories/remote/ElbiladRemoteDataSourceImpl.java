@@ -53,17 +53,27 @@ public class ElbiladRemoteDataSourceImpl implements ElbiladRemoteDataSource {
 
   @Override public Observable<Article> getArticle(boolean isFlash, String articleId) {
     if (isFlash) {
-      return elbiladAPI.getFlashArticle(articleId).map(article -> article.get(0));
+      return elbiladAPI.getFlashArticle(articleId).map(articles -> {
+        Article article = articles.get(0);
+        article.setType(ArticleItem.TYPE.FLASH);
+        return article;
+      });
     }
     return elbiladAPI.getArticle(articleId).map(article -> article.get(0));
   }
 
   @Override public Observable<List<Article>> getLastNews() {
-    return elbiladAPI.getLastNews();
+    return elbiladAPI.getLastNews().flatMap(Observable::from).map(article -> {
+      article.setType(ArticleItem.TYPE.FLASH);
+      return article;
+    }).toList();
   }
 
   @Override public Observable<List<Article>> getLast6News() {
-    return elbiladAPI.getLastNews(ApiConfig.LAST_NEWS_LIMIT);
+    return elbiladAPI.getLastNews(ApiConfig.LAST_NEWS_LIMIT).flatMap(Observable::from).map(article -> {
+      article.setType(ArticleItem.TYPE.FLASH);
+      return article;
+    }).toList();
   }
 
   @Override public Observable<List<Video>> getVideos() {

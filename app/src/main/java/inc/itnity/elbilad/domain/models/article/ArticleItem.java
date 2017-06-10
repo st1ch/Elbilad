@@ -39,5 +39,6 @@ public interface ArticleItem {
     int CATEGORY_HEADER_ORANGE = 14;
     int BANNER_100 = 15;
     int BANNER_50 = 16;
+    int FLASH = 20;
   }
 }

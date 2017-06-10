@@ -14,6 +14,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import inc.itnity.elbilad.R;
 import inc.itnity.elbilad.domain.models.article.Article;
+import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.Bookmark;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.domain.models.article.Video;
@@ -189,16 +190,30 @@ public class BookmarksAdapter extends RecyclerView.Adapter<BookmarksAdapter.Simp
       case TYPE_SIMPLE:
         Article article = bookmark.getArticle();
 
-        if (!TextUtils.isEmpty(article.getImage())) {
-          imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+        if(article.getType() == ArticleItem.TYPE.FLASH){
+          if (!TextUtils.isEmpty(article.getImage())) {
+            imageLoaderHelper.loadFlashImageThumb(article.getImage(), holder.ivAvatar);
+          }
+
+          holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
+          holder.tvPreview.setText(article.getTitle());
+
+          holder.itemView.setOnClickListener(
+              v -> fragmentNavigator.startArticleDetailsFragment(true, article.getId()));
+        } else {
+          if (!TextUtils.isEmpty(article.getImage())) {
+            imageLoaderHelper.loadUrlImageThumb(article.getImage(), holder.ivAvatar);
+          }
+
+          holder.tvDate.setText(
+              elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
+          holder.tvPreview.setText(article.getPreview());
+
+          holder.itemView.setOnClickListener(
+              v -> fragmentNavigator.startArticleDetailsFragment(false, article.getId()));
         }
 
-        holder.tvDate.setText(
-            elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-        holder.tvPreview.setText(article.getPreview());
 
-        holder.itemView.setOnClickListener(
-            v -> fragmentNavigator.startArticleDetailsFragment(false, article.getId()));
         break;
     }
   }
