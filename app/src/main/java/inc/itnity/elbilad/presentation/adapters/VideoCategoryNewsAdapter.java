@@ -188,9 +188,7 @@ public class VideoCategoryNewsAdapter
 
     notifyDataSetChanged();
 
-    if (notifyListener != null) {
-      notifyListener.onNotifyDataSetChanged();
-    }
+    selectCurrentItem();
   }
 
   private void moveToTop(int position, Video video) {
@@ -204,14 +202,10 @@ public class VideoCategoryNewsAdapter
     }
   }
 
-  public void selectCurrentItem() {
+  private void selectCurrentItem() {
     if (!TextUtils.isEmpty(currentItemId) && hasVideo(currentItemId)) {
-      Video item = getItem(currentItemPosition);
-      this.articles.remove(currentItemPosition);
-      this.articles.add(0, item);
-
-      notifyDataSetChanged();
-
+      moveToTop(currentItemPosition, getItem(currentItemPosition));
+    } else {
       if (notifyListener != null) {
         notifyListener.onNotifyDataSetChanged();
       }

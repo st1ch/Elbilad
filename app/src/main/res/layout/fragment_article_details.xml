@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/space_8dp"
+        android:descendantFocusability="blocksDescendants"
         android:layout_marginBottom="@dimen/space_8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/main_screen_top_banner_id">
@@ -43,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/space_8dp"
+        android:descendantFocusability="blocksDescendants"
         android:layout_marginBottom="@dimen/space_8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/main_screen_top_banner_id">
@@ -69,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/space_8dp"
+        android:descendantFocusability="blocksDescendants"
         android:layout_marginBottom="@dimen/space_8dp"
         ads:adSize="BANNER"
         ads:adUnitId="@string/main_screen_top_banner_id">

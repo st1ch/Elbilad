@@ -70,6 +70,22 @@ import javax.inject.Singleton;
     }
   }
 
+  private void openAdd(Fragment fragment) {
+    if (fragmentManager != null) {
+      String tag = fragment.getClass().getName();
+      //Fragment fragmentByTag = fragmentManager.findFragmentByTag(tag);
+
+      //if (fragmentByTag != null && fragmentByTag.getClass().equals(fragment.getClass())) {
+      //  fragmentManager.popBackStackImmediate(tag, 0);
+      //} else {
+      fragmentManager.beginTransaction()
+          .add(R.id.content_main, fragment, tag)
+          .addToBackStack(tag)
+          .commit();
+      //}
+    }
+  }
+
   /**
    * Pops every fragment and starts the given fragment as a new one
    */
@@ -179,7 +195,7 @@ import javax.inject.Singleton;
 
   public void startPhotoDetailsragment(int galleryId) {
     Fragment fragment = PhotoDetailsFragment.newInstance(galleryId);
-    open(fragment);
+    openAdd(fragment);
   }
 
   public void startPreferencesFragment() {

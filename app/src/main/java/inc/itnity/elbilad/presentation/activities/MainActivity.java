@@ -31,8 +31,15 @@ public class MainActivity extends AbstractBaseActivity {
 
     if (mDrawer != null) {
       mDrawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-        @Override public void onDrawerOpened(View drawerView) {
-          super.onDrawerOpened(drawerView);
+        //@Override public void onDrawerOpened(View drawerView) {
+        //  super.onDrawerOpened(drawerView);
+          //if (mainMenuScrollView != null) {
+          //  mainMenuScrollView.scrollTo(0, 0);
+          //}
+        //}
+
+        @Override public void onDrawerClosed(View drawerView) {
+          super.onDrawerClosed(drawerView);
           if (mainMenuScrollView != null) {
             mainMenuScrollView.scrollTo(0, 0);
           }

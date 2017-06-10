@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:adjustViewBounds="true"
+    android:descendantFocusability="blocksDescendants"
     >
 <android.support.v4.widget.NestedScrollView
     android:id="@+id/nested_scroll_view"

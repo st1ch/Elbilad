@@ -60,6 +60,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
   private DescriptionViewHolder descriptionViewHolder;
   private VideoViewHolder videoViewHolder;
   private boolean needAutoStart = false;
+  private YouTubePlayerSupportFragment youTubePlayerFragment;
 
   @Override public int getContentView() {
     return R.layout.fragment_video_news;
@@ -107,7 +108,6 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
 
   @Override public void showVideos(List<Video> videos) {
     videoCategoryNewsAdapter.setArticles(videos);
-    videoCategoryNewsAdapter.selectCurrentItem();
   }
 
   private void showTopVideo(){
@@ -119,7 +119,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
       videoViewHolder.ivAvatar.setVisibility(View.GONE);
       videoViewHolder.ivPlay.setVisibility(View.GONE);
       videoViewHolder.youtubeView.setVisibility(View.VISIBLE);
-      YouTubePlayerSupportFragment youTubePlayerFragment =
+      youTubePlayerFragment =
           YouTubePlayerSupportFragment.newInstance();
 
       getChildFragmentManager().beginTransaction()
@@ -151,7 +151,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
             }
           });
     } else {
-      videoViewHolder.youtubeView.setVisibility(View.INVISIBLE);
+      videoViewHolder.youtubeView.setVisibility(View.GONE);
       videoViewHolder.ivAvatar.setVisibility(View.VISIBLE);
       videoViewHolder.ivPlay.setVisibility(View.VISIBLE);
 
