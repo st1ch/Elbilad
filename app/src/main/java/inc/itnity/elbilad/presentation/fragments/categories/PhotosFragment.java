@@ -44,7 +44,7 @@ public class PhotosFragment extends AbstractBaseFragment implements PhotoCategor
   @Inject PhotoCategoryNewsAdapter photoCategoryNewsAdapter;
 
   @Override public int getContentView() {
-    return R.layout.fragment_video_news;
+    return R.layout.fragment_photo_news;
   }
 
   @Override public void injectComponent() {

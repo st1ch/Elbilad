@@ -1,7 +1,6 @@
 package inc.itnity.elbilad.presentation.adapters;
 
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,16 +12,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 import inc.itnity.elbilad.R;
-import inc.itnity.elbilad.constants.ApiConfig;
 import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.Video;
 import inc.itnity.elbilad.utils.ElbiladUtils;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
-import inc.itnity.elbilad.utils.YouTubeHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -43,21 +37,14 @@ public class VideoCategoryNewsAdapter
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
-  private FragmentManager childFragmentManager;
-  //private FragmentNavigator fragmentNavigator;
-  private YouTubeHelper youTubeHelper;
-  private RecyclerView recyclerView;
-  private boolean needAutoStart = false;
   private String currentItemId;
   private int currentItemPosition;
 
-  @Inject VideoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils,
-      //FragmentNavigator fragmentNavigator
-      YouTubeHelper youTubeHelper) {
+  private NotifyListener notifyListener;
+
+  @Inject VideoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
-    //this.fragmentNavigator = fragmentNavigator;
-    this.youTubeHelper = youTubeHelper;
   }
 
   @Override public int getItemViewType(int position) {
@@ -76,8 +63,8 @@ public class VideoCategoryNewsAdapter
 
   @Override public SimpleNewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     if (viewType == TYPE_TOP) {
-      return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.item_video_news_top, parent, false));
+      return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.empty_placeholder, parent, false));
     }
 
     if (viewType == TYPE_BANNER_100) {
@@ -101,68 +88,66 @@ public class VideoCategoryNewsAdapter
       Video article = getItem(position);
 
       if (viewType == TYPE_TOP) {
-        ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
-        String urlVideo = article.getYoutubeId();
-
-        if (youTubeHelper.isYoutubeInstalled()) {
-          holder.ivAvatar.setVisibility(View.INVISIBLE);
-          ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.VISIBLE);
-          YouTubePlayerSupportFragment youTubePlayerFragment =
-              YouTubePlayerSupportFragment.newInstance();
-
-          childFragmentManager.beginTransaction()
-              .replace(R.id.youtube_view, youTubePlayerFragment)
-              .commit();
-
-          youTubePlayerFragment.initialize(ApiConfig.YOUTUBE_KEY,
-              new YouTubePlayer.OnInitializedListener() {
-                @Override public void onInitializationSuccess(YouTubePlayer.Provider provider,
-                    YouTubePlayer youTubePlayer, boolean wasRestored) {
-                  youTubePlayer.setFullscreen(false);
-                  if (!wasRestored && !urlVideo.isEmpty()) {
-                    youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-                    youTubePlayer.setFullscreenControlFlags(
-                        YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
-                    if (needAutoStart) {
-                      youTubePlayer.loadVideo(urlVideo);
-                    } else {
-                      youTubePlayer.cueVideo(urlVideo);
-                    }
-                    youTubePlayer.setOnFullscreenListener(b -> {
-                      youTubeHelper.startPlayer(urlVideo);
-                    });
-                  }
-                }
-
-                @Override public void onInitializationFailure(YouTubePlayer.Provider provider,
-                    YouTubeInitializationResult youTubeInitializationResult) {
-                }
-              });
-        } else {
-          ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.INVISIBLE);
-          holder.ivAvatar.setVisibility(View.VISIBLE);
-
-          if (!TextUtils.isEmpty(article.getImage())) {
-            imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
-          }
-
-          holder.itemView.setOnClickListener(
-              v -> youTubeHelper.startPlayer(article.getYoutubeId()));
-        }
+        //((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
+        //String urlVideo = article.getYoutubeId();
+        //
+        //if (youTubeHelper.isYoutubeInstalled()) {
+        //  holder.ivAvatar.setVisibility(View.INVISIBLE);
+        //  ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.VISIBLE);
+        //  YouTubePlayerSupportFragment youTubePlayerFragment =
+        //      YouTubePlayerSupportFragment.newInstance();
+        //
+        //  childFragmentManager.beginTransaction()
+        //      .replace(R.id.youtube_view, youTubePlayerFragment)
+        //      .commit();
+        //
+        //  youTubePlayerFragment.initialize(ApiConfig.YOUTUBE_KEY,
+        //      new YouTubePlayer.OnInitializedListener() {
+        //        @Override public void onInitializationSuccess(YouTubePlayer.Provider provider,
+        //            YouTubePlayer youTubePlayer, boolean wasRestored) {
+        //          youTubePlayer.setFullscreen(false);
+        //          if (!wasRestored && !urlVideo.isEmpty()) {
+        //            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
+        //            youTubePlayer.setFullscreenControlFlags(
+        //                YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
+        //            if (needAutoStart) {
+        //              youTubePlayer.loadVideo(urlVideo);
+        //            } else {
+        //              youTubePlayer.cueVideo(urlVideo);
+        //            }
+        //            youTubePlayer.setOnFullscreenListener(b -> {
+        //              youTubeHelper.startPlayer(urlVideo);
+        //            });
+        //          }
+        //        }
+        //
+        //        @Override public void onInitializationFailure(YouTubePlayer.Provider provider,
+        //            YouTubeInitializationResult youTubeInitializationResult) {
+        //        }
+        //      });
+        //} else {
+        //  ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.INVISIBLE);
+        //  holder.ivAvatar.setVisibility(View.VISIBLE);
+        //
+        //  if (!TextUtils.isEmpty(article.getImage())) {
+        //    imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
+        //  }
+        //
+        //  holder.itemView.setOnClickListener(
+        //      v -> youTubeHelper.startPlayer(article.getYoutubeId()));
+        //}
       } else {
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadVideoImageThumb(article.getImage(), holder.ivAvatar);
         }
 
         holder.itemView.setOnClickListener(v -> moveToTop(position, article));
+
+        holder.tvCategory.setText(article.getCategoryTitle());
+        holder.tvTitle.setText(article.getTitle());
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
       }
-
-      holder.tvCategory.setText(article.getCategoryTitle());
-      holder.tvTitle.setText(article.getTitle());
-      holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-
-      //holder.itemView.setOnClickListener(
-      //    v -> fragmentNavigator.startVideoDetailsFragment(article.getId(), false));
     }
   }
 
@@ -202,6 +187,10 @@ public class VideoCategoryNewsAdapter
     }
 
     notifyDataSetChanged();
+
+    if (notifyListener != null) {
+      notifyListener.onNotifyDataSetChanged();
+    }
   }
 
   private void moveToTop(int position, Video video) {
@@ -209,8 +198,9 @@ public class VideoCategoryNewsAdapter
     this.articles.remove(position);
     this.articles.add(0, video);
     notifyDataSetChanged();
-    if (recyclerView != null) {
-      recyclerView.scrollToPosition(0);
+
+    if (notifyListener != null) {
+      notifyListener.onNotifyDataSetChanged();
     }
   }
 
@@ -219,9 +209,11 @@ public class VideoCategoryNewsAdapter
       Video item = getItem(currentItemPosition);
       this.articles.remove(currentItemPosition);
       this.articles.add(0, item);
+
       notifyDataSetChanged();
-      if (recyclerView != null) {
-        recyclerView.scrollToPosition(0);
+
+      if (notifyListener != null) {
+        notifyListener.onNotifyDataSetChanged();
       }
     }
   }
@@ -238,16 +230,16 @@ public class VideoCategoryNewsAdapter
     return false;
   }
 
-  public void setChildFragmentManager(FragmentManager childFragmentManager) {
-    this.childFragmentManager = childFragmentManager;
+  public Video getTopVIdeo() {
+    return articles.get(0);
   }
 
   public void setCurrentItemId(String currentItemId) {
     this.currentItemId = currentItemId;
   }
 
-  public void setRecyclerView(RecyclerView recyclerView) {
-    this.recyclerView = recyclerView;
+  public void setNotifyListener(NotifyListener notifyListener) {
+    this.notifyListener = notifyListener;
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
@@ -263,16 +255,6 @@ public class VideoCategoryNewsAdapter
     }
   }
 
-  class TopNewsViewHolder extends SimpleNewsViewHolder {
-
-    @BindView(R.id.tv_preview) TextView tvPreview;
-    @BindView(R.id.youtube_view) View youtubeView;
-
-    TopNewsViewHolder(View itemView) {
-      super(itemView);
-    }
-  }
-
   class BannerViewHolder extends SimpleNewsViewHolder {
 
     @BindView(R.id.adView) AdView adView;
@@ -282,5 +264,9 @@ public class VideoCategoryNewsAdapter
       AdRequest adRequest = new AdRequest.Builder().build();
       adView.loadAd(adRequest);
     }
+  }
+
+  public interface NotifyListener {
+    void onNotifyDataSetChanged();
   }
 }
