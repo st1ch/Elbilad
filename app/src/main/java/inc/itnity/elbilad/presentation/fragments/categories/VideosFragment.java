@@ -111,7 +111,7 @@ public class VideosFragment extends AbstractBaseFragment implements VideoCategor
   }
 
   private void showTopVideo(){
-    Video article = videoCategoryNewsAdapter.getTopVIdeo();
+    Video article = videoCategoryNewsAdapter.getTopVideo();
 
     String urlVideo = article.getYoutubeId();
 

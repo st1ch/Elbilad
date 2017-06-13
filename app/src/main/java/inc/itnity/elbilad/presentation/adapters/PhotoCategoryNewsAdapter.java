@@ -1,13 +1,9 @@
 package inc.itnity.elbilad.presentation.adapters;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,7 +17,6 @@ import inc.itnity.elbilad.domain.models.article.ArticleItem;
 import inc.itnity.elbilad.domain.models.article.Gallery;
 import inc.itnity.elbilad.domain.models.article.Image;
 import inc.itnity.elbilad.utils.ElbiladUtils;
-import inc.itnity.elbilad.utils.FragmentNavigator;
 import inc.itnity.elbilad.utils.ImageLoaderHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +27,7 @@ import javax.inject.Inject;
  */
 
 public class PhotoCategoryNewsAdapter
-    extends RecyclerView.Adapter<PhotoCategoryNewsAdapter.SimpleNewsViewHolder>
-    implements GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
+    extends RecyclerView.Adapter<PhotoCategoryNewsAdapter.SimpleNewsViewHolder> {
 
   private static final int TYPE_TOP = 0;
   private static final int TYPE_SIMPLE = 1;
@@ -41,30 +35,18 @@ public class PhotoCategoryNewsAdapter
   private static final int TYPE_BANNER_50 = 3;
 
   private List<Image> articles = new ArrayList<>();
-  //private List<Photo> photoList = new ArrayList<>();
 
   private ImageLoaderHelper imageLoaderHelper;
   private ElbiladUtils elbiladUtils;
-  private FragmentNavigator fragmentNavigator;
-  private GestureDetector gestureDetector;
-
-  private HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter;
 
   private String currentItemId;
   private int currentItemPosition;
-  private int touchItemId;
-  private int viewPagerPosition;
 
-  private GallerySelectedListener gallerySelectedListener;
+  private NotifyListener notifyListener;
 
-  @Inject PhotoCategoryNewsAdapter(Context context, ImageLoaderHelper imageLoaderHelper,
-      ElbiladUtils elbiladUtils, FragmentNavigator fragmentNavigator,
-      HorizontalPhotoSlidePagerAdapter horizontalPhotoSlidePagerAdapter) {
+  @Inject PhotoCategoryNewsAdapter(ImageLoaderHelper imageLoaderHelper, ElbiladUtils elbiladUtils) {
     this.imageLoaderHelper = imageLoaderHelper;
     this.elbiladUtils = elbiladUtils;
-    gestureDetector = new GestureDetector(context, this);
-    this.fragmentNavigator = fragmentNavigator;
-    this.horizontalPhotoSlidePagerAdapter = horizontalPhotoSlidePagerAdapter;
   }
 
   @Override public int getItemViewType(int position) {
@@ -81,8 +63,8 @@ public class PhotoCategoryNewsAdapter
 
   @Override public SimpleNewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     if (viewType == TYPE_TOP) {
-      return new TopNewsViewHolder(LayoutInflater.from(parent.getContext())
-          .inflate(R.layout.item_photo_news_top, parent, false));
+      return new SimpleNewsViewHolder(LayoutInflater.from(parent.getContext())
+          .inflate(R.layout.empty_placeholder, parent, false));
     }
 
     if (viewType == TYPE_BANNER_100) {
@@ -105,62 +87,18 @@ public class PhotoCategoryNewsAdapter
     if (viewType != TYPE_BANNER_100 && viewType != TYPE_BANNER_50) {
       Image article = getItem(position);
 
-      if (viewType == TYPE_TOP) {
-        if (article instanceof Gallery) {
-          ((TopNewsViewHolder) holder).vpPhotoSlide.setAdapter(horizontalPhotoSlidePagerAdapter);
-          //((TopNewsViewHolder) holder).vpPhotoSlide.setPageTransformer(false,
-          //    new DefaultTransformer());
-          ((TopNewsViewHolder) holder).vpPhotoSlide.setOffscreenPageLimit(
-              ((Gallery) article).getPhotos().size());
-          horizontalPhotoSlidePagerAdapter.setPhotos(((Gallery) article).getPhotos());
-
-          ((TopNewsViewHolder) holder).vpPhotoSlide.setOnTouchListener((v, event) -> {
-            touchItemId = Integer.valueOf(article.getId());
-            viewPagerPosition = ((TopNewsViewHolder) holder).vpPhotoSlide.getCurrentItem();
-            return gestureDetector.onTouchEvent(event);
-          });
-
-          ((TopNewsViewHolder) holder).ivArrowLeft.setOnClickListener(v -> {
-            ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
-                getNextSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
-          });
-          ((TopNewsViewHolder) holder).ivArrowRight.setOnClickListener(v -> {
-
-            ((TopNewsViewHolder) holder).vpPhotoSlide.setCurrentItem(
-                getPreviousSlidePosition(((TopNewsViewHolder) holder).vpPhotoSlide), true);
-          });
-        } else {
-          gallerySelectedListener.onGallerySelected(Integer.valueOf(article.getId()));
-        }
-
-        ((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
-
-        //if (!TextUtils.isEmpty(article.getImage())) {
-        //  imageLoaderHelper.loadGalleryImageLarge(article.getImage(), holder.ivAvatar);
-        //}
-
-        ((TopNewsViewHolder) holder).itemView.setOnTouchListener((v, event) -> {
-          touchItemId = Integer.valueOf(article.getId());
-          viewPagerPosition = 0;
-          return gestureDetector.onTouchEvent(event);
-        });
-
-        //holder.itemView.setOnClickListener(
-        //    v -> fragmentNavigator.startPhotoDetailsragment());
-      } else {
+      if (viewType != TYPE_TOP) {
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadGalleryImageThumb(article.getImage(), holder.ivAvatar);
         }
 
         holder.itemView.setOnClickListener(v -> moveToTop(position, article));
+
+        holder.tvTitle.setText(article.getTitle());
+        holder.tvCategory.setText(article.getCategoryTitle());
+        holder.tvDate.setText(
+            elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
       }
-
-      holder.tvTitle.setText(article.getTitle());
-      holder.tvCategory.setText(article.getCategoryTitle());
-      holder.tvDate.setText(elbiladUtils.getArticleTimeDate(article.getTime(), article.getDate()));
-
-      //holder.itemView.setOnClickListener(
-      //    v -> fragmentNavigator.startPhotoDetailsragment());
     }
   }
 
@@ -175,19 +113,20 @@ public class PhotoCategoryNewsAdapter
   private void moveToTop(int position, Image image) {
     this.articles.remove(position);
     this.articles.add(0, image);
-    //this.photoList.remove(position);
-    //this.photoList.add(0, image);
     notifyDataSetChanged();
+
+    if (notifyListener != null) {
+      notifyListener.onNotifyDataSetChanged();
+    }
   }
 
-  public void selectCurrentItem() {
+  private void selectCurrentItem() {
     if (!TextUtils.isEmpty(currentItemId) && hasPhoto(currentItemId)) {
-      Image item = getItem(currentItemPosition);
-      this.articles.remove(currentItemPosition);
-      this.articles.add(0, item);
-      //this.photoList.remove(currentItemPosition);
-      //this.photoList.add(0, item);
-      notifyDataSetChanged();
+      moveToTop(currentItemPosition, getItem(currentItemPosition));
+    } else {
+      if (notifyListener != null) {
+        notifyListener.onNotifyDataSetChanged();
+      }
     }
   }
 
@@ -201,30 +140,6 @@ public class PhotoCategoryNewsAdapter
       }
     }
     return false;
-  }
-
-  private int getNextSlidePosition(ViewPager viewPager) {
-    int totalCount = horizontalPhotoSlidePagerAdapter.getCount();
-    int currentItemPosition = viewPager.getCurrentItem();
-    int nextItemPosition = currentItemPosition + 1;
-    return (totalCount == currentItemPosition + 1) ? currentItemPosition : nextItemPosition;
-  }
-
-  private int getPreviousSlidePosition(ViewPager viewPager) {
-    int currentItemPosition = viewPager.getCurrentItem();
-    int previousItemPosition = currentItemPosition - 1;
-    return (currentItemPosition == 0) ? currentItemPosition : previousItemPosition;
-  }
-
-  //public void setPhotoList(List<Photo> photoList) {
-  //this.photoList.clear();
-  //this.photoList.addAll(photoList);
-  //}
-
-  public void showGallery(Gallery gallery) {
-    articles.remove(0);
-    articles.add(0, gallery);
-    notifyDataSetChanged();
   }
 
   public void setArticles(List<Image> articles) {
@@ -254,57 +169,31 @@ public class PhotoCategoryNewsAdapter
       this.articles.addAll(articles);
     }
 
-    //this.photoList.clear();
-    //this.photoList.addAll(articles);
-
     notifyDataSetChanged();
+
+    selectCurrentItem();
   }
 
-  @Override public boolean onSingleTapConfirmed(MotionEvent e) {
-    return false;
+  public void showGallery(Gallery gallery){
+    articles.remove(0);
+    articles.add(0, gallery);
+    notifyDataSetChanged();
+
+    if (notifyListener != null) {
+      notifyListener.onNotifyDataSetChanged();
+    }
   }
 
-  @Override public boolean onDoubleTap(MotionEvent e) {
-    fragmentNavigator.startPhotoDetailsragment(touchItemId, viewPagerPosition);
-    return true;
-  }
-
-  @Override public boolean onDoubleTapEvent(MotionEvent e) {
-    return false;
-  }
-
-  @Override public boolean onDown(MotionEvent e) {
-    return true;
-  }
-
-  @Override public void onShowPress(MotionEvent e) {
-
-  }
-
-  @Override public boolean onSingleTapUp(MotionEvent e) {
-    return false;
-  }
-
-  @Override
-  public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-    return false;
-  }
-
-  @Override public void onLongPress(MotionEvent e) {
-
-  }
-
-  @Override
-  public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-    return false;
+  public Image getTopImage() {
+    return articles.get(0);
   }
 
   public void setCurrentItemId(String currentItemId) {
     this.currentItemId = currentItemId;
   }
 
-  public void setGallerySelectedListener(GallerySelectedListener gallerySelectedListener) {
-    this.gallerySelectedListener = gallerySelectedListener;
+  public void setNotifyListener(NotifyListener notifyListener) {
+    this.notifyListener = notifyListener;
   }
 
   class SimpleNewsViewHolder extends RecyclerView.ViewHolder {
@@ -320,18 +209,6 @@ public class PhotoCategoryNewsAdapter
     }
   }
 
-  class TopNewsViewHolder extends SimpleNewsViewHolder {
-
-    @BindView(R.id.vp_photo_slide) ViewPager vpPhotoSlide;
-    @BindView(R.id.iv_arrow_left) ImageView ivArrowLeft;
-    @BindView(R.id.iv_arrow_right) ImageView ivArrowRight;
-    @BindView(R.id.tv_preview) TextView tvPreview;
-
-    TopNewsViewHolder(View itemView) {
-      super(itemView);
-    }
-  }
-
   class BannerViewHolder extends SimpleNewsViewHolder {
 
     @BindView(R.id.adView) AdView adView;
@@ -343,7 +220,7 @@ public class PhotoCategoryNewsAdapter
     }
   }
 
-  public interface GallerySelectedListener {
-    void onGallerySelected(int galleryId);
+  public interface NotifyListener {
+    void onNotifyDataSetChanged();
   }
 }

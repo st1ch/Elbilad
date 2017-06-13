@@ -2,6 +2,7 @@ package inc.itnity.elbilad.presentation.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class HorizontalPhotoSlidePagerAdapter extends PagerAdapter {
   }
 
   public void setPhotos(List<Photo> photos) {
+    Log.wtf("HorizontalAdapter", "setPhotos: " + photos);
     this.photos.clear();
     this.photos.addAll(photos);
     notifyDataSetChanged();
@@ -60,6 +62,11 @@ public class HorizontalPhotoSlidePagerAdapter extends PagerAdapter {
     container.addView(itemView);
 
     return itemView;
+  }
+
+  @Override
+  public int getItemPosition(Object object) {
+    return POSITION_NONE;
   }
 
   @Override public void destroyItem(ViewGroup container, int position, Object object) {

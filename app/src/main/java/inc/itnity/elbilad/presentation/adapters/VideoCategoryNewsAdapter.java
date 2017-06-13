@@ -87,56 +87,7 @@ public class VideoCategoryNewsAdapter
     if (viewType != TYPE_BANNER_100 && viewType != TYPE_BANNER_50) {
       Video article = getItem(position);
 
-      if (viewType == TYPE_TOP) {
-        //((TopNewsViewHolder) holder).tvPreview.setText(article.getPreview());
-        //String urlVideo = article.getYoutubeId();
-        //
-        //if (youTubeHelper.isYoutubeInstalled()) {
-        //  holder.ivAvatar.setVisibility(View.INVISIBLE);
-        //  ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.VISIBLE);
-        //  YouTubePlayerSupportFragment youTubePlayerFragment =
-        //      YouTubePlayerSupportFragment.newInstance();
-        //
-        //  childFragmentManager.beginTransaction()
-        //      .replace(R.id.youtube_view, youTubePlayerFragment)
-        //      .commit();
-        //
-        //  youTubePlayerFragment.initialize(ApiConfig.YOUTUBE_KEY,
-        //      new YouTubePlayer.OnInitializedListener() {
-        //        @Override public void onInitializationSuccess(YouTubePlayer.Provider provider,
-        //            YouTubePlayer youTubePlayer, boolean wasRestored) {
-        //          youTubePlayer.setFullscreen(false);
-        //          if (!wasRestored && !urlVideo.isEmpty()) {
-        //            youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-        //            youTubePlayer.setFullscreenControlFlags(
-        //                YouTubePlayer.FULLSCREEN_FLAG_CUSTOM_LAYOUT);
-        //            if (needAutoStart) {
-        //              youTubePlayer.loadVideo(urlVideo);
-        //            } else {
-        //              youTubePlayer.cueVideo(urlVideo);
-        //            }
-        //            youTubePlayer.setOnFullscreenListener(b -> {
-        //              youTubeHelper.startPlayer(urlVideo);
-        //            });
-        //          }
-        //        }
-        //
-        //        @Override public void onInitializationFailure(YouTubePlayer.Provider provider,
-        //            YouTubeInitializationResult youTubeInitializationResult) {
-        //        }
-        //      });
-        //} else {
-        //  ((TopNewsViewHolder) holder).youtubeView.setVisibility(View.INVISIBLE);
-        //  holder.ivAvatar.setVisibility(View.VISIBLE);
-        //
-        //  if (!TextUtils.isEmpty(article.getImage())) {
-        //    imageLoaderHelper.loadVideoImageLarge(article.getImage(), holder.ivAvatar);
-        //  }
-        //
-        //  holder.itemView.setOnClickListener(
-        //      v -> youTubeHelper.startPlayer(article.getYoutubeId()));
-        //}
-      } else {
+      if (viewType != TYPE_TOP) {
         if (!TextUtils.isEmpty(article.getImage())) {
           imageLoaderHelper.loadVideoImageThumb(article.getImage(), holder.ivAvatar);
         }
@@ -224,7 +175,7 @@ public class VideoCategoryNewsAdapter
     return false;
   }
 
-  public Video getTopVIdeo() {
+  public Video getTopVideo() {
     return articles.get(0);
   }
 
